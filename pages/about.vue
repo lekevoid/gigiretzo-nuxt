@@ -1,15 +1,22 @@
 <template>
 	<h1>{{ $t("about") }}</h1>
-	<div v-for="tab in tabs" :class="['tab', { active: tab.slug === activeTab }]">{{ tab.label }}</div>
-	<div v-for="section in sections" :class="''">{{ section.title }}</div>
+	<div v-for="tab in tabs" :class="['tab', { active: tab.slug === activeTab }]">
+		<button @click="activeTab = tab.slug">{{ tab.label }}</button>
+	</div>
+	<div class="sections_wrapper">
+		<section v-for="section in sections" :class="{ active: section.slug === activeTab }">
+			<AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" />
+			<AboutBio v-if="section.slug === 'bio'" :data="section" />
+			<AboutCV v-if="section.slug === 'cv'" :data="section" />
+		</section>
+	</div>
 </template>
 
 <script setup>
 const config = useRuntimeConfig();
 const { locale } = useI18n();
-console.log(locale.value);
 
-const { data, error } = await useFetch(config.public.hygraphUrl, {
+const { data } = await useFetch(config.public.hygraphUrl, {
 	method: "POST",
 	headers: {
 		"Content-Type": "application/json",
@@ -60,11 +67,7 @@ const { data, error } = await useFetch(config.public.hygraphUrl, {
 	},
 });
 
-console.log(error);
-
 const sections = await data.value.data.aboutPageSections;
-
-console.log(sections);
 
 const tabs = computed(() => {
 	return sections.map((section) => {
@@ -76,6 +79,41 @@ const tabs = computed(() => {
 });
 
 const activeTab = ref("bio");
-
-console.log(tabs.value);
 </script>
+
+<style lang="scss">
+.tab {
+	button {
+		appearance: none;
+		background: none;
+		border: none;
+		font-weight: 500;
+		cursor: pointer;
+	}
+
+	&.active {
+		button {
+			font-weight: 900;
+		}
+	}
+}
+
+.sections_wrapper {
+	position: relative;
+	overflow: hidden;
+}
+
+section {
+	transition: opacity 0.6s ease;
+	padding: 40px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+
+	&.active {
+		opacity: 1;
+		position: relative;
+	}
+}
+</style>
