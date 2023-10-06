@@ -26,8 +26,8 @@ export default defineNuxtConfig({
 		customRoutes: "config", // disable custom route with page components
 		pages: {
 			about: {
-				en: "/about", // -> accessible at /about-us (no prefix since it's the default locale)
-				fr: "/a-propos", // -> accessible at /fr/a-propos
+				en: "/about",
+				fr: "/a-propos",
 			},
 		},
 	},

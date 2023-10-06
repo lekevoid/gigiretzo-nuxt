@@ -14,10 +14,7 @@
 
 <script setup>
 const config = useRuntimeConfig();
-const route = useRoute();
-const router = useRouter();
 const { locale } = useI18n();
-const localePath = useLocalePath();
 
 const { data } = await useFetch(config.public.hygraphUrl, {
 	method: "POST",
@@ -81,12 +78,7 @@ const tabs = computed(() => {
 	});
 });
 
-console.log(route.params.section);
-const activeTab = ref(route?.params?.section || "bio");
-
-watch(activeTab, () => {
-	router.push(localePath({ name: "about" }) + "/" + activeTab.value);
-});
+const activeTab = ref("bio");
 </script>
 
 <style lang="scss">

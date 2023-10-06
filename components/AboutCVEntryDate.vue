@@ -5,7 +5,7 @@
 <script setup>
 const { dateStart, dateEnd } = defineProps(["dateStart", "dateEnd"]);
 
-console.log(dateStart, dateEnd);
+// console.log(dateStart, dateEnd);
 
 const formattedDate = computed(() => {
 	if (dateStart && !dateEnd) {
