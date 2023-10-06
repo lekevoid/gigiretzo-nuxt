@@ -32,6 +32,11 @@ export default defineNuxtConfig({
 		defaultLocale: "en",
 	},
 
+	routeRules: {
+		// Product page generated on-demand, revalidates in background
+		"/admin-section": { prerender: true },
+	},
+
 	runtimeConfig: {
 		GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
 		SHEET_ID_CV_ENTRIES: process.env.SHEET_ID_CV_ENTRIES,

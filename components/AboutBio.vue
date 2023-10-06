@@ -20,7 +20,7 @@ const formattedBio = computed(() => {
 		.slice(1)
 		.map((entry) => entry[textIndex])
 		.join("\n\n");
-	console.log(out);
+
 	return out;
 });
 </script>
