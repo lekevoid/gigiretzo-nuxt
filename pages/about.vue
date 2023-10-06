@@ -15,10 +15,14 @@
 </template>
 
 <script setup>
+import { getSheet } from "@/composables/useSheet";
+
 const route = useRoute();
 const router = useRouter();
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
+
+const { cvEntries, cvSections } = await getSheet();
 
 /* const { data } = await useFetch(config.public.hygraphUrl, {
 	method: "POST",
@@ -71,10 +75,9 @@ const localePath = useLocalePath();
 	},
 }); */
 
-const { data } = await useFetch("/api/gsheets");
+//const { data } = await useFetch("/api/gsheets");
 // console.log(data.value.cv);
 // console.log(data.value.cvSheet);
-const { cvEntries, cvSections } = data.value;
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
