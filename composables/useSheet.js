@@ -10,18 +10,24 @@ function fetchUrl(range) {
 	return `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
 }
 
-export async function getSheet() {
-	const { data: cvEntriesData } = await useFetch(fetchUrl("CV Entries"));
-	const { data: cvSectionsData } = await useFetch(fetchUrl("CV Sections"));
-
-	console.log(cvEntriesData.value);
+export async function getBio() {
+	const { data: fetchBio } = await useFetch(fetchUrl("Bio"));
 
 	const out = {
-		cvEntries: cvEntriesData.value.values,
-		cvSections: cvSectionsData.value.values,
+		bio: fetchBio.value.values,
 	};
 
-	console.log(out);
+	return out;
+}
+
+export async function getCV() {
+	const { data: fetchCvEntriesData } = await useFetch(fetchUrl("CV Entries"));
+	const { data: fetchCvSectionsData } = await useFetch(fetchUrl("CV Sections"));
+
+	const out = {
+		cvEntries: fetchCvEntriesData.value.values,
+		cvSections: fetchCvSectionsData.value.values,
+	};
 
 	return out;
 }

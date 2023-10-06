@@ -15,7 +15,7 @@
 					<div class="tab_bg_color">
 						<div class="tab_bg_paper">
 							<!-- <AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" /> -->
-							<!-- <AboutBio v-if="section.slug === 'bio'" :data="section" /> -->
+							<AboutBio v-if="section.slug === 'bio'" :fetched-bio="bio" />
 							<AboutCV v-if="section.slug === 'cv'" :fetched-cv-entries="cvEntries" :fetched-cv-sections="cvSections" />
 						</div>
 					</div>
@@ -26,14 +26,15 @@
 </template>
 
 <script setup>
-import { getSheet } from "@/composables/useSheet";
+import { getBio, getCV } from "@/composables/useSheet";
 
 const route = useRoute();
 const router = useRouter();
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
 
-const { cvEntries, cvSections } = await getSheet();
+const { bio } = await getBio();
+const { cvEntries, cvSections } = await getCV();
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
