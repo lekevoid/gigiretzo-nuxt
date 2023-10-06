@@ -32,9 +32,10 @@ export default defineNuxtConfig({
 		defaultLocale: "en",
 	},
 
-	routeRules: {
-		// Product page generated on-demand, revalidates in background
-		"/admin-section": { prerender: true },
+	nitro: {
+		prerender: {
+			routes: ["/about/**", "/a-propos/**"],
+		},
 	},
 
 	runtimeConfig: {
