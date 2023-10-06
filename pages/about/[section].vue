@@ -14,8 +14,8 @@
 				<section v-for="section in sections" :class="[section.slug, { active: section.slug === activeTab }]">
 					<div class="tab_bg_color">
 						<div class="tab_bg_paper">
-							<!-- <AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" /> -->
 							<AboutBio v-if="section.slug === 'bio'" :fetched-bio="bio" />
+							<AboutArtistStatement v-if="section.slug === 'artist-statement'" :fetched-artist-statement="artistStatement" />
 							<AboutCV v-if="section.slug === 'cv'" :fetched-cv-entries="cvEntries" :fetched-cv-sections="cvSections" />
 						</div>
 					</div>
@@ -26,23 +26,26 @@
 </template>
 
 <script setup>
-import { getBio, getCV } from "@/composables/useSheet";
+import { getArtistStatement, getBio, getCV } from "@/composables/useSheet";
 
 const route = useRoute();
 const router = useRouter();
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
 
+const { artistStatement } = await getArtistStatement();
 const { bio } = await getBio();
 const { cvEntries, cvSections } = await getCV();
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
+	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
 ];
 
 const tabs = [
 	{ label: t("bio"), slug: "bio" },
+	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
 ];
 

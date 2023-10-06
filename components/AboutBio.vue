@@ -33,6 +33,7 @@ const formattedBio = computed(() => {
 		line-height: 180%;
 		margin-bottom: 2em;
 	}
+
 	img {
 		clear: right;
 		float: right;

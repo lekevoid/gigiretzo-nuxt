@@ -20,6 +20,16 @@ export async function getBio() {
 	return out;
 }
 
+export async function getArtistStatement() {
+	const { data: fetchArtistStatement } = await useFetch(fetchUrl("Artist Statement"));
+
+	const out = {
+		artistStatement: fetchArtistStatement.value.values,
+	};
+
+	return out;
+}
+
 export async function getCV() {
 	const { data: fetchCvEntriesData } = await useFetch(fetchUrl("CV Entries"));
 	const { data: fetchCvSectionsData } = await useFetch(fetchUrl("CV Sections"));
