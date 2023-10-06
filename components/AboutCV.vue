@@ -83,8 +83,6 @@ const cvEntriesBySectionAndDate = computed(() => {
 
 	return out;
 });
-
-console.log(cvEntriesBySectionAndDate.value);
 </script>
 
 <style lang="scss">
@@ -93,24 +91,54 @@ html {
 }
 
 .toc {
+	background-color: rgba(255, 255, 255, 0.4);
+	box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.4);
+	display: inline-block;
+	margin-bottom: 30px;
+	margin-top: 20px;
+	padding: 30px 40px 30px 30px;
+	transform: rotate(-4deg);
+
+	ul {
+		list-style-type: none;
+
+		li {
+			font-size: 20px;
+			line-height: 160%;
+		}
+	}
+	a {
+		color: #0274be;
+	}
 }
 
 .cv_list {
 }
 
 .cv_list_section {
+	h3 {
+		margin: 1em 0 0.4em;
+	}
 }
 
 .cv_list_entry {
+	line-height: 140%;
+	font-size: 22px;
+	display: flex;
+	flex-flow: row nowrap;
+	padding: 14px 0;
+	p:last-of-type {
+		margin-bottom: 0;
+	}
 }
 
 .cv_entry_date {
-	width: 200px;
+	width: 12ch;
 	display: inline-block;
 }
 
 .cv_entry_description {
-	width: calc(98% - 200px);
+	width: calc(98% - 12ch);
 	display: inline-block;
 
 	em {

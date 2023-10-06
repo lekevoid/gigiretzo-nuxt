@@ -1,6 +1,8 @@
 div,
 main,
-section {
+section,
+ul,
+li {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -12,4 +14,29 @@ button {
 	border: 0 none;
 	margin: 0;
 	padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0 0 1em;
+	padding: 0;
+}
+
+h2 {
+	font-size: 36px;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
 }
