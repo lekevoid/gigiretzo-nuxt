@@ -10,8 +10,7 @@
 </template>
 
 <script setup>
-const { t } = useI18n();
+// const { t } = useI18n();
 const localePath = useLocalePath();
-const router = useRouter();
-console.log(router.currentRoute.value);
+// const router = useRouter();
 </script>
