@@ -1,19 +1,20 @@
 <template>
-	<h1>{{ $t("about") }}</h1>
-	<div v-for="tab in tabs" :class="['tab', { active: tab.slug === activeTab }]">
-		<button @click="activeTab = tab.slug">{{ tab.label }}</button>
-	</div>
-	<div class="sections_wrapper">
-		<section v-for="section in sections" :class="{ active: section.slug === activeTab }">
-			<!-- <AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" /> -->
-			<!-- <AboutBio v-if="section.slug === 'bio'" :data="section" /> -->
-			<AboutCV v-if="section.slug === 'cv'" :data="cv" />
-		</section>
-	</div>
+	<main class="page_about">
+		<h1>{{ $t("about") }}</h1>
+		<div v-for="tab in tabs" :class="['tab', { active: tab.slug === activeTab }]">
+			<button @click="activeTab = tab.slug">{{ tab.label }}</button>
+		</div>
+		<div class="sections_wrapper">
+			<section v-for="section in sections" :class="{ active: section.slug === activeTab }">
+				<!-- <AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" /> -->
+				<!-- <AboutBio v-if="section.slug === 'bio'" :data="section" /> -->
+				<AboutCV v-if="section.slug === 'cv'" :fetched-cv-entries="cvEntries" :fetched-cv-sections="cvSections" />
+			</section>
+		</div>
+	</main>
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
 const { locale, t } = useI18n();
@@ -73,7 +74,7 @@ const localePath = useLocalePath();
 const { data } = await useFetch("/api/gsheets");
 // console.log(data.value.cv);
 // console.log(data.value.cvSheet);
-const cv = data.value.cv;
+const { cvEntries, cvSections } = data.value;
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },

@@ -34,7 +34,8 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-		SHEET_ID_CV: process.env.SHEET_ID_CV,
+		SHEET_ID_CV_ENTRIES: process.env.SHEET_ID_CV_ENTRIES,
+		SHEET_ID_CV_SECTIONS: process.env.SHEET_ID_CV_SECTIONS,
 		googleApplicationCredentialsLong: {
 			type: process.env.GOOGLE_APP_TYPE,
 			project_id: process.env.GOOGLE_APP_PROJECT_ID,

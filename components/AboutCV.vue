@@ -3,19 +3,17 @@
 		<h2>{{ $t("cv") }}</h2>
 		<div class="toc">
 			<ul>
-				<li v-for="cvSection in cvSections">{{ cvSection.label }} - {{ cvSection.slug }}</li>
+				<li v-for="cvSection in cvSections">{{ cvSection.label }}</li>
 			</ul>
 		</div>
 		<div class="cv_list">
-			<pre>
-		{{ cvEntries }}
-		</pre
-			>
 			<div class="cv_list_section" v-for="cvSection in cvSections">
 				<h3>{{ cvSection.title }}</h3>
 				<div class="cv_list_entry" v-for="cvEntry in cvEntriesBySectionAndDate[cvSection.slug]">
 					<AboutCVEntryDate :date-start="cvEntry.dateStart" :date-end="cvEntry.dateEnd" :show="cvEntry.showDate" />
-					<div class="cv_entry_description">{{ cvEntry }}</div>
+					<div class="cv_entry_description">
+						<vue-markdown :source="cvEntry.description" :options="{ linkify: true }" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -23,81 +21,43 @@
 </template>
 
 <script setup>
+import VueMarkdown from "vue-markdown-render";
+
 const { locale, t } = useI18n();
 
-const { data } = defineProps(["data"]);
+const { fetchedCvEntries, fetchedCvSections } = defineProps(["fetchedCvEntries", "fetchedCvSections"]);
 
 function slugify(str) {
 	return str
 		.normalize("NFD")
 		.replace(/[\u0300-\u036f]/g, "")
-		.replace(/(\s|_|-)/g, "-")
+		.replace(/[\s_\-,&]+/g, "-")
 		.toLowerCase();
 }
 
-function sortBy(initialObject, sortBy = "slug", sortDir = "asc") {
-	let out = [];
-
-	if (typeof initialObject === "object") {
-		out = Object.entries(initialObject).map((e) => ({ ...e[1], key: e[0] }));
-	} else {
-		out = initialObject;
+const cvSections = computed(() => {
+	let labelIndex = 1;
+	if (locale.value === "fr") {
+		labelIndex = 2;
 	}
 
-	if (out.length > 0) {
-		out.sort(function (a, b) {
-			if (!a[sortBy] && a[sortBy] !== 0) {
-				console.debug(`Error : Trying to sort by ${sortBy} ; Object ${a} doesn't have a "${sortBy}" attribute.`);
-				return 0;
-			}
-
-			const nameA = `${a[sortBy]}`.toLowerCase(),
-				nameB = `${b[sortBy]}`.toLowerCase();
-
-			if (nameA > nameB) {
-				return sortDir === "asc" ? 1 : -1;
-			}
-
-			if (nameA < nameB) {
-				return sortDir === "asc" ? -1 : 1;
-			}
-
-			return 0;
-		});
-	}
-
-	return out;
-}
-
-const cvEntries = computed(() => {
-	return data.slice(1).map((entry) => {
-		let description;
-		switch (locale) {
-			case "fr":
-				description = entry[4];
-			case "en":
-			default:
-				description = entry[3];
-		}
-		return { sectionSlug: slugify(t(entry[0])), section: t(entry[0]), dateStart: entry[1], dateEnd: entry[2], description };
-	});
+	return fetchedCvSections.slice(1).map((section) => ({
+		slug: slugify(section[0]),
+		fetchedLabel: section[1],
+		label: section[labelIndex],
+	}));
 });
 
-const cvSections = computed(() => {
-	let out = [];
-	let used = [];
+const cvEntries = computed(() => {
+	let descIndex = 3;
+	if (locale.value === "fr") {
+		descIndex = 4;
+	}
 
-	cvEntries.value.forEach((entry) => {
-		const sectionLabel = entry.section;
-		const sectionSlug = entry.sectionSlug;
-
-		if (!used.includes(sectionSlug)) {
-			used.push(sectionSlug);
-			out.push({ slug: sectionSlug, label: sectionLabel });
-		}
+	return fetchedCvEntries.slice(1).map((entry) => {
+		const section = cvSections.value.find((section) => section.fetchedLabel === entry[0]);
+		return { sectionSlug: section.slug, section: section.label, dateStart: entry[1], dateEnd: entry[2], description: entry[descIndex] };
 	});
-
-	return sortBy(out, "slug");
 });
 
 const cvEntriesBySectionAndDate = computed(() => {
@@ -109,6 +69,9 @@ const cvEntriesBySectionAndDate = computed(() => {
 	});
 
 	cvEntries.value.forEach((entry) => {
+		if (!entry.description) {
+			return null;
+		}
 		const entryContext = `${entry.sectionSlug}${entry.dateStart}${entry.dateEnd}`;
 		entry.showDate = currentContextConsidered !== entryContext;
 		entry.context = entryContext;
