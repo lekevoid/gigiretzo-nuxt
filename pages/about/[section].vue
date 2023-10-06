@@ -1,5 +1,6 @@
 <template>
 	<main class="page_about">
+		<AboutDecoLines />
 		<h1>{{ $t("about") }}</h1>
 		<div class="container">
 			<div class="tabs_wrapper">
