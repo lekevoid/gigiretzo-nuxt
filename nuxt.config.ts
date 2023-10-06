@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
 	modules: ["@nuxtjs/i18n"],
 
-	css: ["@/assets/styles/variables.scss"],
+	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss"],
 
 	i18n: {
 		locales: [
@@ -25,9 +25,9 @@ export default defineNuxtConfig({
 		defaultLocale: "en",
 		customRoutes: "config", // disable custom route with page components
 		pages: {
-			about: {
-				en: "/about",
-				fr: "/a-propos",
+			"about/[section]": {
+				en: "/about/[section]",
+				fr: "/a-propos/[section]",
 			},
 		},
 	},

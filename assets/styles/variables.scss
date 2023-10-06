@@ -1,15 +1,28 @@
-:root{
-	--blue:#3fa5d7;
-	--green:#59b854;
-	--orange:#ef7830;
-	--purple:#6e559e;
-	--red:#df1c47;
-	--yellow:#ffb937;
+:root {
+	--blue: #3fa5d7;
+	--green: #59b854;
+	--orange: #ef7830;
+	--purple: #6e559e;
+	--magenta: #df1c47;
+	--yellow: #ffb937;
+	--about-tab-blue: rgba(0, 85, 255, 0.9);
+	--about-tab-green: rgba(17, 153, 0, 0.9);
+	--about-tab-orange: rgba(221, 85, 0, 0.9);
+	--about-tab-purple: rgba(85, 0, 136, 0.9);
+	--about-tab-magenta: rgba(170, 0, 51, 0.9);
+	--about-tab-yellow: #FFF;
+	--about-tab-blue-active: rgba(0, 170, 255, 0.95);
+	--about-tab-green-active: rgba(68, 204, 0, 0.95);
+	--about-tab-orange-active: rgba(238, 119, 0, 0.95);
+	--about-tab-purple-active: rgba(136, 0, 255, 0.95);
+	--about-tab-magenta-active: rgba(221, 0, 68, 0.95);
+	--about-tab-yellow-active: #FFF;
+	--about-tab-color-transition-speed: 0.3s;
+	--about-tab-lift-speed: 0.6s;
+	--about-section-bg-blue: rgba(0, 170, 255, 0.4);
+	--about-section-bg-green: rgba(68, 204, 0, 0.4);
+	--about-section-bg-orange: rgba(238, 119, 0, 0.4);
+	--about-section-bg-purple: rgba(136, 0, 255, 0.4);
+	--about-section-bg-magenta: rgba(221, 0, 68, 0.4);
+	--about-section-bg-yellow: rgba(255, 187, 0, 0.4);
 }
-
-$blue: var(--blue);
-$green: var(--green);
-$orange: var(--orange);
-$purple: var(--purple);
-$red: var(--red);
-$yellow: var(--yellow);

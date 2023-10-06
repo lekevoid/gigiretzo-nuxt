@@ -3,12 +3,14 @@
 		<h2>{{ $t("cv") }}</h2>
 		<div class="toc">
 			<ul>
-				<li v-for="cvSection in cvSections">{{ cvSection.label }}</li>
+				<li v-for="cvSection in cvSections">
+					<a :href="`#${cvSection.slug}`">{{ cvSection.label }}</a>
+				</li>
 			</ul>
 		</div>
 		<div class="cv_list">
-			<div class="cv_list_section" v-for="cvSection in cvSections">
-				<h3>{{ cvSection.title }}</h3>
+			<div v-for="cvSection in cvSections" :class="['cv_list_section']" :id="cvSection.slug">
+				<h3>{{ cvSection.label }}</h3>
 				<div class="cv_list_entry" v-for="cvEntry in cvEntriesBySectionAndDate[cvSection.slug]">
 					<AboutCVEntryDate :date-start="cvEntry.dateStart" :date-end="cvEntry.dateEnd" :show="cvEntry.showDate" />
 					<div class="cv_entry_description">
@@ -86,20 +88,34 @@ console.log(cvEntriesBySectionAndDate.value);
 </script>
 
 <style lang="scss">
+html {
+	scroll-behavior: smooth;
+}
+
 .toc {
 }
+
 .cv_list {
 }
+
 .cv_list_section {
 }
+
 .cv_list_entry {
 }
+
 .cv_entry_date {
 	width: 200px;
 	display: inline-block;
 }
+
 .cv_entry_description {
 	width: calc(98% - 200px);
 	display: inline-block;
+
+	em {
+		font-style: normal;
+		font-weight: bold;
+	}
 }
 </style>

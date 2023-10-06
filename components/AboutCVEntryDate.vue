@@ -1,5 +1,5 @@
 <template>
-	<div class="cv_entry_date">
+	<div class="cv_entry_date" v-if="!removeDate">
 		<span v-if="show">{{ formattedDate }}</span>
 	</div>
 </template>
@@ -7,9 +7,14 @@
 <script setup>
 const { dateStart, dateEnd } = defineProps(["dateStart", "dateEnd", "show"]);
 
+const removeDate = ref(false);
 // console.log(dateStart, dateEnd);
 
 const formattedDate = computed(() => {
+	if (!dateStart && !dateEnd) {
+		removeDate.value = true;
+		return;
+	}
 	if (dateStart && !dateEnd) {
 		return dateStart;
 	}
