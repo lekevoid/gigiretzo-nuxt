@@ -5,9 +5,9 @@
 	</div>
 	<div class="sections_wrapper">
 		<section v-for="section in sections" :class="{ active: section.slug === activeTab }">
-			<AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" />
-			<AboutBio v-if="section.slug === 'bio'" :data="section" />
-			<AboutCV v-if="section.slug === 'cv'" :data="section" />
+			<!-- <AboutArtistStatement v-if="section.slug === 'artist-statement'" :data="section" /> -->
+			<!-- <AboutBio v-if="section.slug === 'bio'" :data="section" /> -->
+			<AboutCV v-if="section.slug === 'cv'" :data="cv" />
 		</section>
 	</div>
 </template>
@@ -16,10 +16,10 @@
 const config = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const localePath = useLocalePath();
 
-const { data } = await useFetch(config.public.hygraphUrl, {
+/* const { data } = await useFetch(config.public.hygraphUrl, {
 	method: "POST",
 	headers: {
 		"Content-Type": "application/json",
@@ -68,20 +68,32 @@ const { data } = await useFetch(config.public.hygraphUrl, {
 		}`,
 		variables: { l: [locale.value] },
 	},
-});
+}); */
 
-const sections = await data.value.data.aboutPageSections;
+const { data } = await useFetch("/api/gsheets");
+// console.log(data.value.cv);
+// console.log(data.value.cvSheet);
+const cv = data.value.cv;
 
-const tabs = computed(() => {
+const sections = [
+	{ label: t("bio"), slug: "bio" },
+	{ label: t("cv"), slug: "cv" },
+];
+
+/* const tabs = computed(() => {
 	return sections.map((section) => {
 		return {
 			label: section.tabLabel,
 			slug: section.slug,
 		};
 	});
-});
+}); */
 
-console.log(route.params.section);
+const tabs = [
+	{ label: t("bio"), slug: "bio" },
+	{ label: t("cv"), slug: "cv" },
+];
+
 const activeTab = ref(route?.params?.section || "bio");
 
 watch(activeTab, () => {

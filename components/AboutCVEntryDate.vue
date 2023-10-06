@@ -1,9 +1,11 @@
 <template>
-	<div class="cv_entry_date">{{ formattedDate }}</div>
+	<div class="cv_entry_date">
+		<span v-if="show">{{ formattedDate }}</span>
+	</div>
 </template>
 
 <script setup>
-const { dateStart, dateEnd } = defineProps(["dateStart", "dateEnd"]);
+const { dateStart, dateEnd } = defineProps(["dateStart", "dateEnd", "show"]);
 
 // console.log(dateStart, dateEnd);
 
