@@ -140,10 +140,5 @@ html {
 .cv_entry_description {
 	width: calc(98% - 12ch);
 	display: inline-block;
-
-	em {
-		font-style: normal;
-		font-weight: bold;
-	}
 }
 </style>
