@@ -3,6 +3,7 @@
 		<ul>
 			<li><NuxtLink :to="localePath({ name: 'index' })">Home</NuxtLink></li>
 			<li><NuxtLink :to="localePath({ name: 'about-section', params: { section: 'bio' } })">About</NuxtLink></li>
+			<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork', params: { section: 'bio' } })">Eyeing Teamwork</NuxtLink></li>
 		</ul>
 		<LangSwitcher />
 	</nav>

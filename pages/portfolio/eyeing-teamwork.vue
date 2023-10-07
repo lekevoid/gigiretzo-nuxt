@@ -3,6 +3,7 @@
 	<div class="series">
 		<div v-for="piece in organizedPortfolio" class="piece">
 			<NuxtImg :src="piece.img" />
+			<h4>{{ piece.title }}</h4>
 		</div>
 	</div>
 </template>
