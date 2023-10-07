@@ -24,18 +24,11 @@
 
 <script setup>
 import VueMarkdown from "vue-markdown-render";
+import { slugify } from "@/composables/useTextHelper";
 
 const { locale } = useI18n();
 
 const { fetchedCvEntries, fetchedCvSections } = defineProps(["fetchedCvEntries", "fetchedCvSections"]);
-
-function slugify(str) {
-	return str
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.replace(/[\s_\-,&]+/g, "-")
-		.toLowerCase();
-}
 
 const cvSections = computed(() => {
 	let labelIndex = 1;

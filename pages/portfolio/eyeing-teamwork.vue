@@ -1,7 +1,7 @@
 <template>
 	<h1>Eyeing Teamwork</h1>
 	<div class="series">
-		<div v-for="piece in organizedPortfolio" class="piece">
+		<div v-for="piece in projectPieces" class="piece">
 			<NuxtImg :src="piece.img" />
 			<h4>{{ piece.title }}</h4>
 		</div>
@@ -9,30 +9,14 @@
 </template>
 
 <script setup>
-import { getPortfolio } from "@/composables/useSheet";
+import { usePortfolioStore } from "@/stores/portfolio";
+const { hasFetchedProjects, populatePortfolio, getPiecesFromProject } = usePortfolioStore();
 
-const { locale } = useI18n();
+if (!hasFetchedProjects) {
+	populatePortfolio();
+}
 
-const { portfolio } = await getPortfolio("Eyeing Teamwork");
-
-const organizedPortfolio = computed(() => {
-	let titleIndex = 1;
-	let descriptionIndex = 2;
-	if (locale.value === "fr") {
-		titleIndex = 3;
-		descriptionIndex = 4;
-	}
-
-	return portfolio.slice(1).map((piece) => {
-		return {
-			img: piece[0],
-			title: piece[titleIndex],
-			description: piece[descriptionIndex] || "",
-		};
-	});
-});
-
-console.log(organizedPortfolio);
+const projectPieces = getPiecesFromProject("Eyeing Teamwork");
 </script>
 
 <style lang="scss">

@@ -5,9 +5,26 @@ const getVars = () => {
 	return { SHEET_ID, GOOGLE_API_KEY };
 };
 
-function fetchUrl(range) {
+function fetchUrl(range, majorDimension = "ROWS") {
 	const { SHEET_ID, GOOGLE_API_KEY } = getVars();
-	return `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${GOOGLE_API_KEY}`;
+	return `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURI(range)}?key=${GOOGLE_API_KEY}`;
+}
+
+function fetchMultipleUrls(ranges) {
+	const { SHEET_ID, GOOGLE_API_KEY } = getVars();
+	return `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values:batchGet?${encodeURI(ranges)}&key=${GOOGLE_API_KEY}`;
+}
+
+export async function getMultipleSheets({ sheets }) {
+	const ranges = "ranges=" + sheets.join("&ranges=");
+
+	const { data } = await useFetch(fetchMultipleUrls(ranges));
+
+	if (data?.value?.valueRanges) {
+		return data.value.valueRanges;
+	}
+
+	console.warn("Nothing to return from sheets", sheets);
 }
 
 export async function getBio() {
@@ -42,9 +59,9 @@ export async function getCV() {
 	return out;
 }
 
-export async function getPortfolio(series) {
-	console.log(series);
-	const { data: fetchPortfolio } = await useFetch(fetchUrl(series));
+export async function getPortfolio(sheet) {
+	console.log(sheet);
+	const { data: fetchPortfolio } = await useFetch(fetchUrl(sheet));
 
 	const out = {
 		portfolio: fetchPortfolio.value.values,

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
 		styles: fileURLToPath(new URL("./assets/styles", import.meta.url)),
 	}, */
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image"],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@pinia/nuxt"],
 
 	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss"],
 

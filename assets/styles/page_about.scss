@@ -1,11 +1,15 @@
-.page_about {}
+.page_about {
+	overflow: hidden;
 
-.container {
-	margin: 0 auto;
-	max-width: calc(100% - 32px);
-	padding-bottom: 200px;
-	width: 1400px;
+	.container {
+		margin: 0 auto;
+		max-width: calc(100% - 32px);
+		padding-bottom: 200px;
+		width: 1400px;
+		z-index: 10;
+	}
 }
+
 
 .tabs_wrapper {
 	display: flex;

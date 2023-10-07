@@ -5,24 +5,80 @@
 </template>
 
 <script setup>
+const lastLineUsed = ref(0);
+const lastColorUsed = ref(0);
+const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+
 const lines = computed(() => {
+	const qty = 20;
 	let out = [];
-	const qty = 30;
 	const midpoint = Math.floor(qty / 2);
-	const maxHeight = 100;
-	const minHeight = 20;
+	const maxHeight = 200;
+	const minHeight = 5;
 
 	for (let i = 0; i < qty; i++) {
 		if (i <= midpoint) {
 			const height = maxHeight - ((maxHeight - minHeight) / midpoint) * i;
-			out.push({ height });
+			for (let j = 0; j < i; j++) {
+				out.push({ height });
+			}
 		} else {
 			const height = minHeight + ((maxHeight - minHeight) / (qty - midpoint)) * (i - midpoint);
+			for (let j = 0; j < qty - i; j++) {
+				out.push({ height });
+			}
 			out.push({ height });
 		}
 	}
 
 	return out;
+});
+
+function chooseLine() {
+	const linesQty = document.querySelectorAll(".lines_wrapper .line").length;
+	let lineNum = Math.ceil(Math.random() * linesQty);
+
+	if (linesQty === 0) {
+		return "stop";
+	}
+
+	if (lineNum > lastLineUsed.value - 10 && lineNum < lastLineUsed.value + 10) {
+		lineNum = chooseLine();
+	}
+
+	return lineNum;
+}
+
+function chooseColor() {
+	const colorNum = Math.floor(Math.random() * colors.length);
+	let color = colors[colorNum];
+
+	if (color === lastColorUsed.value) {
+		color = chooseColor();
+	}
+
+	return color;
+}
+
+onMounted(() => {
+	const linesInterval = setInterval(() => {
+		const chosenLine = chooseLine();
+		const chosenColor = chooseColor();
+
+		if (chosenLine === "stop") {
+			clearInterval(linesInterval);
+			return;
+		}
+
+		const line = document.querySelector(`.lines_wrapper .line:nth-child(${chosenLine})`);
+
+		line.classList.add(chosenColor);
+		line.classList.add("c");
+
+		setTimeout(() => {
+			line.classList.remove("c");
+		}, 10);
+	}, 100);
 });
 </script>
 
@@ -31,15 +87,40 @@ const lines = computed(() => {
 	position: absolute;
 	width: 100%;
 	left: 0;
-	height: 100%;
-	overflow: hidden;
+	height: auto;
 	flex: 0 0 100%;
-	top: 0;
+	top: 50%;
+	transform: translateY(-40%);
+	z-index: 1;
 }
 
 .line {
 	border-bottom: 2px solid #000;
 	position: relative;
 	width: 100%;
+	transition: background-color 2s ease 1s;
+
+	&.c {
+		transition: background-color 0s;
+
+		&.blue {
+			background-color: var(--blue);
+		}
+		&.green {
+			background-color: var(--green);
+		}
+		&.orange {
+			background-color: var(--orange);
+		}
+		&.purple {
+			background-color: var(--purple);
+		}
+		&.magenta {
+			background-color: var(--magenta);
+		}
+		&.yellow {
+			background-color: var(--yellow);
+		}
+	}
 }
 </style>
