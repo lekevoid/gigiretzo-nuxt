@@ -7,7 +7,7 @@ export default defineNuxtConfig({
 		styles: fileURLToPath(new URL("./assets/styles", import.meta.url)),
 	}, */
 
-	modules: ["@nuxtjs/i18n"],
+	modules: ["@nuxtjs/i18n", "@nuxt/image"],
 
 	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss"],
 
@@ -17,6 +17,10 @@ export default defineNuxtConfig({
 			"about/[section]": {
 				en: "/about/[section]",
 				fr: "/a-propos/[section]",
+			},
+			"portfolio/eyeing-teamwork": {
+				en: "/portfolio/eyeing-teamwork",
+				fr: "/portfolio/regard-sur-lequipe",
 			},
 		},
 		locales: [

@@ -41,3 +41,14 @@ export async function getCV() {
 
 	return out;
 }
+
+export async function getPortfolio(series) {
+	console.log(series);
+	const { data: fetchPortfolio } = await useFetch(fetchUrl(series));
+
+	const out = {
+		portfolio: fetchPortfolio.value.values,
+	};
+
+	return out;
+}

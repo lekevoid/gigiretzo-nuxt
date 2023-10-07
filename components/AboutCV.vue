@@ -25,7 +25,7 @@
 <script setup>
 import VueMarkdown from "vue-markdown-render";
 
-const { locale, t } = useI18n();
+const { locale } = useI18n();
 
 const { fetchedCvEntries, fetchedCvSections } = defineProps(["fetchedCvEntries", "fetchedCvSections"]);
 
