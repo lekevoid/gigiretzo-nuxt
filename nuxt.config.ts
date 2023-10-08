@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
 	modules: ["@nuxtjs/i18n", "@nuxt/image", "@pinia/nuxt"],
 
-	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss"],
+	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss", "@/assets/styles/layout.scss"],
 
 	i18n: {
 		customRoutes: "config",

@@ -1,5 +1,5 @@
 <template>
-	<div class="masonry_container">
+	<div class="masonry_container" ref="itemsRef">
 		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
 			<figure>
 				<NuxtImg :src="item.img" @load="imageLoaded(item.id)" />
@@ -11,12 +11,15 @@
 <script setup>
 const { items } = defineProps(["items"]);
 
+const isLoaded = ref(false);
+const itemsRef = ref(null);
+
 function recalculateMasonry() {
 	if (items.length === 0) {
 		return;
 	}
 
-	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
+	const itemsList = itemsRef.value.querySelectorAll(".masonry_item");
 	const itemsHeights = [];
 	let heightsIncrements = [0, 0, 0];
 
@@ -49,8 +52,7 @@ function handleViewportSize() {
 }
 
 function imageLoaded(imgID) {
-	console.log(imgID);
-	document.querySelector(`#masonry_item_${imgID}`).classList.add("visible");
+	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("visible");
 	recalculateMasonry();
 }
 

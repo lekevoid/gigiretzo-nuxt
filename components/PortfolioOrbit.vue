@@ -136,14 +136,14 @@ function navigateOrbit(dir) {
 
 .close_orbit {
 	position: absolute;
-	right: 1vw;
-	top: 1vw;
+	right: 12px;
+	top: 10px;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 1vw;
-	font-size: min(4vmax, 60px);
+	font-size: clamp(30px, 4vmax, 60px);
 	text-shadow: 1px 1px 4px #000;
 	z-index: 10;
 	line-height: 80%;

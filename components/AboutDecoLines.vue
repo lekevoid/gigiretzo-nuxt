@@ -8,6 +8,7 @@
 const lastLineUsed = ref(0);
 const lastColorUsed = ref(0);
 const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+let linesInterval;
 
 const lines = computed(() => {
 	const qty = 20;
@@ -38,9 +39,9 @@ function chooseLine() {
 	const linesQty = document.querySelectorAll(".lines_wrapper .line").length;
 	let lineNum = Math.ceil(Math.random() * linesQty);
 
-	if (linesQty === 0) {
+	/* if (linesQty === 0) {
 		return "stop";
-	}
+	} */
 
 	if (lineNum > lastLineUsed.value - 10 && lineNum < lastLineUsed.value + 10) {
 		lineNum = chooseLine();
@@ -61,7 +62,7 @@ function chooseColor() {
 }
 
 onMounted(() => {
-	const linesInterval = setInterval(() => {
+	linesInterval = setInterval(() => {
 		const chosenLine = chooseLine();
 		const chosenColor = chooseColor();
 
@@ -79,6 +80,10 @@ onMounted(() => {
 			line.classList.remove("c");
 		}, 10);
 	}, 100);
+});
+
+onBeforeUnmount(() => {
+	clearInterval(linesInterval);
 });
 </script>
 
