@@ -2,7 +2,7 @@
 	<div class="masonry_container">
 		<div v-for="item in items" class="masonry_item">
 			<figure>
-				<NuxtImg :src="item.img" />
+				<NuxtImg :src="item.img" @load="recalculateMasonry()" />
 			</figure>
 		</div>
 	</div>
@@ -10,6 +10,53 @@
 
 <script setup>
 const { items } = defineProps(["items"]);
+
+function recalculateMasonry() {
+	if (items.length === 0) {
+		return;
+	}
+
+	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
+	const itemsHeights = [];
+	let heightsIncrements = [0, 0, 0];
+
+	itemsList.forEach((item) => {
+		itemsHeights.push(heightsIncrements[0]);
+		heightsIncrements.push(item.clientHeight + heightsIncrements[0] + 20);
+		heightsIncrements = heightsIncrements.slice(1);
+	});
+
+	for (let i = 0; i < itemsList.length; i++) {
+		console.log(itemsList[i]);
+		itemsList[i].style.top = `${itemsHeights[i]}px`;
+	}
+}
+
+function resetMasonry() {
+	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
+	itemsList.forEach((item) => {
+		item.style.top = "0px";
+	});
+}
+
+function handleViewportSize() {
+	const viewportWidth = window.innerWidth;
+
+	if (viewportWidth > 900) {
+		recalculateMasonry();
+	} else {
+		resetMasonry();
+	}
+}
+
+onMounted(() => {
+	handleViewportSize();
+	window.addEventListener("resize", handleViewportSize);
+});
+
+onBeforeUnmount(() => {
+	window.removeEventListener("resize", handleViewportSize);
+});
 </script>
 
 <style lang="scss">
@@ -58,20 +105,22 @@ const { items } = defineProps(["items"]);
 @media (min-width: $md) {
 	.masonry_container {
 		display: block;
+		border: 2px solid green;
+		min-height: 200px;
 	}
 
 	.masonry_item {
 		position: absolute;
-		width: 31%;
-		flex: 0 0 32%;
+		width: calc(33.333333% - 20px);
+		flex: 0 0 calc(33.333333% - 20px);
 		&:nth-child(3n + 1) {
 			left: 0%;
 		}
 		&:nth-child(3n + 2) {
-			left: 33%;
+			left: calc(33.333333% + 10px);
 		}
 		&:nth-child(3n + 3) {
-			left: 69%;
+			left: calc(66.666666% + 20px);
 		}
 	}
 }
