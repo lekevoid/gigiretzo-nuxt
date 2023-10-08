@@ -36,16 +36,15 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	}
 
 	async function populatePortfolio() {
-		const fetchedProjects = await getMultipleSheets({ sheets: ["Projects", "Eyeing Teamwork", "Test"] });
+		const fetchedProjects = await getMultipleSheets({ sheets: ["Projects", "Eyeing Teamwork"] });
 
 		if (fetchedProjects) {
 			fetchedProjects.forEach((sheetData) => {
 				if (sheetData.range.match(/^Projects!/)) {
 					populateProjectsState(sheetData.values);
-				} else if (sheetData.range.match(/^Test!/)) {
-					console.log(sheetData.values);
 				} else {
 					const projectID = slugify(sheetData.range.match(/'(.+)'/)[1]);
+					console.log(projectID);
 
 					populatePiecesWithinProject(projectID, sheetData.values.slice(1));
 				}

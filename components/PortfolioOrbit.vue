@@ -115,6 +115,8 @@ function navigateOrbit(dir) {
 
 .btn_orbit_nav {
 	filter: drop-shadow(2px 2px 4px #666);
+	cursor: pointer;
+
 	&.btn_next {
 		transform: rotate(180deg);
 	}

@@ -40,11 +40,11 @@ export default defineNuxtConfig({
 		format: ["avif", "webp"],
 	},
 
-	nitro: {
+	/* nitro: {
 		prerender: {
 			routes: ["/portfolio/eyeing-teamwork"],
 		},
-	},
+	}, */
 
 	runtimeConfig: {
 		GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
