@@ -1,6 +1,6 @@
 <template>
 	<div class="masonry_container">
-		<div v-for="item in items" class="masonry_item">
+		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)">
 			<figure>
 				<NuxtImg :src="item.img" @load="recalculateMasonry()" />
 			</figure>
@@ -22,12 +22,11 @@ function recalculateMasonry() {
 
 	itemsList.forEach((item) => {
 		itemsHeights.push(heightsIncrements[0]);
-		heightsIncrements.push(item.clientHeight + heightsIncrements[0] + 20);
+		heightsIncrements.push(item.clientHeight + heightsIncrements[0] + 30);
 		heightsIncrements = heightsIncrements.slice(1);
 	});
 
 	for (let i = 0; i < itemsList.length; i++) {
-		console.log(itemsList[i]);
 		itemsList[i].style.top = `${itemsHeights[i]}px`;
 	}
 }
@@ -59,7 +58,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
 
 .masonry_container {
@@ -105,8 +104,6 @@ onBeforeUnmount(() => {
 @media (min-width: $md) {
 	.masonry_container {
 		display: block;
-		border: 2px solid green;
-		min-height: 200px;
 	}
 
 	.masonry_item {

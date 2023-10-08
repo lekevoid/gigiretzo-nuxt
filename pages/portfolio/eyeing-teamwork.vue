@@ -1,7 +1,7 @@
 <template>
 	<h1>Eyeing Teamwork</h1>
 	<div class="series">
-		<PortfolioMasonry :items="projectPieces" />
+		<PortfolioPageComponents :items="projectPieces" />
 	</div>
 </template>
 

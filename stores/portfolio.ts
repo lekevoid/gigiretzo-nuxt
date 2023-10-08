@@ -24,6 +24,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	function populatePiecesWithinProject(projectID, pieces) {
 		const formattedPieces = pieces.map((piece) => ({
+			id: slugify(piece[1]),
 			img: piece[0],
 			title: { en: piece[1], fr: piece[3] },
 			description: { en: piece[2], fr: piece[4] },
