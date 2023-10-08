@@ -115,6 +115,7 @@
 section {
 	background-image: url("~/assets/img/texture-carton-tab-content.jpg");
 	border: 2px solid #000;
+	float: left;
 	height: 100%;
 	left: 0;
 	opacity: 0;
@@ -133,7 +134,8 @@ section {
 	}
 
 	.tab_bg_color {
-		padding: min(10vw, 40px);
+		float: left;
+		padding: min(5vw, 40px);
 	}
 
 	&.bio .tab_bg_color {
@@ -160,12 +162,49 @@ section {
 		background-color: rgba(255, 255, 255, 0.72);
 		box-shadow: 2px 2px 12px #555;
 		color: #000;
+		float: left;
+		font-size: var(--about-page-font-size);
 		min-height: calc(60vh - 48px);
-		padding: min(20vw, 80px);
+		padding: min(5vw, 80px);
 		position: relative;
+
+		h2 {
+			font-size: 1.6em;
+		}
+
+		h3 {
+			font-size: 1.2em;
+		}
+
+		h4 {
+			font-size: 1em;
+		}
+
+		p {
+			font-size: 1em;
+		}
 	}
 
+	.bio_text {
+		float: left;
 
+		p {
+
+			line-height: 180%;
+			margin-bottom: 2em;
+			text-align: justify;
+		}
+
+		img {
+			border-radius: 4px;
+			box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.4);
+			clear: right;
+			float: right;
+			margin: 20px 0 20px min(10vw, 80px);
+			max-width: 40%;
+			transition: transform 0.6s ease-out;
+		}
+	}
 }
 
 @media (max-width: $xsMax) {

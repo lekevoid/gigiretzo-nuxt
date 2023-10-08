@@ -79,6 +79,8 @@ const cvEntriesBySectionAndDate = computed(() => {
 </script>
 
 <style lang="scss">
+@import "~/assets/styles/dependencies";
+
 html {
 	scroll-behavior: smooth;
 }
@@ -106,6 +108,7 @@ html {
 }
 
 .cv_list {
+	font-size: var(--about-page-font-size);
 }
 
 .cv_list_section {
@@ -116,10 +119,27 @@ html {
 
 .cv_list_entry {
 	line-height: 140%;
-	font-size: 22px;
+	font-size: 1em;
 	display: flex;
 	flex-flow: row nowrap;
 	padding: 14px 0;
+
+	h2 {
+		font-size: 1.6em;
+	}
+
+	h3 {
+		font-size: 1.2em;
+	}
+
+	h4 {
+		font-size: 1em;
+	}
+
+	p {
+		font-size: 1em;
+	}
+
 	p:last-of-type {
 		margin-bottom: 0;
 	}

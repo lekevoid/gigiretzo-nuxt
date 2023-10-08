@@ -27,21 +27,5 @@ const formattedBio = computed(() => {
 
 <style lang="scss">
 .bio_text {
-	p {
-		font-size: 22px;
-		text-align: justify;
-		line-height: 180%;
-		margin-bottom: 2em;
-	}
-
-	img {
-		clear: right;
-		float: right;
-		margin: 20px 0 20px 40px;
-		border-radius: 4px;
-		box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.4);
-		max-width: 40%;
-		transition: transform 0.6s ease-out;
-	}
 }
 </style>
