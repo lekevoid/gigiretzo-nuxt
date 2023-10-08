@@ -1,10 +1,7 @@
 <template>
 	<h1>Eyeing Teamwork</h1>
 	<div class="series">
-		<div v-for="piece in projectPieces" class="piece">
-			<NuxtImg :src="piece.img" />
-			<h4>{{ piece.title }}</h4>
-		</div>
+		<PortfolioMasonry :items="projectPieces" />
 	</div>
 </template>
 
@@ -12,8 +9,8 @@
 import { usePortfolioStore } from "@/stores/portfolio";
 const { hasFetchedProjects, populatePortfolio, getPiecesFromProject } = usePortfolioStore();
 
+populatePortfolio();
 if (!hasFetchedProjects) {
-	populatePortfolio();
 }
 
 const projectPieces = getPiecesFromProject("Eyeing Teamwork");
