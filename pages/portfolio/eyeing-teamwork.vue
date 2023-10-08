@@ -7,10 +7,10 @@
 
 <script setup>
 import { usePortfolioStore } from "@/stores/portfolio";
-const { hasFetchedProjects, populatePortfolio, getPiecesFromProject } = usePortfolioStore();
+const { hasFetchedProjects, populatePortfolio, getPiecesFromProject, projects } = usePortfolioStore();
 
-populatePortfolio();
 if (!hasFetchedProjects) {
+	await populatePortfolio();
 }
 
 const projectPieces = getPiecesFromProject("Eyeing Teamwork");
