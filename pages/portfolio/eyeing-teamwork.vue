@@ -1,8 +1,10 @@
 <template>
-	<h1>Eyeing Teamwork</h1>
-	<div class="series">
-		<PortfolioPageComponents :items="projectPieces" />
-	</div>
+	<main class="page_portfolio">
+		<h1>Eyeing Teamwork</h1>
+		<div class="series">
+			<PortfolioPageComponents :items="projectPieces" />
+		</div>
+	</main>
 </template>
 
 <script setup>

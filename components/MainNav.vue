@@ -28,4 +28,22 @@ function goToAboutTab(tabName) {
 
 <style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
+
+nav {
+	ul {
+		list-style-type: none;
+	}
+
+	a {
+		color: #fff;
+		font-size: 20px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: #4c0;
+		}
+	}
+}
 </style>
