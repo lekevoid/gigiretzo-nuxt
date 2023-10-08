@@ -8,7 +8,7 @@
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
-					<NuxtImg :src="item.img" />
+					<NuxtImg :src="item.img" sizes="100vw" />
 				</div>
 				<div class="zone_btn">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
@@ -103,9 +103,17 @@ function navigateOrbit(dir) {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height: 100%;
+	position: relative;
+
 	img {
-		max-height: 80%;
-		max-width: 80%;
+		max-height: calc(100% - 32px);
+		max-width: 100%;
+		object-fit: contain;
+		border: 5px solid #000;
+		height: auto;
+		width: auto;
+		box-shadow: 2px 2px 8px #888;
 	}
 }
 
@@ -116,7 +124,11 @@ function navigateOrbit(dir) {
 .btn_orbit_nav {
 	filter: drop-shadow(2px 2px 4px #666);
 	cursor: pointer;
+	padding-right: 20%;
+	display: block;
 
+	&.btn_prev {
+	}
 	&.btn_next {
 		transform: rotate(180deg);
 	}
@@ -161,7 +173,7 @@ function navigateOrbit(dir) {
 	}
 
 	.zone_btn {
-		width: 4%;
+		width: 6%;
 
 		img {
 			width: 100%;
@@ -169,14 +181,11 @@ function navigateOrbit(dir) {
 	}
 
 	.zone_picture {
-		width: 40%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		width: 46%;
 	}
 
 	.zone_description {
-		width: 42%;
+		width: 32%;
 	}
 
 	.close_orbit {
