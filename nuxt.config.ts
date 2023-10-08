@@ -47,13 +47,9 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-		GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-		SHEET_ID_CV_ENTRIES: process.env.SHEET_ID_CV_ENTRIES,
-		SHEET_ID_CV_SECTIONS: process.env.SHEET_ID_CV_SECTIONS,
 		public: {
 			SHEET_ID: process.env.SHEET_ID,
 			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
-			hygraphUrl: process.env.HYGRAPH_URL,
 		},
 	},
 });
