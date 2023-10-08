@@ -3,12 +3,12 @@
 		<button class="close_orbit" @click="$emit('closeOrbit')">&times;</button>
 		<div class="orbit_card">
 			<p>{{ currentItem }}</p>
-			<div v-for="(item, k) in items" :class="['orbit_item', { active: k === currentItem }]">
+			<div v-for="(item, k) in items" :class="['orbit_item', { active: k === currentItem }]" :key="k">
 				<div class="zone_btn">
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
-					<NuxtImg :src="item.img" sizes="100vw" />
+					<NuxtImg :src="item.img" sizes="100vw" loading="lazy" />
 				</div>
 				<div class="zone_btn">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>

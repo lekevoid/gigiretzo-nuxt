@@ -1,8 +1,8 @@
 <template>
 	<div class="masonry_container">
-		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)">
+		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
 			<figure>
-				<NuxtImg :src="item.img" @load="recalculateMasonry()" />
+				<NuxtImg :src="item.img" @load="imageLoaded(item.id)" />
 			</figure>
 		</div>
 	</div>
@@ -48,6 +48,12 @@ function handleViewportSize() {
 	}
 }
 
+function imageLoaded(imgID) {
+	console.log(imgID);
+	document.querySelector(`#masonry_item_${imgID}`).classList.add("visible");
+	recalculateMasonry();
+}
+
 onMounted(() => {
 	handleViewportSize();
 	window.addEventListener("resize", handleViewportSize);
@@ -74,6 +80,14 @@ onBeforeUnmount(() => {
 	width: 100%;
 	cursor: pointer;
 	flex: 0 0 100%;
+	opacity: 0;
+	transition: opacity 0.6s ease, transform 0.6s ease;
+	transform: scale(0.4);
+
+	&.visible {
+		opacity: 1;
+		transform: scale(1);
+	}
 
 	figure {
 		box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
