@@ -1,12 +1,12 @@
 .page_about {
 	overflow: hidden;
+	padding-top: min(10vw, 100px);
 
 	.container {
 		padding-bottom: 200px;
 		z-index: 10;
 	}
 }
-
 
 .tabs_wrapper {
 	display: flex;

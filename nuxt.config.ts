@@ -14,9 +14,9 @@ export default defineNuxtConfig({
 	i18n: {
 		customRoutes: "config",
 		pages: {
-			"about/[section]": {
-				en: "/about/[section]",
-				fr: "/a-propos/[section]",
+			about: {
+				en: "/about",
+				fr: "/a-propos",
 			},
 			"portfolio/eyeing-teamwork": {
 				en: "/portfolio/eyeing-teamwork",

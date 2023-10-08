@@ -49,8 +49,6 @@ const tabs = [
 	{ label: t("cv"), slug: "cv" },
 ];
 
-const activeTab = ref(route?.params?.section || "bio");
-
 watch(activeTab, () => {
 	router.push(localePath({ path: activeTab.value }));
 });
