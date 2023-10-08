@@ -72,6 +72,7 @@ onBeforeUnmount(() => {
 
 .masonry_item {
 	width: 100%;
+	cursor: pointer;
 	flex: 0 0 100%;
 
 	figure {
