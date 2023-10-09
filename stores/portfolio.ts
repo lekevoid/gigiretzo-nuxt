@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
 import { getMultipleSheets } from "@/composables/useSheet";
-import { sheets } from "googleapis/build/src/apis/sheets";
+import { fetchPCloudFolder } from "@/composables/usePCloud";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
@@ -33,7 +33,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			width: piece[6],
 		}));
 
-		projects.value.find((p) => p.id === projectID).pieces = formattedPieces;
+		if (formattedPieces.length > 0) {
+			fetchPCloudFolder();
+			projects.value.find((p) => p.id === projectID).pieces = formattedPieces;
+		}
 	}
 
 	async function populatePortfolio() {

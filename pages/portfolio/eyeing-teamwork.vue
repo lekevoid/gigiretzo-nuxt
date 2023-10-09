@@ -11,8 +11,8 @@
 import { usePortfolioStore } from "@/stores/portfolio";
 const { hasFetchedProjects, populatePortfolio, getPiecesFromProject, projects } = usePortfolioStore();
 
+await populatePortfolio();
 if (!hasFetchedProjects) {
-	await populatePortfolio();
 }
 
 const projectPieces = getPiecesFromProject("Eyeing Teamwork");

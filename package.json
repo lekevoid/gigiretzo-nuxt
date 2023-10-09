@@ -26,6 +26,7 @@
     "googleapis": "^126.0.1",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
+    "pcloud-sdk-js": "^2.0.0",
     "pinia": "^2.1.6",
     "vue-markdown-render": "^2.1.0",
     "vue-masonry": "^0.16.0"
