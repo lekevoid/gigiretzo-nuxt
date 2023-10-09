@@ -39,6 +39,10 @@ function chooseLine() {
 	const linesQty = document.querySelectorAll(".lines_wrapper .line").length;
 	let lineNum = Math.ceil(Math.random() * linesQty);
 
+	if (linesQty === 0) {
+		return "stop";
+	}
+
 	if (lineNum > lastLineUsed.value - 10 && lineNum < lastLineUsed.value + 10) {
 		lineNum = chooseLine();
 	}
@@ -53,7 +57,6 @@ function chooseColor() {
 	if (color === lastColorUsed.value) {
 		color = chooseColor();
 	}
-	console.log(color);
 
 	return color;
 }

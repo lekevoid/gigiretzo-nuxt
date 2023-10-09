@@ -4,9 +4,18 @@
 			<li>
 				<span class="label">About</span>
 				<ul>
-					<li><a @click="goToAboutTab('bio')">Biography</a></li>
-					<li><a @click="goToAboutTab('artist-statement')">Artist Statement</a></li>
-					<li><a @click="goToAboutTab('cv')">CV</a></li>
+					<li>
+						<a @click="setCurrentTab('bio')" v-if="isAbout()">Biography</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else>Biography</NuxtLink>
+					</li>
+					<li>
+						<a @click="setCurrentTab('artist-statement')" v-if="isAbout()">Artist Statement</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })" v-else>Artist Statement</NuxtLink>
+					</li>
+					<li>
+						<a @click="setCurrentTab('cv')" v-if="isAbout()">CV</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>CV</NuxtLink>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -32,6 +41,8 @@
 					</li>
 				</ul>
 			</li>
+			<li><NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })">CV</NuxtLink></li>
+			<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork' })">Eyeing Teamwork</NuxtLink></li>
 		</ul>
 	</nav>
 </template>
@@ -41,16 +52,14 @@ import { useAboutPageStore } from "@/stores/about";
 const route = useRoute();
 const router = useRouter();
 const localePath = useLocalePath();
+console.log(route);
 
 const { setCurrentTab } = useAboutPageStore();
 
-function goToAboutTab(tabName) {
-	if (route.name.match(/^about/)) {
-		setCurrentTab(tabName);
-	} else {
-		router.push(localePath({ name: "about", query: { tab: tabName } }));
-	}
+function isAbout() {
+	return !!route.name.match(/^about/);
 }
+console.log(isAbout());
 </script>
 
 <style lang="scss" scoped>

@@ -9,23 +9,23 @@ const localePath = useLocalePath();
 // const router = useRouter();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 header {
 	z-index: 10;
 }
 
 main {
 	z-index: 1;
-	opacity: 1;
+}
 
-	&.fade-enter-active,
-	&.fade-leave-active {
-		transition: opacity 1s ease;
-	}
+.page-enter-active,
+.page-leave-active {
+	transition: all 0.4s;
+}
 
-	&.fade-enter-from,
-	&.fade-leave-to {
-		opacity: 0;
-	}
+.page-enter-from,
+.page-leave-to {
+	opacity: 0;
+	filter: blur(1rem);
 }
 </style>

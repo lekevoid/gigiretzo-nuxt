@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 
+	app: {
+		pageTransition: { name: "page", mode: "out-in" },
+	},
+
 	/* alias: {
 		images: fileURLToPath(new URL("./assets/img", import.meta.url)),
 		styles: fileURLToPath(new URL("./assets/styles", import.meta.url)),
@@ -14,9 +18,9 @@ export default defineNuxtConfig({
 	i18n: {
 		customRoutes: "config",
 		pages: {
-			about: {
-				en: "/about",
-				fr: "/a-propos",
+			"about/[[tab]]": {
+				en: "/about/[[tab]]",
+				fr: "/a-propos/[[tab]]",
 			},
 			"portfolio/eyeing-teamwork": {
 				en: "/portfolio/eyeing-teamwork",
