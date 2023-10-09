@@ -2,7 +2,7 @@
 	<div class="masonry_container" ref="itemsRef">
 		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
 			<figure>
-				<NuxtPicture :src="item.imgPublic" @load="imageLoaded(item.id)" width="600" />
+				<NuxtPicture :src="item.img" @load="imageLoaded(item.id)" width="600" />
 			</figure>
 		</div>
 	</div>
