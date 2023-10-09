@@ -42,7 +42,7 @@ export default defineNuxtConfig({
 
 	nitro: {
 		prerender: {
-			routes: ["/portfolio/eyeing-teamwork"],
+			routes: ["/about", "/fr/a-propos", "/portfolio/eyeing-teamwork"],
 		},
 	},
 
