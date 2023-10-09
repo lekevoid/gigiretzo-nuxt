@@ -53,6 +53,13 @@ const tabs = [
 	{ label: t("cv"), slug: "cv" },
 ];
 
+onMounted(() => {
+	const { tab } = route.params;
+	if (tab && tab !== currentTab) {
+		setCurrentTab(tab);
+	}
+});
+
 watch(currentTab, () => {
 	if (typeof window !== "undefined") {
 		const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
