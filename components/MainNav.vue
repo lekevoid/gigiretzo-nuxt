@@ -24,7 +24,7 @@
 					<li>
 						<span class="label">Series</span>
 						<ul>
-							<li>Eyeing Teamwork</li>
+							<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork' })">Eyeing Teamwork</NuxtLink></li>
 							<li>Collect. I’ve trauma</li>
 							<li>BnW</li>
 							<li>Pay Attention!</li>
@@ -32,7 +32,6 @@
 					</li>
 				</ul>
 			</li>
-			<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork' })">Eyeing Teamwork</NuxtLink></li>
 		</ul>
 	</nav>
 </template>
@@ -57,17 +56,27 @@ function goToAboutTab(tabName) {
 <style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
 
+$mainItemMargin: min(4vw, 80px);
+$ulPaddingX: min(4vw, 20px);
+$ulPaddingY: min(2vw, 12px);
+$ulPaddingXNeg: max(-4vw, -20px);
+$ulPaddingYNeg: max(-2vw, -12px);
+
 nav {
+	font-size: 20px;
+	font-weight: bold;
+
 	a {
 		color: #fff;
-		font-size: 20px;
-		font-weight: bold;
 		cursor: pointer;
 		transition: color 0.3s ease;
 
 		&:hover {
 			color: #4c0;
 		}
+	}
+	.label {
+		white-space: nowrap;
 	}
 
 	ul {
@@ -78,20 +87,33 @@ nav {
 
 		li {
 			cursor: default;
+			white-space: nowrap;
+			padding: 16px $mainItemMargin 16px 0;
 
 			ul {
+				padding: $ulPaddingY 0;
 				position: absolute;
-				left: 0;
+				left: $ulPaddingXNeg;
 				top: 100%;
-				overflow: hidden;
-				opacity: 0;
-				max-height: 0vh;
+				display: flex;
+				flex-flow: column nowrap;
 				background-color: rgba(#000, 0.8);
-				transition: opacity 0.6s ease;
+				transition: opacity 0.3s ease;
+				opacity: 0;
+				pointer-events: none;
+
+				& > li {
+					transition: max-height 0s linear 0.3s;
+					opacity: 0;
+					max-height: 0vh;
+				}
 
 				li {
+					line-height: 160%;
+					padding: 0 $ulPaddingX;
+
 					ul {
-						top: 0%;
+						top: $ulPaddingYNeg;
 						left: 100%;
 
 						li {
@@ -103,9 +125,15 @@ nav {
 
 			&:hover {
 				& > ul {
-					transition: max-height 0.6s ease;
-					max-height: 50vh;
 					opacity: 1;
+					transition: none;
+					pointer-events: all;
+
+					& > li {
+						transition: max-height 1s ease;
+						max-height: 300px;
+						opacity: 1;
+					}
 				}
 			}
 		}
