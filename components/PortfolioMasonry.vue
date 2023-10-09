@@ -2,7 +2,7 @@
 	<div class="masonry_container" ref="itemsRef">
 		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
 			<figure>
-				<NuxtImg :src="item.img" @load="imageLoaded(item.id)" />
+				<NuxtPicture :src="item.img" @load="imageLoaded(item.id)" />
 			</figure>
 		</div>
 	</div>
@@ -97,7 +97,8 @@ onBeforeUnmount(() => {
 		margin: 0;
 	}
 
-	img {
+	img,
+	picture {
 		width: 100%;
 	}
 }
@@ -111,7 +112,8 @@ onBeforeUnmount(() => {
 			height: 100%;
 		}
 
-		img {
+		img,
+		picture {
 			height: 100%;
 			object-fit: cover;
 		}
