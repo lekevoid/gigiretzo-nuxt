@@ -7,24 +7,24 @@
 <script setup>
 const lastLineUsed = ref(0);
 const lastColorUsed = ref(0);
-const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
+const colors = ["magenta", "green", "blue", "orange", "purple"];
 let linesInterval;
 
 const lines = computed(() => {
-	const qty = 20;
+	const qty = 15;
 	let out = [];
-	const midpoint = Math.floor(qty / 2);
+	const thirdpoint = Math.floor(qty / 3);
 	const maxHeight = 200;
 	const minHeight = 5;
 
 	for (let i = 0; i < qty; i++) {
-		if (i <= midpoint) {
-			const height = maxHeight - ((maxHeight - minHeight) / midpoint) * i;
+		if (i <= thirdpoint) {
+			const height = maxHeight - ((maxHeight - minHeight) / thirdpoint) * i;
 			for (let j = 0; j < i; j++) {
 				out.push({ height });
 			}
 		} else {
-			const height = minHeight + ((maxHeight - minHeight) / (qty - midpoint)) * (i - midpoint);
+			const height = minHeight + ((maxHeight - minHeight) / (qty - thirdpoint)) * (i - thirdpoint);
 			for (let j = 0; j < qty - i; j++) {
 				out.push({ height });
 			}
@@ -38,10 +38,6 @@ const lines = computed(() => {
 function chooseLine() {
 	const linesQty = document.querySelectorAll(".lines_wrapper .line").length;
 	let lineNum = Math.ceil(Math.random() * linesQty);
-
-	/* if (linesQty === 0) {
-		return "stop";
-	} */
 
 	if (lineNum > lastLineUsed.value - 10 && lineNum < lastLineUsed.value + 10) {
 		lineNum = chooseLine();
@@ -57,6 +53,7 @@ function chooseColor() {
 	if (color === lastColorUsed.value) {
 		color = chooseColor();
 	}
+	console.log(color);
 
 	return color;
 }
@@ -94,8 +91,7 @@ onBeforeUnmount(() => {
 	left: 0;
 	height: auto;
 	flex: 0 0 100%;
-	top: 50%;
-	transform: translateY(-40%);
+	top: 0;
 	z-index: 1;
 }
 
@@ -103,7 +99,7 @@ onBeforeUnmount(() => {
 	border-bottom: 2px solid #000;
 	position: relative;
 	width: 100%;
-	transition: background-color 2s ease 1s;
+	transition: background-color 3s ease 0.5s;
 
 	&.c {
 		transition: background-color 0s;
@@ -122,9 +118,6 @@ onBeforeUnmount(() => {
 		}
 		&.magenta {
 			background-color: var(--magenta);
-		}
-		&.yellow {
-			background-color: var(--yellow);
 		}
 	}
 }
