@@ -164,6 +164,7 @@ section {
 		color: #000;
 		float: left;
 		font-size: var(--about-page-font-size);
+		line-height: var(--about-page-line-height);
 		min-height: calc(60vh - 48px);
 		padding: min(5vw, 80px);
 		position: relative;
@@ -189,8 +190,6 @@ section {
 		float: left;
 
 		p {
-
-			line-height: 180%;
 			margin-bottom: 2em;
 			text-align: justify;
 		}
@@ -297,5 +296,8 @@ section {
 			font-size: min(3vw, 28px);
 			padding: 0.6em 1em 2.4em;
 		}
+	}
+
+	section{
 	}
 }

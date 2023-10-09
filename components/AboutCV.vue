@@ -91,14 +91,13 @@ html {
 	display: inline-block;
 	margin-bottom: 30px;
 	margin-top: 20px;
-	padding: 30px 40px 30px 30px;
+	padding: min(5vw, 30px) min(6vw, 40px) min(5vw, 30px) min(5vw, 30px);
 	transform: rotate(-4deg);
 
 	ul {
 		list-style-type: none;
 
 		li {
-			font-size: 20px;
 			line-height: 160%;
 		}
 	}
@@ -121,8 +120,8 @@ html {
 	line-height: 140%;
 	font-size: 1em;
 	display: flex;
-	flex-flow: row nowrap;
-	padding: 14px 0;
+	flex-flow: row wrap;
+	padding: 0 0 10px;
 
 	h2 {
 		font-size: 1.6em;
@@ -146,12 +145,32 @@ html {
 }
 
 .cv_entry_date {
-	width: 12ch;
+	width: 100%;
+	font-weight: bold;
+	margin: 12px 0 8px;
+	font-size: 1.1em;
 	display: inline-block;
 }
 
 .cv_entry_description {
-	width: calc(98% - 12ch);
+	width: 100%;
 	display: inline-block;
+}
+
+@media (min-width: $sm) {
+	.cv_list_entry {
+		flex-wrap: nowrap;
+		padding: 14px 0;
+	}
+
+	.cv_entry_date {
+		width: 12ch;
+		margin: 0;
+		font-size: 1em;
+	}
+
+	.cv_entry_description {
+		width: calc(98% - 12ch);
+	}
 }
 </style>
