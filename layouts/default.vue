@@ -10,7 +10,12 @@ const localePath = useLocalePath();
 </script>
 
 <style lang="scss" scoped>
+header {
+	z-index: 10;
+}
+
 main {
+	z-index: 1;
 	opacity: 1;
 
 	&.fade-enter-active,
