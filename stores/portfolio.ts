@@ -14,6 +14,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		projects.value = fetchedProjectsList.slice(1).map((row) => {
 			return {
 				id: slugify(row[1]),
+				slug: slugify(row[1]),
 				type: row[0],
 				title: { en: row[1], fr: row[3] },
 				description: { en: row[2], fr: row[4] },
@@ -28,6 +29,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 			return {
 				id: slugify(title_en),
+				slug: slugify(title_en),
 				img: imgLegacyURL,
 				imgPCloud: `${img_folder}/${img_filename}`,
 				title: { en: title_en, fr: title_fr },

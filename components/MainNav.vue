@@ -49,17 +49,15 @@
 
 <script setup>
 import { useAboutPageStore } from "@/stores/about";
+
 const route = useRoute();
-const router = useRouter();
 const localePath = useLocalePath();
-console.log(route);
 
 const { setCurrentTab } = useAboutPageStore();
 
 function isAbout() {
 	return !!route.name.match(/^about/);
 }
-console.log(isAbout());
 </script>
 
 <style lang="scss" scoped>

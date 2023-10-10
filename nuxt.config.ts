@@ -2,9 +2,9 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 
-	app: {
+	/* app: {
 		pageTransition: { name: "page", mode: "out-in" },
-	},
+	}, */
 
 	/* alias: {
 		images: fileURLToPath(new URL("./assets/img", import.meta.url)),
@@ -25,6 +25,18 @@ export default defineNuxtConfig({
 			"portfolio/eyeing-teamwork": {
 				en: "/portfolio/eyeing-teamwork",
 				fr: "/portfolio/regard-sur-lequipe",
+			},
+			"portfolio/collect-i-ve-trauma": {
+				en: "/portfolio/collect-i-ve-trauma",
+				fr: "/portfolio/collect-i-ve-trauma",
+			},
+			"portfolio/bnw": {
+				en: "/portfolio/bnw",
+				fr: "/portfolio/bnw",
+			},
+			"portfolio/pay-attention": {
+				en: "/portfolio/pay-attention",
+				fr: "/portfolio/faites-attention",
 			},
 		},
 		locales: [

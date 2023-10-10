@@ -74,8 +74,9 @@ onBeforeUnmount(() => {
 	position: relative;
 	gap: 20px;
 	flex-flow: row wrap;
-	width: calc(100% - 32px);
-	margin: 0 16px;
+	width: 100%;
+	margin-left: 4px;
+	min-height: 300px;
 }
 
 .masonry_item {
