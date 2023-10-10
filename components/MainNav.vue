@@ -137,7 +137,7 @@ nav {
 					pointer-events: all;
 
 					& > li {
-						transition: max-height 1s ease;
+						transition: opacity 0.6s ease, max-height 1s ease;
 						max-height: 300px;
 						opacity: 1;
 					}

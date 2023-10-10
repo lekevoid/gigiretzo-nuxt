@@ -12,12 +12,14 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	function populateProjectsState(fetchedProjectsList) {
 		projects.value = fetchedProjectsList.slice(1).map((row) => {
+			const [type, title_en, description_en, title_fr, description_fr] = row;
+
 			return {
-				id: slugify(row[1]),
-				slug: slugify(row[1]),
-				type: row[0],
-				title: { en: row[1], fr: row[3] },
-				description: { en: row[2], fr: row[4] },
+				id: slugify(title_en),
+				slug: slugify(title_en),
+				type,
+				title: { en: title_en, fr: title_fr },
+				description: { en: description_en, fr: description_fr },
 				pieces: [],
 			};
 		});

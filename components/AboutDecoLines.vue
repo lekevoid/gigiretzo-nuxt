@@ -1,6 +1,6 @@
 <template>
 	<div class="lines_wrapper">
-		<div v-for="line in lines" class="line" :style="`height:${line.height}px;`" />
+		<div v-for="line in lines" class="line" :style="`height:${line.height / 10}%;`" />
 	</div>
 </template>
 
@@ -43,9 +43,11 @@ function chooseLine() {
 		return "stop";
 	}
 
-	if (lineNum > lastLineUsed.value - 10 && lineNum < lastLineUsed.value + 10) {
+	if (lineNum > lastLineUsed.value - 20 && lineNum < lastLineUsed.value + 20) {
 		lineNum = chooseLine();
 	}
+
+	lastLineUsed.value = lineNum;
 
 	return lineNum;
 }
@@ -73,6 +75,7 @@ onMounted(() => {
 
 		const line = document.querySelector(`.lines_wrapper .line:nth-child(${chosenLine})`);
 
+		line.className = "line";
 		line.classList.add(chosenColor);
 		line.classList.add("c");
 
@@ -92,10 +95,12 @@ onBeforeUnmount(() => {
 	position: absolute;
 	width: 100%;
 	left: 0;
-	height: auto;
+	height: 100%;
 	flex: 0 0 100%;
 	top: 0;
 	z-index: 1;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 .line {
