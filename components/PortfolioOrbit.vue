@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-const { items } = defineProps(["items"]);
+const { items, initialElement } = defineProps(["items", "initialElement"]);
 
 const currentItem = ref(0);
 
@@ -34,6 +34,11 @@ function navigateOrbit(dir) {
 	}
 	currentItem.value = nextPos;
 }
+
+onMounted(() => {
+	const goToElement = items.findIndex((i) => i.id === initialElement);
+	currentItem.value = goToElement;
+});
 </script>
 
 <style lang="scss" scoped>

@@ -14,8 +14,8 @@ import { usePortfolioStore } from "@/stores/portfolio";
 const { hasFetchedProjects, projects } = storeToRefs(usePortfolioStore());
 const { populatePortfolio, getPiecesFromProject } = usePortfolioStore();
 
-await populatePortfolio();
-if (!hasFetchedProjects) {
+if (!hasFetchedProjects.value) {
+	await populatePortfolio();
 }
 
 const project = projects.value.find((p) => p.id === slugify("Eyeing Teamwork"));

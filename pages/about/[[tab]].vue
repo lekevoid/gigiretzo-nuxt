@@ -26,7 +26,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { getArtistStatement, getBio, getCV } from "@/composables/useSheet";
+import { getMultipleSheets } from "@/composables/useSheet";
 import { useAboutPageStore } from "@/stores/about";
 
 const { t } = useI18n();
@@ -37,9 +37,9 @@ const localePath = useLocalePath();
 const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
-const { artistStatement } = await getArtistStatement();
-const { bio } = await getBio();
-const { cvEntries, cvSections } = await getCV();
+const allContent = await getMultipleSheets({ sheets: ["Artist Statement", "Bio", "CV Entries", "CV Sections"] });
+const [artistStatement, bio, cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
+console.log(artistStatement, bio, cvEntries, cvSections);
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
@@ -54,9 +54,16 @@ const tabs = [
 ];
 
 onMounted(() => {
-	if (route?.query?.tab) {
-		setCurrentTab(route.query.tab);
-		router.push(localePath({ name: "about" }));
+	const { tab } = route.params;
+	if (tab && tab !== currentTab) {
+		setCurrentTab(tab);
+	}
+});
+
+watch(currentTab, () => {
+	if (typeof window !== "undefined") {
+		const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
+		window.history.pushState({}, "Test", toPath);
 	}
 });
 </script>

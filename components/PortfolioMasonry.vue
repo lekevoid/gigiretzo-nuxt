@@ -2,7 +2,7 @@
 	<div class="masonry_container" ref="itemsRef">
 		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
 			<figure>
-				<NuxtPicture :src="item.img" @load="imageLoaded(item.id)" width="600" />
+				<NuxtPicture :src="item.img" @load="imageLoaded(item.id)" width="800" />
 			</figure>
 		</div>
 	</div>
@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~/assets/styles/dependencies";
 
 .masonry_container {
@@ -74,8 +74,9 @@ onBeforeUnmount(() => {
 	position: relative;
 	gap: 20px;
 	flex-flow: row wrap;
-	width: calc(100% - 32px);
-	margin: 0 16px;
+	width: 100%;
+	margin-left: 4px;
+	min-height: 300px;
 }
 
 .masonry_item {
@@ -95,11 +96,15 @@ onBeforeUnmount(() => {
 		box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 		padding: 10px;
 		margin: 0;
+		max-width: 100%;
+		width: 100%;
 	}
 
 	img,
 	picture {
 		width: 100%;
+		max-width: 100%;
+		height: auto;
 	}
 }
 
@@ -129,14 +134,28 @@ onBeforeUnmount(() => {
 		position: absolute;
 		width: calc(33.333333% - 20px);
 		flex: 0 0 calc(33.333333% - 20px);
+
 		&:nth-child(3n + 1) {
 			left: 0%;
 		}
+
 		&:nth-child(3n + 2) {
-			left: calc(33.333333% + 10px);
+			left: calc(33.333333% + 5px);
 		}
+
 		&:nth-child(3n + 3) {
-			left: calc(66.666666% + 20px);
+			left: calc(66.666666% + 10px);
+		}
+
+		figure {
+			height: auto;
+			width: 100%;
+		}
+
+		img,
+		picture {
+			height: auto;
+			object-fit: contain;
 		}
 	}
 }

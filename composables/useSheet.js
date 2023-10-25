@@ -16,6 +16,7 @@ function fetchMultipleUrls(ranges) {
 }
 
 export async function getMultipleSheets({ sheets }) {
+	console.log(sheets);
 	const ranges = "ranges=" + sheets.join("&ranges=");
 
 	const { data } = await useFetch(fetchMultipleUrls(ranges));
@@ -25,6 +26,16 @@ export async function getMultipleSheets({ sheets }) {
 	}
 
 	console.warn("Nothing to return from sheets", sheets);
+}
+
+export async function getSheet(sheet) {
+	const { data } = await useFetch(fetchUrl(sheet));
+
+	if (data?.value?.values) {
+		return data.value.values;
+	}
+
+	console.warn("Nothing to return from sheet", sheet);
 }
 
 export async function getBio() {

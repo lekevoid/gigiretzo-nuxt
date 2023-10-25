@@ -12,26 +12,34 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	function populateProjectsState(fetchedProjectsList) {
 		projects.value = fetchedProjectsList.slice(1).map((row) => {
+			const [type, title_en, description_en, title_fr, description_fr] = row;
+
 			return {
-				id: slugify(row[1]),
-				type: row[0],
-				title: { en: row[1], fr: row[3] },
-				description: { en: row[2], fr: row[4] },
+				id: slugify(title_en),
+				slug: slugify(title_en),
+				type,
+				title: { en: title_en, fr: title_fr },
+				description: { en: description_en, fr: description_fr },
 				pieces: [],
 			};
 		});
 	}
 
 	function populatePiecesWithinProject(projectID, pieces) {
-		const formattedPieces = pieces.map((piece) => ({
-			id: slugify(piece[1]),
-			img: piece[0],
-			imgPublic: "art/" + piece[0].match(/\/([^/]+)$/)[1],
-			title: { en: piece[1], fr: piece[3] },
-			description: { en: piece[2], fr: piece[4] },
-			height: piece[5],
-			width: piece[6],
-		}));
+		const formattedPieces = pieces.map((piece) => {
+			const [img_folder, img_filename, title_en, description_en, title_fr, description_fr, height, width, imgLegacyURL] = piece;
+
+			return {
+				id: slugify(title_en),
+				slug: slugify(title_en),
+				img: imgLegacyURL,
+				imgPCloud: `${img_folder}/${img_filename}`,
+				title: { en: title_en, fr: title_fr },
+				description: { en: description_en, fr: description_fr },
+				height,
+				width,
+			};
+		});
 
 		if (formattedPieces.length > 0) {
 			fetchPCloudFolder();
