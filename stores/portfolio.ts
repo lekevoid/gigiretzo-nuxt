@@ -6,16 +6,12 @@ import { fetchPCloudFolder } from "@/composables/usePCloud";
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
-	const { locale, locales } = useI18n();
-	const hasFetchedProjects = ref(false);
-	const fetchedProjects = ref([]);
-	const fetchedProjectTypes = ref([]);
-	const fetchedPortfolio = ref([]);
+	const { locale, localeCodes } = useI18n();
 
 	const fetchedData = reactive({
-		projects: [],
-		projectTypes: [],
-		portfolio: [],
+		fetchedProjectTypes: [],
+		fetchedProjects: [],
+		fetchedPortfolio: [],
 	});
 
 	const tables: any = {
@@ -23,43 +19,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		projectTypes: "210777",
 		"Eyeing Teamwork": "210766",
 	};
-
-	/* function populateProjectsState(fetchedProjectsList) {
-		projects.value = fetchedProjectsList.slice(1).map((row) => {
-			const [type, title_en, description_en, title_fr, description_fr] = row;
-
-			return {
-				id: slugify(title_en),
-				slug: slugify(title_en),
-				type,
-				title: { en: title_en, fr: title_fr },
-				description: { en: description_en, fr: description_fr },
-				pieces: [],
-			};
-		});
-	}
-
-	function populatePiecesWithinProject(projectID, pieces) {
-		const formattedPieces = pieces.map((piece) => {
-			const [img_folder, img_filename, title_en, description_en, title_fr, description_fr, height, width, imgLegacyURL] = piece;
-
-			return {
-				id: slugify(title_en),
-				slug: slugify(title_en),
-				img: imgLegacyURL,
-				imgPCloud: `${img_folder}/${img_filename}`,
-				title: { en: title_en, fr: title_fr },
-				description: { en: description_en, fr: description_fr },
-				height,
-				width,
-			};
-		});
-
-		if (formattedPieces.length > 0) {
-			fetchPCloudFolder();
-			projects.value.find((p) => p.id === projectID).pieces = formattedPieces;
-		}
-	} */
 
 	function mapColumnToLanguages(table: any, columnName: string) {
 		/**
@@ -70,25 +29,22 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 		let out: any = {};
 
-		locales.value.forEach(({ code: lang }: any) => {
+		Object.values(localeCodes.value).forEach((lang: string) => {
 			const columnNameWithLang = `${columnName} ${lang.toUpperCase()}`;
 
-			if (!table[columnNameWithLang]) {
-				return "";
+			if (table[columnNameWithLang]) {
+				out[lang] = table[columnNameWithLang];
 			}
 
-			out[lang] = table[columnNameWithLang];
+			out[lang] = "";
 		});
 
 		return out;
 	}
 
 	async function populatePortfolio() {
-		console.log(fetchedProjects.value);
-
 		let aggregatedProjects: any = [];
-		const projectsTablesList = fetchedProjects.value.map((project: any) => project.title.en);
-		console.log(tables);
+		const projectsTablesList = fetchedData.fetchedProjects.map((project: any) => project.title.en);
 
 		function formatPiece(piece) {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
@@ -110,11 +66,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		await projectsTablesList.forEach(async (projectName) => {
 			if (tables.hasOwnProperty(projectName)) {
 				const projectTable = await useBaserowTable(tables[projectName]);
-				console.log(projectTable);
 				if (projectTable) {
 					const out = projectTable.map((piece) => formatPiece(piece));
-					fetchedPortfolio.value.push(out);
-					fetchedData.portfolio.push(out);
+					fetchedData.fetchedPortfolio.push(out);
 				}
 			}
 		});
@@ -128,21 +82,15 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return;
 		}
 
-		fetchedProjects.value = projectsTable.map((project: any) => {
+		fetchedData.fetchedProjects = projectsTable.map((project: any) => {
 			const titleI18n = mapColumnToLanguages(project, "Title");
 			const descriptionI18n = mapColumnToLanguages(project, "Description");
 			return { id: project.id, order: parseInt(project.order), title: titleI18n, description: descriptionI18n, type: project["Project Type"][0].value };
 		});
 
-		fetchedData.projects = projectsTable.map((project: any) => {
-			const titleI18n = mapColumnToLanguages(project, "Title");
-			const descriptionI18n = mapColumnToLanguages(project, "Description");
-			return { id: project.id, order: parseInt(project.order), title: titleI18n, description: descriptionI18n, type: project["Project Type"][0].value };
-		});
-
-		if (fetchedPortfolio.value.length === 0) {
+		if (fetchedData.fetchedPortfolio.length === 0) {
 			console.debug("No portfolio, calling populatePortfolio()");
-			populatePortfolio();
+			// populatePortfolio();
 		}
 	}
 
@@ -154,60 +102,43 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return;
 		}
 
-		fetchedProjectTypes.value = projectTypesTable.map((projectType: any) => {
+		fetchedData.fetchedProjectTypes = projectTypesTable.map((projectType: any) => {
 			const titleI18n = mapColumnToLanguages(projectType, "Title");
 			return { id: projectType.id, order: parseInt(projectType.order), title: titleI18n };
 		});
 
-		fetchedData.projectTypes = projectTypesTable.map((projectType: any) => {
-			const titleI18n = mapColumnToLanguages(projectType, "Title");
-			return { id: projectType.id, order: parseInt(projectType.order), title: titleI18n };
-		});
-
-		if (fetchedProjects.value.length === 0) {
+		if (fetchedData.fetchedProjects.length === 0) {
 			console.debug("No projects, calling fetchProject()");
 			fetchProjects();
 		}
 	}
 
-	if (fetchedProjectTypes.value.length === 0) {
+	if (fetchedData.fetchedProjectTypes.length === 0) {
 		console.debug("No projects types, calling fetchProjectsTypes()");
 		fetchProjectTypes();
 	}
 
-	/* function getPiecesFromProject(projectName) {
-		const project = projects.value.find((p) => p.id === slugify(projectName));
-		if (project) {
-			return project.pieces.map((p) => ({ ...p, title: p.title[locale.value] || "", description: p.description[locale.value] || "" }));
-		}
-		return false;
-	}
-
-	function getNumberOfPiecesFromProject(projectName) {
-		const project = projects.value.find((p) => p.id === slugify(projectName));
-		if (project) {
-			return project.pieces.length;
-		}
-		return false;
-	} */
-
 	const projectTypes = computed(() => {
-		const out = fetchedData.projectTypes.map((pt: any) => {
-			console.log(pt.title);
-			pt.title = pt.title[locale.value] || pt.title.en;
-			return pt;
+		return fetchedData.fetchedProjectTypes.map((pt: any) => {
+			let ptOut = { ...pt };
+			ptOut.title = pt.title?.[locale.value] || pt.title.en;
+			return ptOut;
 		});
-
-		return out;
 	});
 
 	const projects = computed(() => {
-		return fetchedData.projects;
+		console.log(locale.value, fetchedData);
+		return fetchedData.fetchedProjects.map((p: any) => {
+			let pOut = { ...p };
+			pOut.title = p.title?.[locale.value] || p.title.en;
+			pOut.description = p.description?.[locale.value] || p.description.en;
+			return pOut;
+		});
 	});
 
 	const portfolio = computed(() => {
-		return fetchedData.portfolio;
+		return fetchedData.fetchedPortfolio;
 	});
 
-	return { fetchedData, projects, projectTypes, portfolio, fetchedProjects, fetchedProjectTypes, fetchedPortfolio };
+	return { projects, projectTypes, portfolio, fetchedData };
 });
