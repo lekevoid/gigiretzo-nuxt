@@ -39,7 +39,7 @@ function langLinkDestination(lang) {
 		return localePath({ name: "about-tab", params: { tab: currentTab.value } }, lang);
 	}
 
-	return switchLocalePath(item.code);
+	return switchLocalePath(lang);
 }
 </script>
 
