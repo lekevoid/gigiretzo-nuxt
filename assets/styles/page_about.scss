@@ -194,8 +194,8 @@ section {
 		float: left;
 
 		p {
-			font-size: 22px;
-			line-height: 180%;
+			font-size: var(--about-page-font-size);
+			line-height: var(--about-page-line-height);
 			margin-bottom: 2em;
 			text-align: justify;
 			z-index: 1;
@@ -204,22 +204,10 @@ section {
 		img {
 			border-radius: 4px;
 			box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.4);
-			max-width: 40%;
+			margin-bottom: 40px;
 			transition: transform 0.6s ease-out;
 			width: 100%;
 			z-index: 2;
-
-			&.float_left {
-				clear: left;
-				float: left;
-				margin: 20px min(10vw, 80px) 20px 0;
-			}
-
-			&.float_right {
-				clear: right;
-				float: right;
-				margin: 20px 0 20px min(10vw, 80px);
-			}
 		}
 	}
 }
@@ -318,5 +306,41 @@ section {
 
 	section {
 		width: 100%;
+
+		.contains_md_text {
+			img {
+				max-width: 50%;
+
+				&.float_left {
+					clear: left;
+					float: left;
+					margin: 20px min(5vw, 40px) 20px 0;
+				}
+
+				&.float_right {
+					clear: right;
+					float: right;
+					margin: 20px 0 20px min(5vw, 40px);
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: $md) {
+	section {
+		.contains_md_text {
+			img {
+				max-width: 40%;
+
+				&.float_left {
+					margin-right: min(10vw, 80px);
+				}
+
+				&.float_right {
+					margin-left: min(10vw, 80px);
+				}
+			}
+		}
 	}
 }
