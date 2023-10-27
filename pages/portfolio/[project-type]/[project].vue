@@ -1,8 +1,4 @@
 <template>
-	<Head v-if="project">
-		<Title>{{ project.title }} – GigiRetzo</Title>
-		<Meta name="description" :content="project.description" />
-	</Head>
 	<main class="page_portfolio">
 		<div class="container" v-if="project">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
@@ -69,6 +65,16 @@ const seoImage = computed(() => pieces?.[0]?.image || "");
 definePageMeta({
 	layout: "portfolio",
 });
+
+if (project)
+	useSeoMeta({
+		title: () => seoTitle.value,
+		ogTitle: () => seoTitle.value,
+		description: () => seoDescription.value,
+		ogDescription: () => seoDescription.value,
+		ogImage: () => seoImage.value,
+		twitterCard: "summary_large_image",
+	});
 </script>
 
 <style lang="scss" scoped>
