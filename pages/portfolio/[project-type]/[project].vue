@@ -5,7 +5,7 @@
 			<!-- <PortfolioProjectsBubbleNav :project-type="project.type" /> -->
 			<h1>{{ project.title }}</h1>
 			<p class="description">{{ project.description }}</p>
-			<pre>{{ pieces }}</pre>
+			<!-- <pre>{{ pieces }}</pre> -->
 			<PortfolioMasonry v-if="pieces.length > 0" :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
 		</div>
 		<Teleport to="body">

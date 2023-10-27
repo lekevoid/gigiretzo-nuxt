@@ -8,7 +8,7 @@
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
-					<NuxtImg :src="item.image" sizes="100vw" loading="lazy" />
+					<NuxtImg :src="item.image" loading="lazy" />
 				</div>
 				<div class="zone_btn">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
