@@ -1,6 +1,9 @@
 <template>
 	<div class="inner bio_text">
-		<vue-markdown :source="formattedBio" :options="{ linkify: true }" />
+		<template v-for="par in fetchedBio">
+			<vue-markdown v-if="par.type === 'paragraph'" :source="par.md" :options="{ linkify: true }" />
+			<NuxtImg v-if="par.type === 'image'" :src="par.src" :class="`float_${par.align}`" />
+		</template>
 	</div>
 </template>
 
@@ -27,5 +30,11 @@ const formattedBio = computed(() => {
 
 <style lang="scss">
 .bio_text {
+	& > div {
+	}
+}
+pre {
+	max-width: 100%;
+	font-size: 16px;
 }
 </style>

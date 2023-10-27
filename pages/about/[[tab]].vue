@@ -31,15 +31,13 @@ import { useAboutPageStore } from "@/stores/about";
 
 const { t } = useI18n();
 const route = useRoute();
-const router = useRouter();
 const localePath = useLocalePath();
 
-const { currentTab } = storeToRefs(useAboutPageStore());
+const { currentTab, bio } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
-const allContent = await getMultipleSheets({ sheets: ["Artist Statement", "Bio", "CV Entries", "CV Sections"] });
-const [artistStatement, bio, cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
-console.log(artistStatement, bio, cvEntries, cvSections);
+const allContent = await getMultipleSheets({ sheets: ["Artist Statement", "CV Entries", "CV Sections"] });
+const [artistStatement, cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },

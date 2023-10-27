@@ -16,7 +16,6 @@ function fetchMultipleUrls(ranges) {
 }
 
 export async function getMultipleSheets({ sheets }) {
-	console.log(sheets);
 	const ranges = "ranges=" + sheets.join("&ranges=");
 
 	const { data } = await useFetch(fetchMultipleUrls(ranges));

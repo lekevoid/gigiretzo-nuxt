@@ -9,7 +9,7 @@
 			:key="item.id"
 		>
 			<figure>
-				<NuxtImg :src="item.image" @load="imageLoaded(item.id)" sizes="100vw sm:400px md:460px" :loading="k > 6 ? 'lazy' : 'eager'" />
+				<NuxtImg :src="item.image" @load="imageLoaded(item.id)" sizes="600px sm:400px md:460px" :loading="k > 6 ? 'lazy' : 'eager'" />
 			</figure>
 		</div>
 	</div>

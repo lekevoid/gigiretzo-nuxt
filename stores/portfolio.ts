@@ -1,14 +1,13 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
-import { getMultipleSheets } from "@/composables/useSheet";
-import { fetchPCloudFolder } from "@/composables/usePCloud";
+import { mapColumnToLanguages } from "@/composables/useDBHelper";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
 	const { DEBUG_PORTFOLIO } = useRuntimeConfig().public;
 
-	const { locale, localeCodes } = useI18n();
+	const { locale } = useI18n();
 
 	const defaultProjectObject = {
 		id: "",
@@ -34,27 +33,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		projectTypes: "210777",
 		"Eyeing Teamwork": "210766",
 	};
-
-	function mapColumnToLanguages(table: any, columnName: string) {
-		/**
-		 * Takes a table with columns e.g. Title EN, Title FR, Description EN, Description FR ;
-		 * maps languages to columns (e.g. {title: { en: "Title", fr: "Titre" }})
-		 */
-
-		let out: any = {};
-
-		Object.values(localeCodes.value).forEach((lang: string) => {
-			const columnNameWithLang = `${columnName} ${lang.toUpperCase()}`;
-
-			if (table[columnNameWithLang]) {
-				out[lang] = table[columnNameWithLang];
-			} else {
-				out[lang] = "";
-			}
-		});
-
-		return out;
-	}
 
 	async function populatePortfolio() {
 		let aggregatedProjects: any = [];
