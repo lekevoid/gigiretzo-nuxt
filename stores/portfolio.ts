@@ -173,13 +173,13 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	const portfolio = computed(() => {
 		return fetchedData.fetchedPortfolio.map((piece: any) => {
-			const project = projects.value.find((project) => project.slug === slugify(piece.project)) || piece.project;
+			const { title: projectTitle, slug: projectSlug } = projects.value.find((project) => project.slug === slugify(piece.project)) || piece.project;
 
 			return {
 				...piece,
 				title: piece.title[locale.value] || piece.title.en,
 				description: piece.description[locale.value] || piece.description.en,
-				project,
+				project: { title: projectTitle, slug: projectSlug },
 			};
 		});
 	});

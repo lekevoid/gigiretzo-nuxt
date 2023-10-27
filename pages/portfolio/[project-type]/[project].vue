@@ -1,10 +1,15 @@
 <template>
+	<Head v-if="project">
+		<Title>{{ project.title }} – GigiRetzo</Title>
+		<Meta name="description" :content="project.description" />
+	</Head>
 	<main class="page_portfolio">
 		<div class="container" v-if="project">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
 			<!-- <PortfolioProjectsBubbleNav :project-type="project.type" /> -->
 			<h1>{{ project.title }}</h1>
 			<p class="description">{{ project.description }}</p>
+			<pre>{{ pieces }}</pre>
 			<PortfolioMasonry v-if="pieces.length > 0" :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
 		</div>
 		<Teleport to="body">
@@ -57,17 +62,12 @@ function closeOrbit() {
 
 /* Meta & SEO */
 
+const seoTitle = computed(() => `${project.value?.title || "Portfolio"} – GigiRetzo`);
+const seoDescription = computed(() => project.value?.description || "");
+const seoImage = computed(() => pieces?.[0]?.image || "");
+
 definePageMeta({
 	layout: "portfolio",
-});
-
-useSeoMeta({
-	title: () => `${project.value?.title} – GigiRetzo`,
-	ogTitle: () => `${project.value?.title} – GigiRetzo`,
-	description: () => project.value?.description,
-	ogDescription: () => project.value?.description,
-	ogImage: () => pieces?.[0]?.image,
-	twitterCard: "summary_large_image",
 });
 </script>
 
