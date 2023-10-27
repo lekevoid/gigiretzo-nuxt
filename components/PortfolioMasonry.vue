@@ -1,8 +1,15 @@
 <template>
 	<div class="masonry_container" ref="itemsRef">
-		<div v-for="item in items" class="masonry_item" @click="$emit('openPictureOrbit', item.id)" :id="`masonry_item_${item.id}`" :key="item.id">
+		<div
+			v-for="(item, k) in items"
+			class="masonry_item"
+			:data-loading="k >= 6 ? 'lazy' : 'eager'"
+			@click="$emit('openPictureOrbit', item.id)"
+			:id="`masonry_item_${item.id}`"
+			:key="item.id"
+		>
 			<figure>
-				<NuxtPicture :src="item.image" @load="imageLoaded(item.id)" width="800" />
+				<NuxtPicture :src="item.image" @load="imageLoaded(item.id)" width="800" :loading="k > 6 ? 'lazy' : 'eager'" :placeholder="item.thumbnail" />
 			</figure>
 		</div>
 	</div>
