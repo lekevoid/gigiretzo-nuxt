@@ -13,8 +13,8 @@
 				<section v-for="section in sections" :class="[section.slug, { active: section.slug === currentTab }]">
 					<div class="tab_bg_color">
 						<div class="tab_bg_paper">
-							<AboutBio v-if="section.slug === 'bio'" :fetched-bio="bio" />
-							<AboutArtistStatement v-if="section.slug === 'artist-statement'" :fetched-artist-statement="artistStatement" />
+							<AboutBio v-if="section.slug === 'bio'" />
+							<AboutArtistStatement v-if="section.slug === 'artist-statement'" />
 							<AboutCV v-if="section.slug === 'cv'" :fetched-cv-entries="cvEntries" :fetched-cv-sections="cvSections" />
 						</div>
 					</div>
@@ -33,11 +33,11 @@ const { t } = useI18n();
 const route = useRoute();
 const localePath = useLocalePath();
 
-const { currentTab, bio } = storeToRefs(useAboutPageStore());
+const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
 const allContent = await getMultipleSheets({ sheets: ["Artist Statement", "CV Entries", "CV Sections"] });
-const [artistStatement, cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
+const [cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
@@ -63,6 +63,21 @@ watch(currentTab, () => {
 		const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
 		window.history.pushState({}, "Test", toPath);
 	}
+});
+
+/* Meta & SEO */
+
+const seoTitle = computed(() => `${t(currentTab.value) || t("about")} – GigiRetzo`);
+const seoDescription = "";
+const seoImage = "";
+
+useSeoMeta({
+	title: () => seoTitle.value,
+	ogTitle: () => seoTitle.value,
+	description: () => seoDescription.value,
+	ogDescription: () => seoDescription.value,
+	ogImage: () => seoImage.value,
+	twitterCard: "summary_large_image",
 });
 </script>
 

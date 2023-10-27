@@ -137,6 +137,7 @@ section {
 		float: left;
 		max-width: 100%;
 		padding: min(5vw, 40px);
+		width: 100%;
 	}
 
 	&.bio .tab_bg_color {
@@ -170,6 +171,7 @@ section {
 		min-height: calc(60vh - 48px);
 		padding: min(5vw, 80px);
 		position: relative;
+		width: 100%;
 
 		h2 {
 			font-size: 1.6em;
@@ -188,12 +190,15 @@ section {
 		}
 	}
 
-	.bio_text {
+	.contains_md_text {
 		float: left;
 
 		p {
+			font-size: 22px;
+			line-height: 180%;
 			margin-bottom: 2em;
 			text-align: justify;
+			z-index: 1;
 		}
 
 		img {
@@ -202,6 +207,7 @@ section {
 			max-width: 40%;
 			transition: transform 0.6s ease-out;
 			width: 100%;
+			z-index: 2;
 
 			&.float_left {
 				clear: left;
@@ -310,5 +316,7 @@ section {
 		}
 	}
 
-	section {}
+	section {
+		width: 100%;
+	}
 }

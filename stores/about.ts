@@ -1,25 +1,30 @@
 import { defineStore } from "pinia";
+import { rowToJSONForMarkdown } from "@/composables/useDBHelper";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
 
 	const { locale } = useI18n();
+	const upperLocale = locale.value.toUpperCase();
 	const route = useRoute();
 
 	const fetchedArtistStatement = ref([]);
 	const fetchedBio = ref([]);
-	const fetchedCV = ref([]);
+	const fetchedCVSections = ref([]);
+	const fetchedCVEntries = ref([]);
 
 	const fetchedData = reactive({
 		fetchedArtistStatement,
 		fetchedBio,
-		fetchedCV,
+		fetchedCVSections,
+		fetchedCVEntries,
 	});
 
 	const tables: any = {
-		artistStatement: "",
+		artistStatement: "212132",
 		bio: "212115",
-		cv: "",
+		cvSections: "210584",
+		cvEntries: "210562",
 	};
 
 	const currentTab = ref(route?.params?.tab || "bio");
@@ -29,64 +34,130 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchArtistStatement() {
-		return [];
+		const asTable = await useBaserowTable(tables.artistStatement);
+
+		if (!asTable || asTable.length === 0) {
+			console.warn("useAboutStore() : Unable to fetch Artist Statement.", asTable);
+			return;
+		}
+
+		fetchedArtistStatement.value = asTable.map((row: any) => rowToJSONForMarkdown(row)).filter(Boolean);
 	}
 
 	async function fetchBio() {
 		const bioTable = await useBaserowTable(tables.bio);
 
 		if (!bioTable || bioTable.length === 0) {
-			console.warn("usePortfolioStore() : Unable to fetch Projects.", bioTable);
+			console.warn("useAboutStore() : Unable to fetch Biography.", bioTable);
 			return;
 		}
 
-		fetchedBio.value = bioTable
+		fetchedBio.value = bioTable.map((row: any) => rowToJSONForMarkdown(row));
+	}
+
+	async function fetchCV() {
+		const cvSectionsTable = await useBaserowTable(tables.cvSections);
+		const cvEntriesTable = await useBaserowTable(tables.cvEntries);
+
+		if (!cvSectionsTable || cvSectionsTable.length === 0) {
+			console.warn("useAboutStore() : Unable to fetch CV Sections.", cvSectionsTable);
+			return;
+		}
+
+		if (!cvEntriesTable || cvEntriesTable.length === 0) {
+			console.warn("useAboutStore() : Unable to fetch CV Entries.", cvEntriesTable);
+			return;
+		}
+
+		fetchedCVSections.value = cvSectionsTable
 			.map((row: any) => {
-				const paragraphI18n = `Paragraphs ${locale.value.toUpperCase()}`;
+				const labelI18n = mapColumnToLanguages(row);
 
-				if (row[paragraphI18n] !== "") {
-					return { type: "paragraph", md: row[paragraphI18n] };
+				return {
+					slug: slugify(row.EN),
+					label: labelI18n,
+				};
+			})
+			.filter(Boolean);
+
+		fetchedCVEntries.value = cvEntriesTable
+			.map((row: any) => {
+				if (!row.EN && !row.FR) {
+					return null;
 				}
 
-				if (row.Image !== "") {
-					return { type: "image", src: row.Image[0].url, align: row["Image Align"].value.toLowerCase() };
-				}
+				const cvEntrySection = row["CV Sections"][0].value || "";
+				const descriptionI18n = mapColumnToLanguages(row);
 
-				return null;
+				const out = {
+					sectionSlug: slugify(cvEntrySection),
+					section: cvEntrySection,
+					description: descriptionI18n,
+					dateStart: row["Date Start"] || "",
+					dateEnd: row["Date End"] || "",
+				};
+
+				// console.log(out);
+
+				return out;
 			})
 			.filter(Boolean);
 	}
 
-	async function fetchCV() {
-		async function fetchCVEntries() {
-			return [];
-		}
-
-		return [];
-	}
-
 	if (fetchedArtistStatement.value.length === 0) {
 		if (DEBUG_ABOUT === "true") {
-			console.debug("No Artist Statement, calling fetchProjectsTypes()");
+			console.debug("No Artist Statement, calling fetchArtistStatement()");
 		}
 		fetchArtistStatement();
 	}
 
 	if (fetchedBio.value.length === 0) {
 		if (DEBUG_ABOUT === "true") {
-			console.debug("No Biography, calling fetchProjectsTypes()");
-		}
-		fetchCV();
-	}
-
-	if (fetchedCV.value.length === 0) {
-		if (DEBUG_ABOUT === "true") {
-			console.debug("No CV, calling fetchProjectsTypes()");
+			console.debug("No Biography, calling fetchBio()");
 		}
 		fetchBio();
 	}
 
-	const bio = computed(() => fetchedBio.value);
+	if (fetchedCVSections.value.length === 0 || fetchedCVEntries.value.length === 0) {
+		if (DEBUG_ABOUT === "true") {
+			console.debug("No CV, calling fetchCV()");
+		}
+		fetchCV();
+	}
 
-	return { currentTab, setCurrentTab, fetchedData, bio };
+	const artistStatement = computed(() => {
+		return fetchedData.fetchedArtistStatement.map((par: any) => {
+			const parOut = { ...par };
+			if (parOut.text) {
+				parOut.text = parOut.text[locale.value] || parOut.text.en;
+			}
+			return parOut;
+		});
+	});
+
+	const bio = computed(() => {
+		return fetchedData.fetchedBio.map((par: any) => {
+			const parOut = { ...par };
+			if (parOut.text) {
+				parOut.text = parOut.text[locale.value] || parOut.text.en;
+			}
+			return parOut;
+		});
+	});
+
+	const cvSections = computed(() => {
+		return fetchedData.fetchedCVSections.map((section: any) => ({
+			...section,
+			label: section.label[locale.value] || section.label.en,
+		}));
+	});
+
+	const cvEntries = computed(() => {
+		return fetchedData.fetchedCVEntries.map((entry: any) => ({
+			...entry,
+			description: entry.description[locale.value] || entry.description.en,
+		}));
+	});
+
+	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, cvSections, cvEntries };
 });

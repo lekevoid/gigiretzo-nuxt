@@ -19,41 +19,19 @@
 				</div>
 			</div>
 		</div>
+		<pre>{{ cvEntries }}</pre>
 	</div>
 </template>
 
 <script setup>
 import VueMarkdown from "vue-markdown-render";
+import { storeToRefs } from "pinia";
+import { useAboutPageStore } from "@/stores/about";
 import { slugify } from "@/composables/useTextHelper";
 
 const { locale } = useI18n();
 
-const { fetchedCvEntries, fetchedCvSections } = defineProps(["fetchedCvEntries", "fetchedCvSections"]);
-
-const cvSections = computed(() => {
-	let labelIndex = 1;
-	if (locale.value === "fr") {
-		labelIndex = 2;
-	}
-
-	return fetchedCvSections.slice(1).map((section) => ({
-		slug: slugify(section[0]),
-		fetchedLabel: section[1],
-		label: section[labelIndex],
-	}));
-});
-
-const cvEntries = computed(() => {
-	let descIndex = 3;
-	if (locale.value === "fr") {
-		descIndex = 4;
-	}
-
-	return fetchedCvEntries.slice(1).map((entry) => {
-		const section = cvSections.value.find((section) => section.fetchedLabel === entry[0]);
-		return { sectionSlug: section.slug, section: section.label, dateStart: entry[1], dateEnd: entry[2], description: entry[descIndex] };
-	});
-});
+const { cvSections, cvEntries } = storeToRefs(useAboutPageStore());
 
 const cvEntriesBySectionAndDate = computed(() => {
 	let out = [];

@@ -66,15 +66,14 @@ definePageMeta({
 	layout: "portfolio",
 });
 
-if (project)
-	useSeoMeta({
-		title: () => seoTitle.value,
-		ogTitle: () => seoTitle.value,
-		description: () => seoDescription.value,
-		ogDescription: () => seoDescription.value,
-		ogImage: () => seoImage.value,
-		twitterCard: "summary_large_image",
-	});
+useSeoMeta({
+	title: () => seoTitle.value,
+	ogTitle: () => seoTitle.value,
+	description: () => seoDescription.value,
+	ogDescription: () => seoDescription.value,
+	ogImage: () => seoImage.value,
+	twitterCard: "summary_large_image",
+});
 </script>
 
 <style lang="scss" scoped>
