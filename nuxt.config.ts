@@ -22,21 +22,9 @@ export default defineNuxtConfig({
 				en: "/about/[[tab]]",
 				fr: "/a-propos/[[tab]]",
 			},
-			"portfolio/eyeing-teamwork": {
-				en: "/portfolio/eyeing-teamwork",
-				fr: "/portfolio/regard-sur-lequipe",
-			},
-			"portfolio/collect-i-ve-trauma": {
-				en: "/portfolio/collect-i-ve-trauma",
-				fr: "/portfolio/collect-i-ve-trauma",
-			},
-			"portfolio/bnw": {
-				en: "/portfolio/bnw",
-				fr: "/portfolio/bnw",
-			},
-			"portfolio/pay-attention": {
-				en: "/portfolio/pay-attention",
-				fr: "/portfolio/faites-attention",
+			"portfolio/[project-type]/[project]": {
+				en: "/portfolio/[project-type]/[project]",
+				fr: "/portfolio/[project-type]/[project]",
 			},
 		},
 		locales: [

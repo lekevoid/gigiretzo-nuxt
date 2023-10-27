@@ -10,7 +10,8 @@ export default defineI18nConfig(() => ({
 			cv: "CV",
 			"artist-statement": "Artist Statement",
 			Portfolio: "Portfolio",
-			Series: "Series",
+			series: "Series",
+			"public-art": "Public Art",
 		},
 		fr: {
 			home: "Maison",
@@ -20,7 +21,8 @@ export default defineI18nConfig(() => ({
 			cv: "CV",
 			"artist-statement": "Démarche Artistique",
 			Portfolio: "Portfolio",
-			Series: "Séries",
+			series: "Séries",
+			"public-art": "Art public",
 		},
 	},
 }));

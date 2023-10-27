@@ -21,42 +21,45 @@
 			<li>
 				<span class="label">Portfolio</span>
 				<ul>
-					<li>
-						<span class="label">Public Art</span>
+					<li v-for="projectType in projectTypes">
+						<span class="label">{{ projectType.title }}</span>
 						<ul>
-							<li>Loving Hearts</li>
-							<li>One-Way</li>
-							<li>Fruit of Empathy</li>
-							<li>Ruby Slippers</li>
-						</ul>
-					</li>
-					<li>
-						<span class="label">Series</span>
-						<ul>
-							<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork' })">Eyeing Teamwork</NuxtLink></li>
-							<li>Collect. I’ve trauma</li>
-							<li>BnW</li>
-							<li>Pay Attention!</li>
+							<li v-for="project in projectsInType(projectType.slug)">
+								<NuxtLink
+									:to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })"
+								>
+									{{ project.title }}
+								</NuxtLink>
+							</li>
 						</ul>
 					</li>
 				</ul>
 			</li>
 			<li><NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })">CV</NuxtLink></li>
-			<li><NuxtLink :to="localePath({ name: 'portfolio-eyeing-teamwork' })">Eyeing Teamwork</NuxtLink></li>
 		</ul>
 	</nav>
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { useAboutPageStore } from "@/stores/about";
+import { usePortfolioStore } from "@/stores/portfolio";
+const { projects, projectTypes } = storeToRefs(usePortfolioStore());
 
 const route = useRoute();
+const router = useRouter();
+console.log(router.getRoutes());
+
 const localePath = useLocalePath();
 
 const { setCurrentTab } = useAboutPageStore();
 
 function isAbout() {
 	return !!route.name.match(/^about/);
+}
+
+function projectsInType(type) {
+	return projects.value.filter((project) => project.type === type);
 }
 </script>
 
