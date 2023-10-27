@@ -36,7 +36,7 @@ function isAbout() {
 
 function langLinkDestination(lang) {
 	if (isAbout()) {
-		return localePath({ name: "about-tab", params: { tab: currentTab } }, item.code);
+		return localePath({ name: "about-tab", params: { tab: currentTab.value } }, lang);
 	}
 
 	return switchLocalePath(item.code);
