@@ -12,9 +12,9 @@ import { storeToRefs } from "pinia";
 import { usePortfolioStore } from "@/stores/portfolio";
 
 const route = useRoute();
-const { locale, t } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
-const { defaultProjectObject, projects, projectTypes, portfolio } = storeToRefs(usePortfolioStore());
+const { defaultProjectObject, projectTypes } = storeToRefs(usePortfolioStore());
 
 const projectType = computed(() => {
 	return projectTypes.value.find((pt) => pt.slug === route.params.projecttype) || defaultProjectObject;

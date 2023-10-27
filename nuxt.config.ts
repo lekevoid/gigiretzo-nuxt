@@ -61,6 +61,7 @@ export default defineNuxtConfig({
 			SHEET_ID: process.env.SHEET_ID,
 			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
 			BASEROW_KEY: process.env.BASEROW_KEY,
+			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,
 		},
 	},
 });

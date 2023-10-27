@@ -6,6 +6,8 @@ import { fetchPCloudFolder } from "@/composables/usePCloud";
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
+	const { DEBUG_PORTFOLIO } = useRuntimeConfig().public;
+
 	const { locale, localeCodes } = useI18n();
 
 	const defaultProjectObject = {
@@ -62,9 +64,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
 			const out = {
-				id: piece.id,
+				id: slugify(piece["Title EN"]),
 				order: parseInt(piece.order),
 				title: titleI18n,
+				slug: slugify(piece["Title EN"]),
 				description: descriptionI18n,
 				height: piece["Height (in)"],
 				width: piece["Width (in)"],
@@ -116,7 +119,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 
 		if (fetchedPortfolio.value.length === 0) {
-			console.debug("No portfolio, calling populatePortfolio()");
+			if (DEBUG_PORTFOLIO === "true") {
+				console.debug("No portfolio, calling populatePortfolio()");
+			}
 			populatePortfolio();
 		}
 	}
@@ -135,13 +140,17 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 
 		if (fetchedProjects.value.length === 0) {
-			console.debug("No projects, calling fetchProject()");
+			if (DEBUG_PORTFOLIO === "true") {
+				console.debug("No projects, calling fetchProject()");
+			}
 			fetchProjects();
 		}
 	}
 
 	if (fetchedProjectTypes.value.length === 0) {
-		console.debug("No projects types, calling fetchProjectsTypes()");
+		if (DEBUG_PORTFOLIO === "true") {
+			console.debug("No projects types, calling fetchProjectsTypes()");
+		}
 		fetchProjectTypes();
 	}
 
@@ -163,7 +172,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	});
 
 	const portfolio = computed(() => {
-		console.log(fetchedData.fetchedPortfolio);
 		return fetchedData.fetchedPortfolio.map((piece: any) => {
 			const project = projects.value.find((project) => project.slug === slugify(piece.project)) || piece.project;
 

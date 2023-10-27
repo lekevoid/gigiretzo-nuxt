@@ -44,15 +44,12 @@
 import { storeToRefs } from "pinia";
 import { useAboutPageStore } from "@/stores/about";
 import { usePortfolioStore } from "@/stores/portfolio";
-const { projects, projectTypes } = storeToRefs(usePortfolioStore());
 
 const route = useRoute();
-const router = useRouter();
-console.log(router.getRoutes());
-
 const localePath = useLocalePath();
 
 const { setCurrentTab } = useAboutPageStore();
+const { projects, projectTypes } = storeToRefs(usePortfolioStore());
 
 function isAbout() {
 	return !!route.name.match(/^about/);
@@ -67,9 +64,9 @@ function projectsInType(type) {
 @import "~/assets/styles/dependencies";
 
 $mainItemMargin: min(4vw, 80px);
-$ulPaddingX: min(4vw, 20px);
+$ulPaddingX: min(4vw, 32px);
 $ulPaddingY: min(2vw, 12px);
-$ulPaddingXNeg: max(-4vw, -20px);
+$ulPaddingXNeg: max(-4vw, -32px);
 $ulPaddingYNeg: max(-2vw, -12px);
 
 nav {
@@ -120,7 +117,7 @@ nav {
 
 				li {
 					line-height: 160%;
-					padding: 0 $ulPaddingX;
+					padding: 6px $ulPaddingX;
 
 					ul {
 						top: $ulPaddingYNeg;
