@@ -82,7 +82,7 @@ onMounted(() => {
 		setTimeout(() => {
 			line.classList.remove("c");
 		}, 10);
-	}, 100);
+	}, 200);
 });
 
 onBeforeUnmount(() => {
