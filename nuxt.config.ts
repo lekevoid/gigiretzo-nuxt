@@ -41,7 +41,7 @@ export default defineNuxtConfig({
 	},
 
 	image: {
-		domains: ["netlify.app"],
+		domains: ["netlify.app", "baserow-media.ams3.digitaloceanspaces.com"],
 		format: ["avif", "webp"],
 		screens: {
 			xs: 320,
