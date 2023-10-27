@@ -15,7 +15,7 @@
 	</main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { usePortfolioStore } from "@/stores/portfolio";
 
@@ -55,8 +55,19 @@ function closeOrbit() {
 	showOrbit.value = false;
 }
 
+/* Meta & SEO */
+
 definePageMeta({
 	layout: "portfolio",
+});
+
+useSeoMeta({
+	title: () => `${project.value?.title} – GigiRetzo`,
+	ogTitle: () => `${project.value?.title} – GigiRetzo`,
+	description: () => project.value?.description,
+	ogDescription: () => project.value?.description,
+	ogImage: () => pieces?.[0]?.image,
+	twitterCard: "summary_large_image",
 });
 </script>
 
