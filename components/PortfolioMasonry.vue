@@ -12,9 +12,11 @@
 				<NuxtImg
 					:src="item.image"
 					@load="imageLoaded(item.id)"
+					@error="imageError(item.id)"
 					sizes="600px sm:400px md:460px"
 					:loading="k > 6 ? 'lazy' : 'eager'"
 					placeholder="/loader-bars-scale.svg"
+					preload
 				/>
 			</figure>
 		</div>
@@ -66,12 +68,23 @@ function handleViewportSize() {
 	isLoaded.value = true;
 }
 
+function handleScrollOnError() {
+	const errorImages = document.querySelectorAll(".masonry_item");
+	console.log(errorImages);
+}
+
 function imageLoaded(imgID) {
 	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("loaded");
 	recalculateMasonry();
 }
 
+function imageError(imgID) {
+	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("error");
+	window.addEventListener("scroll", handleScrollOnError);
+}
+
 onMounted(() => {
+	window.addEventListener("scroll", handleScrollOnError);
 	window.addEventListener("resize", handleViewportSize);
 	handleViewportSize();
 	setTimeout(handleViewportSize, 200);
@@ -80,6 +93,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
 	window.removeEventListener("resize", handleViewportSize);
+	window.removeEventListener("scroll", handleScrollOnError);
 });
 </script>
 
