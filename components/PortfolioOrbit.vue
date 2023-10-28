@@ -13,7 +13,10 @@
 				<div class="zone_btn">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
-				<div class="zone_description"></div>
+				<div class="zone_description">
+					<h3>{{ item.title }}</h3>
+					<p>{{ item.description }}</p>
+				</div>
 			</div>
 		</div>
 	</div>
