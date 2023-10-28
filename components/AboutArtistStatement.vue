@@ -2,7 +2,7 @@
 	<div class="inner artist_statement_text contains_md_text">
 		<template v-for="par in artistStatement">
 			<vue-markdown v-if="par.type === 'paragraph'" :source="par.text" :options="{ linkify: true }" />
-			<NuxtImg v-if="par.type === 'image'" :src="par.src" :class="`float_${par.align}`" />
+			<NuxtImg v-if="par.type === 'image'" :src="par.src" :class="`float_${par.align}`" placeholder="/loader-bars-scale.svg" preload />
 		</template>
 	</div>
 </template>

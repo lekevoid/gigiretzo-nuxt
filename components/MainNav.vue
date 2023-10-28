@@ -68,9 +68,9 @@ function toggleActiveState($event) {
 @import "~/assets/styles/dependencies";
 
 $mainItemMargin: min(4vw, 80px);
-$ulPaddingRight: min(4vw, 38px);
+$ulPaddingRight: min(4vw, 44px);
 $ulPaddingLeft: min(4vw, 26px);
-$ulPaddingY: min(2vw, 44px);
+$ulPaddingY: min(2vw, 12px);
 $ulPaddingLeftNeg: max(-4vw, -26px);
 $ulPaddingYNeg: max(-2vw, -12px);
 
