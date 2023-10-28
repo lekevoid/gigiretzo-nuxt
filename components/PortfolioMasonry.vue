@@ -29,7 +29,7 @@ const isLoaded = ref(false);
 const itemsRef = ref(null);
 
 function recalculateMasonry() {
-	if (items.length === 0) {
+	if (items.length === 0 || !itemsRef.value) {
 		return;
 	}
 

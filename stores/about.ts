@@ -115,7 +115,15 @@ export const useAboutPageStore = defineStore("about", () => {
 			return;
 		}
 
-		fetchedPress.value = pressTable.map((row: any) => rowToJSONForMarkdown(row));
+		fetchedPress.value = pressTable.map((row: any) => {
+			const textI18n = mapColumnToLanguages(row);
+			return {
+				id: row.id,
+				order: parseInt(row.order),
+				text: textI18n,
+				file: row.File[0].url,
+			};
+		});
 	}
 
 	if (fetchedArtistStatement.value.length === 0) {
@@ -180,7 +188,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		}));
 	});
 
-	const news = computed(() => {
+	const press = computed(() => {
 		return fetchedData.fetchedPress.map((item: any) => {
 			const itemOut = { ...item };
 			if (itemOut.text) {
@@ -190,5 +198,5 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	});
 
-	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, cvSections, cvEntries };
+	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, cvSections, cvEntries, press };
 });
