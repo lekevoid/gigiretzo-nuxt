@@ -84,7 +84,7 @@
 		background-color: var(--about-tab-purple);
 	}
 
-	.tab_news button {
+	.tab_news-press button {
 		background-color: var(--about-tab-magenta);
 	}
 
@@ -156,7 +156,7 @@ section {
 		background-color: var(--about-section-bg-purple);
 	}
 
-	&.news .tab_bg_color {
+	&.news-press .tab_bg_color {
 		background-color: var(--about-section-bg-magenta);
 	}
 
@@ -175,6 +175,7 @@ section {
 
 		h2 {
 			font-size: 1.6em;
+			margin-bottom: 2em;
 		}
 
 		h3 {

@@ -16,6 +16,7 @@
 							<AboutBio v-if="section.slug === 'bio'" />
 							<AboutArtistStatement v-if="section.slug === 'artist-statement'" />
 							<AboutCV v-if="section.slug === 'cv'" />
+							<AboutNews v-if="section.slug === 'news-press'" />
 						</div>
 					</div>
 				</section>
@@ -39,12 +40,14 @@ const sections = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
+	{ label: t("news-press"), slug: "news-press" },
 ];
 
 const tabs = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
+	{ label: t("news-press"), slug: "news-press" },
 ];
 
 onMounted(() => {
