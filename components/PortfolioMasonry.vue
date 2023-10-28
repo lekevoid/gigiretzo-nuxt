@@ -1,5 +1,5 @@
 <template>
-	<div class="masonry_container" ref="itemsRef">
+	<div :class="['masonry_container', { loaded: isLoaded }]" ref="itemsRef">
 		<div
 			v-for="(item, k) in items"
 			class="masonry_item"
@@ -62,16 +62,20 @@ function handleViewportSize() {
 	} else {
 		resetMasonry();
 	}
+
+	isLoaded.value = true;
 }
 
 function imageLoaded(imgID) {
-	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("visible");
+	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("loaded");
 	recalculateMasonry();
 }
 
 onMounted(() => {
-	handleViewportSize();
 	window.addEventListener("resize", handleViewportSize);
+	handleViewportSize();
+	setTimeout(handleViewportSize, 200);
+	setTimeout(handleViewportSize, 4000);
 });
 
 onBeforeUnmount(() => {
@@ -90,6 +94,12 @@ onBeforeUnmount(() => {
 	width: 100%;
 	margin-left: 4px;
 	min-height: 300px;
+	opacity: 0;
+	transition: opacity 0.3s;
+
+	&.loaded {
+		opacity: 1;
+	}
 }
 
 .masonry_item {
@@ -100,6 +110,7 @@ onBeforeUnmount(() => {
 	transition: opacity 0.6s ease, transform 0.6s ease;
 	transform: scale(1);
 	min-height: 300px;
+	background: #fff;
 
 	figure {
 		transition: padding 0.6s ease;
@@ -117,7 +128,7 @@ onBeforeUnmount(() => {
 		height: auto;
 	}
 
-	&.visible {
+	&.loaded {
 		opacity: 1;
 		transform: scale(1);
 		min-height: 0px;

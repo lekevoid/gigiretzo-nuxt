@@ -46,7 +46,8 @@ const projectsOfType = computed(() => {
 	font-size: min(4vw, 28px);
 	justify-content: center;
 	align-items: center;
-	aspect-ratio: 2/1;
+	aspect-ratio: 3/2;
+	max-height: 100px;
 	text-align: center;
 	overflow: hidden;
 	border-radius: 50%;
@@ -69,14 +70,14 @@ const projectsOfType = computed(() => {
 		height: 100%;
 		width: 100%;
 		color: #000;
-		padding: 10px 20px;
+		padding: 10px min(3vw, 20px);
 		text-align: center;
 		line-height: 120%;
 	}
 
 	&.active {
 		text-shadow: 0px 0px 2px #fff, 0px 0px 2px #fff, 0px 0px 4px #fff, 0px 0px 4px #fff;
-		font-size: min(5vw, 36px);
+		font-size: min(4.2vw, 36px);
 		pointer-events: none;
 	}
 
@@ -167,13 +168,15 @@ const projectsOfType = computed(() => {
 
 	.bubble {
 		flex-basis: calc(25% - 20px);
-		font-size: min(2.4vw, 28px);
+		font-size: min(2vw, 28px);
+		max-height: 150px;
+
+		a {
+			padding: 10px;
+		}
 
 		&.active {
-			font-size: min(3vw, 36px);
-			a {
-				padding: 10px;
-			}
+			font-size: min(2.6vw, 36px);
 		}
 	}
 }
