@@ -99,6 +99,7 @@ onBeforeUnmount(() => {
 	opacity: 1;
 	transition: opacity 0.6s ease, transform 0.6s ease;
 	transform: scale(1);
+	min-height: 300px;
 
 	figure {
 		transition: padding 0.6s ease;
@@ -119,6 +120,7 @@ onBeforeUnmount(() => {
 	&.visible {
 		opacity: 1;
 		transform: scale(1);
+		min-height: 0px;
 	}
 }
 
