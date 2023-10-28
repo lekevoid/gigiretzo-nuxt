@@ -9,7 +9,13 @@
 			:key="item.id"
 		>
 			<figure>
-				<NuxtImg :src="item.image" @load="imageLoaded(item.id)" sizes="600px sm:400px md:460px" :loading="k > 6 ? 'lazy' : 'eager'" />
+				<NuxtImg
+					:src="item.image"
+					@load="imageLoaded(item.id)"
+					sizes="600px sm:400px md:460px"
+					:loading="k > 6 ? 'lazy' : 'eager'"
+					placeholder="/loader-bars-scale.svg"
+				/>
 			</figure>
 		</div>
 	</div>
@@ -90,16 +96,12 @@ onBeforeUnmount(() => {
 	width: 100%;
 	cursor: pointer;
 	flex: 0 0 100%;
-	opacity: 0;
+	opacity: 1;
 	transition: opacity 0.6s ease, transform 0.6s ease;
-	transform: scale(0.4);
-
-	&.visible {
-		opacity: 1;
-		transform: scale(1);
-	}
+	transform: scale(1);
 
 	figure {
+		transition: padding 0.6s ease;
 		box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 		padding: 10px;
 		margin: 0;
@@ -112,6 +114,11 @@ onBeforeUnmount(() => {
 		width: 100%;
 		max-width: 100%;
 		height: auto;
+	}
+
+	&.visible {
+		opacity: 1;
+		transform: scale(1);
 	}
 }
 
