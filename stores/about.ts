@@ -115,13 +115,26 @@ export const useAboutPageStore = defineStore("about", () => {
 			return;
 		}
 
+		function getFileType(filepath) {
+			if (filepath.match(/\.(jpg|jpeg|png|gif)$/)) {
+				return "image";
+			}
+
+			if (filepath.match(/\.(pdf)$/)) {
+				return "document";
+			}
+
+			return "unknown";
+		}
+
 		fetchedPress.value = pressTable.map((row: any) => {
 			const textI18n = mapColumnToLanguages(row);
 			return {
 				id: row.id,
 				order: parseInt(row.order),
+				type: getFileType(row.File[0].url),
 				text: textI18n,
-				file: row.File[0].url,
+				src: row.File[0].url,
 			};
 		});
 	}
