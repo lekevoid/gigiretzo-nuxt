@@ -15,7 +15,7 @@
 						<div class="tab_bg_paper">
 							<AboutBio v-if="section.slug === 'bio'" />
 							<AboutArtistStatement v-if="section.slug === 'artist-statement'" />
-							<AboutCV v-if="section.slug === 'cv'" :fetched-cv-entries="cvEntries" :fetched-cv-sections="cvSections" />
+							<AboutCV v-if="section.slug === 'cv'" />
 						</div>
 					</div>
 				</section>
@@ -26,7 +26,6 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { getMultipleSheets } from "@/composables/useSheet";
 import { useAboutPageStore } from "@/stores/about";
 
 const { t } = useI18n();
@@ -35,9 +34,6 @@ const localePath = useLocalePath();
 
 const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
-
-const allContent = await getMultipleSheets({ sheets: ["Artist Statement", "CV Entries", "CV Sections"] });
-const [cvEntries, cvSections] = allContent.map((sheet) => sheet.values);
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },

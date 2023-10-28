@@ -2,7 +2,7 @@
 	<main class="page_portfolio">
 		<div class="container" v-if="project">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
-			<!-- <PortfolioProjectsBubbleNav :project-type="project.type" /> -->
+			<PortfolioProjectsBubbleNav :project-type="project.type" />
 			<h1>{{ project.title }}</h1>
 			<p class="description">{{ project.description }}</p>
 			<!-- <pre>{{ pieces }}</pre> -->

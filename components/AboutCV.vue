@@ -19,7 +19,6 @@
 				</div>
 			</div>
 		</div>
-		<pre>{{ cvEntries }}</pre>
 	</div>
 </template>
 
@@ -27,9 +26,6 @@
 import VueMarkdown from "vue-markdown-render";
 import { storeToRefs } from "pinia";
 import { useAboutPageStore } from "@/stores/about";
-import { slugify } from "@/composables/useTextHelper";
-
-const { locale } = useI18n();
 
 const { cvSections, cvEntries } = storeToRefs(useAboutPageStore());
 
