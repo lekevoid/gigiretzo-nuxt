@@ -9,7 +9,7 @@ export async function useBaserowTable(tableID) {
 	const { data, error } = await useFetch(url, { headers });
 
 	if (error.value) {
-		return error.value;
+		throw new Error(error.value);
 	}
 
 	return data.value.results;

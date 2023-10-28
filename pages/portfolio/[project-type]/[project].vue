@@ -22,7 +22,7 @@ import { usePortfolioStore } from "@/stores/portfolio";
 const route = useRoute();
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
-const { defaultProjectObject, projects, projectTypes, portfolio } = storeToRefs(usePortfolioStore());
+const { defaultProjectObject, projects, portfolio } = storeToRefs(usePortfolioStore());
 
 /* Project functions */
 

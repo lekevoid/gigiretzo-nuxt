@@ -37,7 +37,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	};
 
 	async function populatePortfolio() {
-		let aggregatedProjects: any = [];
 		const projectsTablesList = fetchedProjects.value.map((project: any) => project.title.en);
 
 		function formatPiece(piece) {
@@ -58,7 +57,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return out;
 		}
 
-		await projectsTablesList.forEach(async (projectName) => {
+		projectsTablesList.forEach(async (projectName: string) => {
 			if (!tables.hasOwnProperty(projectName)) {
 				return;
 			}
@@ -72,7 +71,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 					return formattedPiece;
 				});
 
-				fetchedPortfolio.value = out;
+				fetchedPortfolio.value.push([...out]);
 			}
 		});
 	}
@@ -153,7 +152,11 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	});
 
 	const portfolio = computed(() => {
-		return fetchedData.fetchedPortfolio.map((piece: any) => {
+		const mergedPortfolio = fetchedData.fetchedPortfolio.reduce((accumulator, currentArray) => {
+			return accumulator.concat(currentArray);
+		}, []);
+
+		return mergedPortfolio.map((piece: any) => {
 			const { title: projectTitle, slug: projectSlug } = projects.value.find((project) => project.slug === slugify(piece.project)) || piece.project;
 
 			return {
@@ -165,5 +168,5 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 	});
 
-	return { projects, projectTypes, portfolio, fetchedData, defaultProjectObject };
+	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData, defaultProjectObject };
 });
