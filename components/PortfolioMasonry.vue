@@ -106,14 +106,14 @@ onBeforeUnmount(() => {
 	width: 100%;
 	cursor: pointer;
 	flex: 0 0 100%;
-	opacity: 1;
+	min-height: 0px;
 	transition: opacity 0.6s ease, transform 0.6s ease;
 	transform: scale(1);
-	min-height: 300px;
+	opacity: 1;
 	background: #fff;
 
 	figure {
-		transition: padding 0.6s ease;
+		transition: padding 0.6s ease, box-shadow 0.6s ease;
 		box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 		padding: 10px;
 		margin: 0;
@@ -128,10 +128,18 @@ onBeforeUnmount(() => {
 		height: auto;
 	}
 
-	&.loaded {
-		opacity: 1;
+	&:not(.loaded) {
 		transform: scale(1);
-		min-height: 0px;
+		min-height: 300px;
+		opacity: 1;
+	}
+
+	&:hover {
+		transform: scale(1) translate(-6px, -6px);
+
+		figure {
+			box-shadow: 8px 9px 24px 0 rgba(#000, 0.5);
+		}
 	}
 }
 
