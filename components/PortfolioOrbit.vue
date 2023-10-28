@@ -59,7 +59,9 @@ onMounted(() => {
 
 	&.fade-enter-active,
 	&.fade-leave-active {
-		transition: opacity 1s ease;
+		transition-property: opacity;
+		transition-duration: var(--top-nav-reduce-transition-duration);
+		transition-timing-function: ease;
 	}
 
 	&.fade-enter-from,

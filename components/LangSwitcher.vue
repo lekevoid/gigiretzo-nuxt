@@ -73,5 +73,8 @@ function langLinkDestination(lang) {
 .lang_selector_icon {
 	height: var(--top-nav-icons-size);
 	width: var(--top-nav-icons-size);
+	transition-property: height, width;
+	transition-duration: var(--top-nav-reduce-transition-duration);
+	transition-timing-function: ease;
 }
 </style>

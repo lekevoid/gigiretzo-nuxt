@@ -1,4 +1,5 @@
 <template>
+	<Body :class="[{ nav_reduced: isNavReduced }]" />
 	<header>
 		<div class="row row_1">
 			<div class="container">
@@ -36,6 +37,27 @@ const social = [
 	{ name: "Instagram", link: "https://www.instagram.com/Gigi_Retzo_Artist", icon: icon_instagram },
 	{ name: "LinkedIn", link: "https://www.linkedin.com/in/gigiretzo/", icon: icon_linkedin },
 ];
+
+const isNavReduced = ref(false);
+
+function handleScroll() {
+	const { scrollY } = window;
+
+	if (scrollY > 200) {
+		isNavReduced.value = true;
+	} else {
+		isNavReduced.value = false;
+	}
+}
+
+onMounted(() => {
+	handleScroll();
+	window.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+	window.removeEventListener("scroll", handleScroll);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -46,6 +68,10 @@ $whiteBorderWidth: 3px;
 header {
 	background-color: #000;
 	color: #fff;
+	position: fixed;
+	width: 100vw;
+	left: 0;
+	top: 0;
 
 	.row {
 		display: flex;
@@ -55,6 +81,9 @@ header {
 
 	.row_1 {
 		border-bottom: $whiteBorderWidth solid #fff;
+		transition-property: height, padding-top;
+		transition-duration: var(--top-nav-reduce-transition-duration);
+		transition-timing-function: ease;
 
 		.container {
 			justify-content: space-between;
@@ -78,11 +107,17 @@ header {
 .zone_brand {
 	flex: 0 0 100%;
 	transform: translateY(10px);
+	transition-property: transform;
+	transition-duration: var(--top-nav-reduce-transition-duration);
+	transition-timing-function: ease;
 
 	& > a {
 		display: block;
 		width: 400px;
 		max-width: 60vw;
+		transition-property: width, max-width;
+		transition-duration: var(--top-nav-reduce-transition-duration);
+		transition-timing-function: ease;
 	}
 
 	#brand {
@@ -110,6 +145,9 @@ header {
 		img {
 			height: var(--top-nav-icons-size);
 			width: var(--top-nav-icons-size);
+			transition-property: height, width;
+			transition-duration: var(--top-nav-reduce-transition-duration);
+			transition-timing-function: ease;
 		}
 	}
 }
@@ -124,12 +162,31 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	transition-property: flex-basis, width, padding-left;
+	transition-duration: var(--top-nav-reduce-transition-duration);
+	transition-timing-function: ease;
+}
+
+.nav_reduced {
+	.zone_brand {
+		transform: translateY(5px);
+
+		& > a {
+			width: 300px;
+			max-width: 40vw;
+		}
+	}
+	.zone_lang {
+		flex-basis: 60px;
+		padding-left: 10px;
+		width: auto;
+	}
 }
 
 @media (min-width: 500px) {
 	header {
 		.row_1 {
-			padding-top: 20px;
+			padding-top: var(--top-nav-row-1-padding-top);
 			height: var(--top-nav-row-1-height);
 			.container {
 				flex-wrap: nowrap;
@@ -153,6 +210,15 @@ header {
 	.zone_lang {
 		flex: 0 0 120px;
 		max-width: 20%;
+	}
+
+	.nav_reduced {
+		.zone_brand {
+			& > a {
+				width: 200px;
+				max-width: 25vw;
+			}
+		}
 	}
 }
 </style>

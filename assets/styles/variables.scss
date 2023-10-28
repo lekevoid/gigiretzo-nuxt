@@ -25,8 +25,10 @@
 	--about-section-bg-purple: rgba(136, 0, 255, 0.4);
 	--about-section-bg-magenta: rgba(221, 0, 68, 0.4);
 	--about-section-bg-yellow: rgba(255, 187, 0, 0.4);
+	--top-nav-reduce-transition-duration: 1s;
 	--top-nav-icons-size: min(10vw, 40px);
 	--top-nav-row-1-height: min(50vw, 100px);
+	--top-nav-row-1-padding-top: 20px;
 	--about-page-font-size: clamp(14px, 3vw, 22px);
 	--about-page-line-height: 140%;
 	--project-color-eyeing-teamwork-accent: #dbb3e9;
@@ -45,6 +47,12 @@
 	--project-color-one-way-complement: #a2e680;
 	--project-color-fruit-of-empathy-complement: #f7bb80;
 	--project-color-ruby-slippers-complement: #c480ff;
+}
+
+.nav_reduced {
+	--top-nav-row-1-height: min(50vw, 50px);
+	--top-nav-row-1-padding-top: 10px;
+	--top-nav-icons-size: min(5vw, 30px);
 }
 
 @media (min-width: 500px) {

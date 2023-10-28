@@ -35,7 +35,6 @@
 					</li>
 				</ul>
 			</li>
-			<li><NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })">CV</NuxtLink></li>
 		</ul>
 	</nav>
 </template>
@@ -61,6 +60,7 @@ function projectsInType(type) {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "~/assets/styles/dependencies";
 
 $mainItemMargin: min(4vw, 80px);
@@ -82,7 +82,10 @@ nav {
 			color: #4c0;
 		}
 	}
-	.label {
+	.label,
+	a {
+		padding: 6px $ulPaddingX;
+		display: inline-block;
 		white-space: nowrap;
 	}
 
@@ -94,8 +97,6 @@ nav {
 
 		li {
 			cursor: default;
-			white-space: nowrap;
-			padding: 16px $mainItemMargin 16px 0;
 
 			ul {
 				padding: $ulPaddingY 0;
@@ -117,15 +118,10 @@ nav {
 
 				li {
 					line-height: 160%;
-					padding: 6px $ulPaddingX;
 
 					ul {
 						top: $ulPaddingYNeg;
 						left: 100%;
-
-						li {
-							zoom: 1;
-						}
 					}
 				}
 			}
@@ -137,13 +133,28 @@ nav {
 					pointer-events: all;
 
 					& > li {
-						transition: opacity 0.6s ease, max-height 1s ease;
+						transition: opacity 0.6s ease, max-height var(--top-nav-reduce-transition-duration) ease;
 						max-height: 300px;
 						opacity: 1;
 					}
 				}
 			}
 		}
+	}
+
+	& > ul > li > .label {
+		background: rgba(#000, 0.1);
+		padding: 16px $mainItemMargin 16px 0;
+		transition-property: padding;
+		transition-duration: var(--top-nav-reduce-transition-duration);
+		transition-timing-function: ease;
+	}
+}
+
+.nav_reduced {
+	nav > ul > li > .label {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 }
 </style>
