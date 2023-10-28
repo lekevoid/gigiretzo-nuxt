@@ -23,11 +23,6 @@ export function mapColumnToLanguages(table: any, columnName: string = "") {
 }
 
 export function rowToJSONForMarkdown(row) {
-	const { $i18n } = useNuxtApp();
-	const locale = $i18n.locale;
-
-	const upperLocale = locale.value.toUpperCase();
-
 	if (row.Type?.value && ["Title", "Subtitle", "Paragraph"].includes(row.Type.value)) {
 		const textI18n = mapColumnToLanguages(row);
 		return { type: row.Type.value.toLowerCase(), text: textI18n };
