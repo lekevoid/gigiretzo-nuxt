@@ -1,7 +1,7 @@
 <template>
 	<nav>
 		<ul>
-			<li>
+			<li @click="toggleActiveState">
 				<span class="label">About</span>
 				<ul>
 					<li>
@@ -18,10 +18,10 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li @click="toggleActiveState">
 				<span class="label">Portfolio</span>
 				<ul>
-					<li v-for="projectType in projectTypes">
+					<li v-for="projectType in projectTypes" @click="toggleActiveState">
 						<span class="label">{{ projectType.title }}</span>
 						<ul>
 							<li v-for="project in projectsInType(projectType.slug)">
@@ -57,6 +57,10 @@ function isAbout() {
 function projectsInType(type) {
 	return projects.value.filter((project) => project.type === type);
 }
+
+function toggleActiveState($event) {
+	// $event.target.classList.toggle("active");
+}
 </script>
 
 <style lang="scss" scoped>
@@ -77,16 +81,20 @@ nav {
 		color: #fff;
 		cursor: pointer;
 		transition: color 0.3s ease;
+		padding: 6px $ulPaddingX;
+		display: inline-block;
+		white-space: nowrap;
 
 		&:hover {
 			color: #4c0;
 		}
 	}
-	.label,
-	a {
+
+	.label {
 		padding: 6px $ulPaddingX;
 		display: inline-block;
 		white-space: nowrap;
+		pointer-events: none;
 	}
 
 	ul {
@@ -126,7 +134,8 @@ nav {
 				}
 			}
 
-			&:hover {
+			&:hover,
+			&.active {
 				& > ul {
 					opacity: 1;
 					transition: none;
