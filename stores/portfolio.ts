@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
-import { mapColumnToLanguages } from "@/composables/useDBHelper";
+import { mapColumnToLanguages, longTextToParagraphs } from "@/composables/useDBHelper";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
@@ -86,6 +86,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		fetchedProjects.value = projectsTable.map((project: any) => {
 			const titleI18n = mapColumnToLanguages(project, "Title");
 			const descriptionI18n = mapColumnToLanguages(project, "Description");
+
 			return {
 				id: project.id,
 				order: parseInt(project.order),
@@ -143,7 +144,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return {
 				...p,
 				title: p.title[locale.value] || p.title.en,
-				description: p.description[locale.value] || p.description.en,
+				description: longTextToParagraphs(p.description[locale.value]) || longTextToParagraphs(p.description.en),
 				type: slugify(p.type),
 			};
 		});

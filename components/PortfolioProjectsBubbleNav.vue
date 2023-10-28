@@ -8,7 +8,6 @@
 			</div>
 		</div>
 	</div>
-	<pre>{{ projectsOfType }}</pre>
 </template>
 
 <script setup>
@@ -73,6 +72,16 @@ const projectsOfType = computed(() => {
 		padding: 10px 20px;
 		text-align: center;
 		line-height: 120%;
+	}
+
+	&.active {
+		text-shadow: 0px 0px 2px #fff, 0px 0px 2px #fff, 0px 0px 4px #fff, 0px 0px 4px #fff;
+		font-size: min(5vw, 36px);
+		pointer-events: none;
+	}
+
+	&:not(.active) .inner {
+		border-width: 5px;
 	}
 
 	&.project_loving-hearts .inner {
@@ -144,15 +153,6 @@ const projectsOfType = computed(() => {
 		&:hover {
 			background-color: var(--project-color-pay-attention-complement);
 		}
-	}
-
-	&.active {
-		text-shadow: 0px 0px 2px #fff, 0px 0px 2px #fff, 0px 0px 4px #fff, 0px 0px 4px #fff;
-		font-size: min(5vw, 36px);
-	}
-
-	&:not(.active) .inner {
-		border-width: 5px;
 	}
 }
 

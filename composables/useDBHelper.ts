@@ -39,3 +39,7 @@ export function rowToJSONForMarkdown(row) {
 
 	return null;
 }
+
+export function longTextToParagraphs(text: string) {
+	return "<p>" + text.split("\n").join("</p><p>") + "</p>";
+}

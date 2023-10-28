@@ -4,8 +4,7 @@
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
 			<PortfolioProjectsBubbleNav :project-type="project.type" />
 			<h1>{{ project.title }}</h1>
-			<p class="description">{{ project.description }}</p>
-			<!-- <pre>{{ pieces }}</pre> -->
+			<div class="description" v-html="project.description" />
 			<PortfolioMasonry v-if="pieces.length > 0" :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
 		</div>
 		<Teleport to="body">
@@ -32,7 +31,7 @@ const project = computed(() => {
 });
 
 const pieces = computed(() => {
-	return portfolio.value;
+	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug);
 });
 
 /* Breadcrumb functions */
@@ -79,7 +78,7 @@ useSeoMeta({
 <style lang="scss" scoped>
 .description {
 	display: inline-block;
-	font-size: 22px;
+	font-size: var(--about-page-font-size);
 	margin-bottom: 40px;
 	text-align: justify;
 	line-height: 180%;
