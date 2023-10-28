@@ -47,6 +47,7 @@ const showOrbit = ref(false);
 const initialOrbitElementID = ref("");
 
 function openOrbitToImg(imgID) {
+	console.log(imgID);
 	showOrbit.value = true;
 	initialOrbitElementID.value = imgID;
 }

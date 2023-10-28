@@ -36,6 +36,8 @@ const localePath = useLocalePath();
 const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
+const availableTabs = ["bio", "artist-statement", "cv", "news-press", "what-we-do"];
+
 const sections = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
@@ -51,7 +53,11 @@ const tabs = [
 ];
 
 onMounted(() => {
-	const { tab } = route.params;
+	let { tab } = route.params;
+	if (!availableTabs.includes(tab)) {
+		tab = "bio";
+	}
+
 	if (tab && tab !== currentTab) {
 		setCurrentTab(tab);
 	}

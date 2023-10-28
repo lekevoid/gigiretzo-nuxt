@@ -31,9 +31,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	const tables: any = {
 		projects: "210775",
 		projectTypes: "210777",
+		"One-Way": "212427",
+		BnW: "212217",
 		"Eyeing Teamwork": "210766",
 		"Pay Attention!": "212214",
-		BnW: "212217",
 	};
 
 	async function populatePortfolio() {
@@ -43,7 +44,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
 			const out = {
-				id: slugify(piece["Title EN"]),
+				id: `${piece.id}-${slugify(piece["Title EN"])}`,
 				order: parseInt(piece.order),
 				title: titleI18n,
 				slug: slugify(piece["Title EN"]),

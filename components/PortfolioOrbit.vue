@@ -1,16 +1,16 @@
 <template>
 	<div :class="['orbit']">
+		<div class="overlay" @click="$emit('closeOrbit')"></div>
 		<button class="close_orbit" @click="$emit('closeOrbit')">&times;</button>
 		<div class="orbit_card">
-			<p>{{ currentItem }}</p>
 			<div v-for="(item, k) in items" :class="['orbit_item', { active: k === currentItem }]" :key="k">
-				<div class="zone_btn">
+				<div class="zone_btn prev">
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
 					<NuxtImg :src="item.image" width="430px sm:670px md:820px" loading="lazy" />
 				</div>
-				<div class="zone_btn">
+				<div class="zone_btn next">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_description">
@@ -47,11 +47,28 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
 
+@keyframes wiggleArrow {
+	0% {
+		top: 0;
+	}
+
+	25% {
+		top: -5px;
+	}
+
+	75% {
+		top: 5px;
+	}
+
+	100% {
+		top: 0;
+	}
+}
+
 .orbit {
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	background: rgba(#00f, 0.8);
 	top: 0;
 	left: 0;
 	z-index: 10000;
@@ -70,6 +87,16 @@ onMounted(() => {
 	}
 }
 
+.overlay {
+	background: rgba(#00f, 0.8);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
 .orbit_card {
 	border-radius: 10px;
 	background-color: #fff;
@@ -79,6 +106,7 @@ onMounted(() => {
 	transform: translate(-50%, -50%);
 	width: calc(100% - 4vmin);
 	height: calc(100% - 4vmin);
+	z-index: 10;
 }
 
 .orbit_item {
@@ -102,6 +130,28 @@ onMounted(() => {
 
 .zone_btn {
 	width: 10%;
+	position: absolute;
+	top: 0;
+	height: 100%;
+
+	&.prev {
+		left: 0;
+	}
+
+	&.next {
+		right: 0;
+	}
+
+	button {
+		height: 100%;
+		width: 100%;
+
+		&:hover {
+			img {
+				animation: wiggleArrow 1s ease-in-out 0s infinite alternate;
+			}
+		}
+	}
 
 	img {
 		width: 100%;
@@ -113,7 +163,8 @@ onMounted(() => {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100%;
+	height: 50%;
+	left: 10%;
 	position: relative;
 
 	img {
@@ -128,7 +179,12 @@ onMounted(() => {
 }
 
 .zone_description {
-	width: 100%;
+	width: 80%;
+	left: 10%;
+	padding: min(2vw, 20px) min(5vw, 20px) 0;
+	height: 50%;
+	max-height: 50%;
+	overflow-y: auto;
 }
 
 .btn_orbit_nav {
@@ -155,10 +211,15 @@ onMounted(() => {
 	padding: 1vw;
 	font-size: clamp(30px, 4vmax, 60px);
 	text-shadow: 1px 1px 4px #000;
-	z-index: 10;
+	z-index: 100;
 	line-height: 80%;
 	color: #666;
 	font-weight: 900;
+	transition: color 0.6s ease;
+
+	&:hover {
+		color: $blue;
+	}
 }
 
 @media (min-width: $sm) {
@@ -171,6 +232,7 @@ onMounted(() => {
 	.close_orbit {
 	}
 }
+
 @media (min-width: $md) {
 	.orbit {
 	}
@@ -184,6 +246,8 @@ onMounted(() => {
 
 	.zone_btn {
 		width: 6%;
+		height: 80%;
+		top: 10%;
 
 		img {
 			width: 100%;
@@ -192,10 +256,18 @@ onMounted(() => {
 
 	.zone_picture {
 		width: 46%;
+		height: 100%;
 	}
 
 	.zone_description {
 		width: 32%;
+		height: auto;
+		max-height: 100%;
+		padding: 0 0 0 min(5vw, 40px);
+
+		& > *:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.close_orbit {
