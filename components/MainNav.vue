@@ -5,16 +5,20 @@
 				<span class="label">About</span>
 				<ul>
 					<li>
-						<a @click="setCurrentTab('bio')" v-if="isAbout()">Biography</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else>Biography</NuxtLink>
+						<a @click="setCurrentTab('bio')" v-if="isAbout()">{{ $t("bio") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else>{{ $t("bio") }}</NuxtLink>
 					</li>
 					<li>
-						<a @click="setCurrentTab('artist-statement')" v-if="isAbout()">Artist Statement</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })" v-else>Artist Statement</NuxtLink>
+						<a @click="setCurrentTab('artist-statement')" v-if="isAbout()">{{ $t("artist-statement") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })" v-else>{{ $t("artist-statement") }}</NuxtLink>
 					</li>
 					<li>
-						<a @click="setCurrentTab('cv')" v-if="isAbout()">CV</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>CV</NuxtLink>
+						<a @click="setCurrentTab('cv')" v-if="isAbout()">{{ $t("cv") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>{{ $t("cv") }}</NuxtLink>
+					</li>
+					<li>
+						<a @click="setCurrentTab('news-press')" v-if="isAbout()">{{ $t("news-press") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'news-press' } })" v-else>{{ $t("news-press") }}</NuxtLink>
 					</li>
 				</ul>
 			</li>
