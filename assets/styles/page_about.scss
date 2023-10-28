@@ -17,6 +17,7 @@
 .nav_tabs {
 	display: flex;
 	flex-flow: column-reverse nowrap;
+	font-size: min(6vw, 20px);
 	list-style-type: none;
 	margin: 0;
 	padding: 0 0 0 2px;
@@ -30,7 +31,7 @@
 		border: 0 none;
 		border-radius: 8px 8px 0 0;
 		box-shadow: 1px 1px 14px #000;
-		font-size: min(6vw, 28px);
+		font-size: 1em;
 		height: auto;
 		margin: 0;
 		overflow: hidden;
@@ -287,6 +288,7 @@ section {
 @media (min-width: $sm) {
 	.nav_tabs {
 		flex-flow: row nowrap;
+		font-size: min(2vw, 28px);
 
 		.tab {
 			bottom: -0.8em;
@@ -300,7 +302,6 @@ section {
 		.tab_cv {}
 
 		button {
-			font-size: min(3vw, 28px);
 			padding: 0.6em 1em 2.4em;
 		}
 	}
