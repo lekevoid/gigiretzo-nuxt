@@ -68,9 +68,10 @@ function toggleActiveState($event) {
 @import "~/assets/styles/dependencies";
 
 $mainItemMargin: min(4vw, 80px);
-$ulPaddingX: min(4vw, 32px);
-$ulPaddingY: min(2vw, 12px);
-$ulPaddingXNeg: max(-4vw, -32px);
+$ulPaddingRight: min(4vw, 38px);
+$ulPaddingLeft: min(4vw, 26px);
+$ulPaddingY: min(2vw, 44px);
+$ulPaddingLeftNeg: max(-4vw, -26px);
 $ulPaddingYNeg: max(-2vw, -12px);
 
 nav {
@@ -81,7 +82,7 @@ nav {
 		color: #fff;
 		cursor: pointer;
 		transition: color 0.3s ease;
-		padding: 6px $ulPaddingX;
+		padding: 6px $ulPaddingRight 6px $ulPaddingLeft;
 		display: inline-block;
 		white-space: nowrap;
 
@@ -91,7 +92,7 @@ nav {
 	}
 
 	.label {
-		padding: 6px $ulPaddingX;
+		padding: 6px $ulPaddingRight 6px $ulPaddingLeft;
 		display: inline-block;
 		white-space: nowrap;
 		pointer-events: none;
@@ -109,7 +110,7 @@ nav {
 			ul {
 				padding: $ulPaddingY 0;
 				position: absolute;
-				left: $ulPaddingXNeg;
+				left: $ulPaddingLeftNeg;
 				top: 100%;
 				display: flex;
 				flex-flow: column nowrap;
