@@ -33,6 +33,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		projectTypes: "210777",
 		"Eyeing Teamwork": "210766",
 		"Pay Attention!": "212214",
+		BnW: "212217",
 	};
 
 	async function populatePortfolio() {
