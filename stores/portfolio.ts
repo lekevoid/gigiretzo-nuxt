@@ -37,6 +37,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		"Fruit of Empathy": "212442",
 		"Loving Hearts": "212426",
 		"Pay Attention!": "212214",
+		"Ruby Slippers": "212451",
 	};
 
 	async function populatePortfolio() {
