@@ -1,5 +1,5 @@
 <template>
-	<div class="portfolio_carousel" :id="`carousel_${id}`">
+	<div class="portfolio_carousel" :id="`carousel_${project.id}`">
 		<div class="inner">
 			<h2>
 				<NuxtLink :to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })">
@@ -36,7 +36,7 @@ const { project } = defineProps(["project"]);
 const { portfolio } = storeToRefs(usePortfolioStore());
 
 const pieces = computed(() => {
-	return portfolio.value.filter((p) => p.project.slug === project.slug);
+	return portfolio.value.filter((p) => p.project.slug === project.slug && p.type === "image");
 });
 
 const localePath = useLocalePath();
@@ -161,22 +161,6 @@ h2 {
 	padding: 0.8em 1.4em;
 	margin: 0;
 	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
-}
-
-#carousel_public-art {
-	background: linear-gradient(to bottom, #cef 0%, #6cf 100%);
-
-	.hover_shadow {
-		box-shadow: inset 0 0 4em #0af;
-	}
-}
-
-#carousel_series {
-	background: linear-gradient(to bottom, #fdb 0%, #fa5 100%);
-
-	.hover_shadow {
-		box-shadow: inset 0 0 4em #e70;
-	}
 }
 
 .ribbon {

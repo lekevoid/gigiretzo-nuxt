@@ -20,6 +20,7 @@ export default defineI18nConfig(() => ({
 			"contact-us": "Contact us",
 			"see-more": "See more",
 			"more-details": "See more details",
+			"terms-of-use": "Terms of use",
 		},
 		fr: {
 			home: "Maison",
@@ -39,6 +40,7 @@ export default defineI18nConfig(() => ({
 			"contact-us": "Contacte-nous",
 			"see-more": "Voir plus",
 			"more-details": "Plus de détails",
+			"terms-of-use": "Modalités d'usage",
 		},
 	},
 }));

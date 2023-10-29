@@ -4,7 +4,6 @@ import { useSessionStorage } from "@vueuse/core";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
-	console.log(DEBUG_ABOUT);
 	const debug = DEBUG_ABOUT === "true" ? true : false;
 
 	const { locale } = useI18n();

@@ -28,6 +28,14 @@ export default defineNuxtConfig({
 				en: "/portfolio/[project-type]/[project]",
 				fr: "/portfolio/[project-type]/[project]",
 			},
+			"contact-us": {
+				en: "/contact-us",
+				fr: "/contacte-nous",
+			},
+			"terms-of-use": {
+				en: "/terms-of-use",
+				fr: "/modalites-d-usage",
+			},
 		},
 		locales: [
 			{
@@ -55,18 +63,26 @@ export default defineNuxtConfig({
 
 	nitro: {
 		prerender: {
-			routes: ["/portfolio/**", "/fr/portfolio/**"],
+			routes: ["/portfolio/**", "/fr/portfolio/**", "/terms-of-use", "/fr/modalites-d-usage"],
 		},
+	},
+
+	routeRules: {
+		"/": { prerender: true },
+		"/portfolio/**": { prerender: true },
+		"/fr/portfolio/**": { prerender: true },
+		"/terms-of-use": { prerender: true },
+		"/fr/modalites-d-usage": { prerender: true },
 	},
 
 	runtimeConfig: {
 		public: {
-			SHEET_ID: process.env.SHEET_ID,
-			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
 			BASEROW_KEY: process.env.BASEROW_KEY,
 			DEBUG_ABOUT: process.env.DEBUG_ABOUT,
 			DEBUG_HOME: process.env.DEBUG_HOME,
 			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,
+			DEBUG_TERMS: process.env.DEBUG_TERMS,
+			DEBUG_CONTACT: process.env.DEBUG_CONTACT,
 		},
 	},
 });
