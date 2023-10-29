@@ -38,15 +38,11 @@ function scrollRibbon(amount) {
 	const innerLeft = parseInt(ribbonScrollyRef.value.style.left);
 	const scrollPadding = Math.min(window.innerWidth / 10, 60);
 
-	console.log(amount, wrapperRight, innerRight);
-
 	if (amount > 0 && wrapperRight < innerRight + scrollPadding) {
-		console.log(`${innerLeft + amount}px`);
 		ribbonScrollyRef.value.style.left = `${innerLeft - amount}px`;
 	}
 
 	if (amount < 0 && innerLeft < 0) {
-		console.log(`${innerLeft + amount}px`);
 		ribbonScrollyRef.value.style.left = `${innerLeft - amount}px`;
 	}
 }
