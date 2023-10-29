@@ -105,17 +105,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				slug: slugify(project["Title EN"]),
 			};
 		});
-
-		if (fetchedPortfolio.value.length === 0) {
-			if (debug) {
-				console.debug("No portfolio, calling populatePortfolio()");
-			}
-			populatePortfolio();
-		} else {
-			if (debug) {
-				console.debug("No need to call populatePortfolio() :", fetchedPortfolio.value);
-			}
-		}
 	}
 
 	async function fetchProjectTypes() {
@@ -130,17 +119,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			const titleI18n = mapColumnToLanguages(projectType, "Title");
 			return { id: projectType.id, order: parseInt(projectType.order), title: titleI18n, slug: slugify(projectType["Title EN"]) };
 		});
-
-		if (fetchedProjects.value.length === 0) {
-			if (debug) {
-				console.debug("No projects, calling fetchProject()");
-			}
-			fetchProjects();
-		} else {
-			if (debug) {
-				console.debug("No need to call fetchProjects() :", fetchedProjects.value);
-			}
-		}
 	}
 
 	if (fetchedProjectTypes.value.length === 0) {
@@ -151,6 +129,17 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	} else {
 		if (debug) {
 			console.debug("No need to call fetchProjectTypes() :", fetchedProjectTypes.value);
+		}
+	}
+
+	if (fetchedProjects.value.length === 0) {
+		if (debug) {
+			console.debug("No projects, calling fetchProject()");
+		}
+		fetchProjects();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchProjects() :", fetchedProjects.value);
 		}
 	}
 
@@ -186,6 +175,26 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				project: { title: projectTitle, slug: projectSlug },
 			};
 		});
+	});
+
+	watch([fetchedProjects, fetchedPortfolio], () => {
+		if (fetchedProjects.value.length === 0) {
+			if (debug) {
+				console.debug("fetchedProjects isn't fetched yet. Can't fetch Portfolio.");
+			}
+			return;
+		}
+
+		if (fetchedPortfolio.value.length === 0) {
+			if (debug) {
+				console.debug("No portfolio, calling populatePortfolio()");
+			}
+			populatePortfolio();
+		} else {
+			if (debug) {
+				console.debug("No need to call populatePortfolio() :", fetchedPortfolio.value);
+			}
+		}
 	});
 
 	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData, defaultProjectObject };

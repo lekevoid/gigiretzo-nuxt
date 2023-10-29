@@ -13,8 +13,8 @@ export async function useBaserowTable(tableID) {
 		return false;
 	}
 
-	if (!data?.value?.results) {
-		console.error("Error fetching table ID", tableID, "at", Date());
+	if (!data.value?.results) {
+		console.error("Error fetching table ID", tableID, "at", Date(), data.value);
 		return false;
 	}
 

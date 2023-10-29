@@ -9,7 +9,7 @@
 				<div class="ribbon" ref="ribbonRef">
 					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
 						<div v-for="image in images" class="image_wrapper">
-							<NuxtImg :src="image" class="carousel_image" />
+							<NuxtImg :src="image" class="carousel_image" densities="x1" />
 						</div>
 					</div>
 				</div>
@@ -36,10 +36,11 @@ function scrollRibbon(amount) {
 	const wrapperRight = ribbonRef.value.getBoundingClientRect().left + ribbonRef.value.clientWidth;
 	const innerRight = ribbonScrollyRef.value.getBoundingClientRect().left + ribbonScrollyRef.value.scrollWidth;
 	const innerLeft = parseInt(ribbonScrollyRef.value.style.left);
+	const scrollPadding = Math.min(window.innerWidth / 10, 60);
 
 	console.log(amount, wrapperRight, innerRight);
 
-	if (amount > 0 && wrapperRight < innerRight) {
+	if (amount > 0 && wrapperRight < innerRight + scrollPadding) {
 		console.log(`${innerLeft + amount}px`);
 		ribbonScrollyRef.value.style.left = `${innerLeft - amount}px`;
 	}
@@ -152,12 +153,13 @@ h2 {
 
 .ribbon {
 	overflow: hidden;
-	padding: 30px min(10vw, 60px) 0;
+	padding: 30px 0 0;
 	z-index: 1;
 }
 
 .ribbon_scrolly {
 	display: flex;
+	margin: 0 min(10vw, 60px);
 	flex-flow: row nowrap;
 	align-items: center;
 	gap: 30px;
@@ -170,9 +172,12 @@ h2 {
 	display: flex;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
+	flex: 0 0 25%;
 }
 
 .carousel_image {
+	max-width: 100%;
+	width: auto;
 }
 
 $arrowSizeBig: min(6vw, 30px);
