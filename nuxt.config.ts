@@ -20,6 +20,10 @@ export default defineNuxtConfig({
 				en: "/about/[[tab]]",
 				fr: "/a-propos/[[tab]]",
 			},
+			"portfolio/[project-type]": {
+				en: "/portfolio/[project-type]",
+				fr: "/portfolio/[project-type]",
+			},
 			"portfolio/[project-type]/[project]": {
 				en: "/portfolio/[project-type]/[project]",
 				fr: "/portfolio/[project-type]/[project]",

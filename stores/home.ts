@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
+import { decomposeLink } from "@/composables/useDBHelper";
 
 export const useHomePageStore = defineStore("homepage", () => {
 	const { DEBUG_HOME } = useRuntimeConfig().public;
@@ -24,8 +24,6 @@ export const useHomePageStore = defineStore("homepage", () => {
 			return;
 		}
 
-		console.table(carouselsTable);
-
 		fetchedCarousels.value = carouselsTable
 			.map((row: any) => {
 				const titleI18n = mapColumnToLanguages(row, "Title");
@@ -37,6 +35,7 @@ export const useHomePageStore = defineStore("homepage", () => {
 					title: titleI18n,
 					cta: ctaI18n,
 					images,
+					link: row.Link.split("/"),
 				};
 			})
 			.filter(Boolean);

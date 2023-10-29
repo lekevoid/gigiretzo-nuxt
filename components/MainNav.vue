@@ -26,7 +26,9 @@
 				<span class="label">Portfolio</span>
 				<ul>
 					<li v-for="projectType in projectTypes" @click="toggleActiveState">
-						<span class="label">{{ projectType.title }}</span>
+						<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })">
+							{{ projectType.title }}
+						</NuxtLink>
 						<ul>
 							<li v-for="project in projectsInType(projectType.slug)">
 								<NuxtLink
@@ -38,6 +40,9 @@
 						</ul>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<NuxtLink class="label" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("contact-us") }}</NuxtLink>
 			</li>
 		</ul>
 	</nav>
@@ -82,7 +87,8 @@ nav {
 	font-size: 20px;
 	font-weight: bold;
 
-	a {
+	a,
+	a.label {
 		color: #fff;
 		cursor: pointer;
 		transition: color 0.3s ease;

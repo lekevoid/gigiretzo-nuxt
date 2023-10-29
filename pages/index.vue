@@ -2,7 +2,7 @@
 	<main class="page_home">
 		<div class="container">
 			<h1>{{ $t("portfolio") }}</h1>
-			<HomeCarousel v-for="carousel in carousels" :id="carousel.id" :title="carousel.title" :cta="carousel.cta" :images="carousel.images" />
+			<HomeCarousel v-for="{ id, title, cta, images, link } in carousels" :id="id" :title="title" :cta="cta" :images="images" :link="link" />
 		</div>
 	</main>
 </template>

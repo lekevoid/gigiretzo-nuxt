@@ -1,8 +1,9 @@
 <template>
 	<div class="home_carousel" :id="`carousel_${id}`">
+		<NuxtLink class="bg hover_shadow" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link[1] } })">&nbsp;</NuxtLink>
 		<div class="inner">
 			<h2>{{ title }}</h2>
-			<span class="cta">{{ cta }}</span>
+			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link[1] } })">{{ cta }}</NuxtLink>
 			<div class="ribbon_align">
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">
@@ -19,7 +20,9 @@
 </template>
 
 <script setup>
-const { id, title, cta, images } = defineProps(["id", "title", "cta", "images"]);
+const { id, title, cta, images, link } = defineProps(["id", "title", "cta", "images", "link"]);
+
+const localePath = useLocalePath();
 
 const ribbonRef = ref(null);
 const ribbonScrollyRef = ref(null);
@@ -78,11 +81,29 @@ watch(isScrollingRight, (val) => {
 	display: block;
 	font-size: min(6vw, 45px);
 	max-width: 100%;
-	margin-bottom: min(5vw, 80px);
+	margin-bottom: min(10vw, 80px);
+	overflow: hidden;
 	padding: 1em 1.5em 0.9em;
 	position: relative;
 	transition: box-shadow 0.3s ease;
 	width: 100%;
+
+	.hover_shadow {
+		opacity: 0;
+		transition: opacity 0.6s ease;
+	}
+
+	&:hover {
+		.hover_shadow {
+			opacity: 1;
+		}
+
+		.cta {
+			background: #fff none;
+			border: 1px solid #0af;
+			color: #0af;
+		}
+	}
 }
 
 .inner {
@@ -110,19 +131,28 @@ h2 {
 	position: absolute;
 	right: 0;
 	top: 0.6em;
+	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
 }
 
 #carousel_public-art {
 	background: linear-gradient(to bottom, #cef 0%, #6cf 100%);
+
+	.hover_shadow {
+		box-shadow: inset 0 0 4em #0af;
+	}
 }
 
 #carousel_series {
 	background: linear-gradient(to bottom, #fdb 0%, #fa5 100%);
+
+	.hover_shadow {
+		box-shadow: inset 0 0 4em #e70;
+	}
 }
 
 .ribbon {
 	overflow: hidden;
-	padding: 0 min(10vw, 60px);
+	padding: 30px min(10vw, 60px) 0;
 	z-index: 1;
 }
 
@@ -191,9 +221,45 @@ $arrowSizeSmall: min(4vw, 20px);
 	transition: transform 0.3s ease;
 }
 
+@media (max-width: $xsMax) {
+	h2 {
+		width: auto;
+		max-width: 60%;
+		display: inline-block;
+	}
+
+	.bg {
+		pointer-events: none;
+	}
+
+	.cta {
+		pointer-events: all;
+	}
+
+	.ribbon {
+		overflow-x: auto;
+		pointer-events: all;
+	}
+
+	.arrow {
+		display: none;
+	}
+}
+
 @media (min-width: $sm) {
 	.home_carousel {
 		font-size: min(10vw, 45px);
+	}
+	.inner {
+		pointer-events: none;
+	}
+
+	.arrow {
+		pointer-events: all;
+	}
+
+	.cta {
+		pointer-events: none;
 	}
 }
 </style>

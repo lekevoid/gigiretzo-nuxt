@@ -17,6 +17,7 @@ export default defineI18nConfig(() => ({
 			series: "Series",
 			"public-art": "Public Art",
 			"upcoming-events": "Upcoming Events...",
+			"contact-us": "Contact us",
 		},
 		fr: {
 			home: "Maison",
@@ -33,6 +34,7 @@ export default defineI18nConfig(() => ({
 			series: "Séries",
 			"public-art": "Art public",
 			"upcoming-events": "Évènements à venir…",
+			"contact-us": "Contacte-nous",
 		},
 	},
 }));
