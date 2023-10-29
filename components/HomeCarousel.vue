@@ -12,7 +12,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="arrow next"><div class="the_arrow"></div></div>
+				<div class="arrow next" @mouseover="isScrollingRight = true" @mouseleave="isScrollingRight = false"><div class="the_arrow"></div></div>
 			</div>
 		</div>
 	</div>
@@ -38,13 +38,18 @@ function scrollRibbon(amount) {
 
 	if (amount > 0 && wrapperRight < innerRight) {
 		console.log(`${innerLeft + amount}px`);
-		ribbonScrollyRef.value.style.left = `${innerLeft + amount}px`;
+		ribbonScrollyRef.value.style.left = `${innerLeft - amount}px`;
+	}
+
+	if (amount < 0 && innerLeft < 0) {
+		console.log(`${innerLeft + amount}px`);
+		ribbonScrollyRef.value.style.left = `${innerLeft - amount}px`;
 	}
 }
 
 watch(isScrollingLeft, (val) => {
 	if (val) {
-		scrollInterval = setInterval(() => scrollRibbon(10), 100);
+		scrollInterval = setInterval(() => scrollRibbon(-10), 20);
 	} else {
 		clearInterval(scrollInterval);
 	}
@@ -52,7 +57,7 @@ watch(isScrollingLeft, (val) => {
 
 watch(isScrollingRight, (val) => {
 	if (val) {
-		scrollInterval = setInterval(() => scrollRibbon(10), 100);
+		scrollInterval = setInterval(() => scrollRibbon(10), 20);
 	} else {
 		clearInterval(scrollInterval);
 	}
