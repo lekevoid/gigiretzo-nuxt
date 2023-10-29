@@ -8,14 +8,17 @@
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
-					<NuxtImg :src="item.image" width="430px sm:670px md:820px" loading="lazy" />
+					<NuxtImg :src="item.image" densities="x1" width="430px sm:670px md:820px" loading="lazy" placeholder="/loader-bars-scale.svg" />
 				</div>
 				<div class="zone_btn next">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_description">
 					<h3>{{ item.title }}</h3>
-					<p>{{ item.description }}</p>
+					<p>
+						<span v-if="item.height && item.width">{{ item.height }}” x {{ item.width }}” | </span>
+						{{ item.description }}
+					</p>
 				</div>
 			</div>
 		</div>
@@ -196,9 +199,10 @@ onMounted(() => {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 50%;
+	height: 60%;
 	left: 10%;
 	position: relative;
+	padding: 0 min(5vw, 20px);
 
 	img {
 		max-height: calc(100% - 32px);
@@ -215,9 +219,18 @@ onMounted(() => {
 	width: 80%;
 	left: 10%;
 	padding: min(2vw, 20px) min(5vw, 20px) 0;
-	height: 50%;
+	height: 40%;
 	max-height: 50%;
 	overflow-y: auto;
+	font-size: clamp(16px, 2vw, 24px);
+
+	h3 {
+		font-size: 1.3em;
+	}
+
+	p {
+		font-size: 1em;
+	}
 }
 
 .btn_orbit_nav {

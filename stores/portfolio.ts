@@ -34,6 +34,8 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		"One-Way": "212427",
 		BnW: "212217",
 		"Eyeing Teamwork": "210766",
+		"Fruit of Empathy": "212442",
+		"Loving Hearts": "212426",
 		"Pay Attention!": "212214",
 	};
 
