@@ -156,6 +156,7 @@ h2 {
 .ribbon_scrolly {
 	display: flex;
 	margin: 0 min(10vw, 60px);
+
 	flex-flow: row nowrap;
 	align-items: center;
 	gap: 30px;
@@ -240,6 +241,16 @@ $arrowSizeSmall: min(4vw, 20px);
 	.ribbon {
 		overflow-x: auto;
 		pointer-events: all;
+	}
+
+	.ribbon_scrolly {
+		padding-bottom: 20px;
+		gap: 5%;
+		margin: 0;
+	}
+
+	.image_wrapper {
+		flex: 0 0 40%;
 	}
 
 	.arrow {
