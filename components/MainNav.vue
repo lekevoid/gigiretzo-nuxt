@@ -17,8 +17,8 @@
 						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>{{ $t("cv") }}</NuxtLink>
 					</li>
 					<li>
-						<a @click="setCurrentTab('news-press')" v-if="isAbout()">{{ $t("news-press") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'news-press' } })" v-else>{{ $t("news-press") }}</NuxtLink>
+						<a @click="setCurrentTab('news')" v-if="isAbout()">{{ $t("press-news") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'news' } })" v-else>{{ $t("press-news") }}</NuxtLink>
 					</li>
 				</ul>
 			</li>

@@ -5,7 +5,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
 
 	const { locale } = useI18n();
-	const upperLocale = locale.value.toUpperCase();
 	const route = useRoute();
 
 	const fetchedArtistStatement = ref([]);

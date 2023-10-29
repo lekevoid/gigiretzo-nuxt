@@ -1,38 +1,21 @@
 <template>
-	<div class="container">
-		<h1>{{ $t("home") }}</h1>
-		<div class="flex">
-			<div class="col">
-				<h2>Project Types</h2>
-				<pre>{{ projectTypes }}</pre>
-				<h2>Projects</h2>
-				<pre>{{ projects }}</pre>
-				<h2>Portfolio</h2>
-				<pre>{{ portfolio }}</pre>
-				<h2>CV Entries</h2>
-				<h2>CV Sections</h2>
-			</div>
-			<div class="col">
-				<h2>fetchedData</h2>
-				<pre>{{ fetchedData }}</pre>
-			</div>
+	<main class="page_home">
+		<div class="container">
+			<h1>{{ $t("portfolio") }}</h1>
+			<HomeCarousel v-for="carousel in carousels" :id="carousel.id" :title="carousel.title" :cta="carousel.cta" :images="carousel.images" />
 		</div>
-	</div>
+	</main>
 </template>
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { usePortfolioStore } from "@/stores/portfolio";
+import { useHomePageStore } from "@/stores/home";
 
-const { fetchedData, projects, projectTypes, portfolio } = storeToRefs(usePortfolioStore());
+const { carousels } = storeToRefs(useHomePageStore());
 </script>
 
 <style lang="scss">
-.flex {
-	display: flex;
-	flex-flow: row nowrap;
-}
-.col {
-	flex: 1 1 auto;
+.page_home {
+	padding: min(5vw, 80px) 0;
 }
 </style>

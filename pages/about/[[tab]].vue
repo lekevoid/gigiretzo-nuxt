@@ -16,7 +16,7 @@
 							<AboutBio v-if="section.slug === 'bio'" />
 							<AboutArtistStatement v-if="section.slug === 'artist-statement'" />
 							<AboutCV v-if="section.slug === 'cv'" />
-							<AboutNews v-if="section.slug === 'news-press'" />
+							<AboutNews v-if="section.slug === 'news'" />
 						</div>
 					</div>
 				</section>
@@ -36,20 +36,20 @@ const localePath = useLocalePath();
 const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
-const availableTabs = ["bio", "artist-statement", "cv", "news-press", "what-we-do"];
+const availableTabs = ["bio", "artist-statement", "cv", "news", "what-we-do"];
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
-	{ label: t("news-press"), slug: "news-press" },
+	{ label: t("news"), slug: "news" },
 ];
 
 const tabs = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
 	{ label: t("cv"), slug: "cv" },
-	{ label: t("news-press"), slug: "news-press" },
+	{ label: t("news"), slug: "news" },
 ];
 
 onMounted(() => {
