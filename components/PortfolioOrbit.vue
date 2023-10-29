@@ -8,7 +8,7 @@
 					<button class="btn_orbit_nav btn_prev" @click="navigateOrbit(-1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
 				</div>
 				<div class="zone_picture">
-					<NuxtImg :src="item.image" densities="x1" width="430px sm:670px md:820px" loading="lazy" placeholder="/loader-bars-scale.svg" />
+					<NuxtImg :src="item.image" densities="x1" width="430px sm:670px md:820px" loading="lazy" preload placeholder="/loader-bars-scale.svg" />
 				</div>
 				<div class="zone_btn next">
 					<button class="btn_orbit_nav btn_next" @click="navigateOrbit(1)"><img src="~/assets/img/arrow_squiggle.png" /></button>
@@ -211,6 +211,8 @@ onMounted(() => {
 		border: 5px solid #000;
 		height: auto;
 		width: auto;
+		min-height: 100px;
+		min-width: 100px;
 		box-shadow: 2px 2px 8px #888;
 	}
 }

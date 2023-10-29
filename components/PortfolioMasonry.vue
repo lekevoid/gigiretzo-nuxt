@@ -13,7 +13,8 @@
 				<NuxtImg
 					:src="item.image"
 					@load="imageLoaded(item.id)"
-					sizes="600px sm:400px md:460px"
+					densities="x1"
+					sizes="430px sm:670px md:820px"
 					:loading="k > 6 ? 'lazy' : 'eager'"
 					placeholder="/loader-bars-scale.svg"
 					preload
