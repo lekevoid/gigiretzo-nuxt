@@ -9,7 +9,12 @@ export async function useBaserowTable(tableID) {
 	const { data, error } = await useFetch(url, { headers });
 
 	if (error.value) {
-		console.error(error.value);
+		console.error("Error fetching table ID", tableID, ":", error.value, "at", Date());
+		return false;
+	}
+
+	if (!data?.value?.results) {
+		console.error("Error fetching table ID", tableID, "at", Date());
 		return false;
 	}
 

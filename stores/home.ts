@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
-import { decomposeLink } from "@/composables/useDBHelper";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useHomePageStore = defineStore("homepage", () => {
 	const { DEBUG_HOME } = useRuntimeConfig().public;
 
 	const { locale } = useI18n();
 
-	const fetchedCarousels = ref([]);
+	const fetchedCarousels = useLocalStorage("fetchedCarousels", []);
 
 	const fetchedData = reactive({
 		fetchedCarousels,
@@ -46,6 +46,10 @@ export const useHomePageStore = defineStore("homepage", () => {
 			console.debug("No carousels, calling fetchCarousels()");
 		}
 		fetchCarousels();
+	} else {
+		if (DEBUG_HOME === "true") {
+			console.debug("No need to call fetchCarousels() :", fetchedCarousels.value);
+		}
 	}
 
 	const carousels = computed(() => {

@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
 import { mapColumnToLanguages, longTextToParagraphs, getFileType } from "@/composables/useDBHelper";
+import { useLocalStorage } from "@vueuse/core";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
 	const { DEBUG_PORTFOLIO } = useRuntimeConfig().public;
+	const debug = DEBUG_PORTFOLIO === "true" ? true : false;
 
 	const { locale } = useI18n();
 
@@ -18,9 +20,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		slug: "",
 	};
 
-	const fetchedProjectTypes = ref([]);
-	const fetchedProjects = ref([]);
-	const fetchedPortfolio = ref([]);
+	const fetchedProjectTypes = useLocalStorage("fetchedProjectTypes", []);
+	const fetchedProjects = useLocalStorage("fetchedProjects", []);
+	const fetchedPortfolio = useLocalStorage("fetchedPortfolio", []);
 
 	const fetchedData = reactive({
 		fetchedProjectTypes,
@@ -105,10 +107,14 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 
 		if (fetchedPortfolio.value.length === 0) {
-			if (DEBUG_PORTFOLIO === "true") {
+			if (debug) {
 				console.debug("No portfolio, calling populatePortfolio()");
 			}
 			populatePortfolio();
+		} else {
+			if (debug) {
+				console.debug("No need to call populatePortfolio() :", fetchedPortfolio.value);
+			}
 		}
 	}
 
@@ -126,18 +132,26 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 
 		if (fetchedProjects.value.length === 0) {
-			if (DEBUG_PORTFOLIO === "true") {
+			if (debug) {
 				console.debug("No projects, calling fetchProject()");
 			}
 			fetchProjects();
+		} else {
+			if (debug) {
+				console.debug("No need to call fetchProjects() :", fetchedProjects.value);
+			}
 		}
 	}
 
 	if (fetchedProjectTypes.value.length === 0) {
-		if (DEBUG_PORTFOLIO === "true") {
+		if (debug) {
 			console.debug("No projects types, calling fetchProjectsTypes()");
 		}
 		fetchProjectTypes();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchProjectTypes() :", fetchedProjectTypes.value);
+		}
 	}
 
 	const projectTypes = computed(() => {

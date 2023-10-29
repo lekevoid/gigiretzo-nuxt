@@ -32,6 +32,8 @@ const emit = defineEmits(["openPictureOrbit"]);
 const isLoaded = ref(false);
 const itemsRef = ref(null);
 
+const { width: windowWidth } = useWindowSize();
+
 function recalculateMasonry() {
 	if (items.length === 0 || !itemsRef.value) {
 		return;
@@ -61,6 +63,7 @@ function recalculateMasonry() {
 }
 
 function resetMasonry() {
+	itemsRef.value.style.height = `auto`;
 	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
 	itemsList.forEach((item) => {
 		item.style.top = "0px";
@@ -68,9 +71,7 @@ function resetMasonry() {
 }
 
 function handleViewportSize() {
-	const viewportWidth = window.innerWidth;
-
-	if (viewportWidth > 900) {
+	if (windowWidth.value > 900) {
 		recalculateMasonry();
 	} else {
 		resetMasonry();
@@ -144,9 +145,11 @@ onBeforeUnmount(() => {
 
 	img,
 	picture {
+		aspect-ratio: 1;
 		width: 100%;
 		max-width: 100%;
 		height: auto;
+		object-fit: cover;
 	}
 
 	&:not(.loaded) {
@@ -175,8 +178,7 @@ onBeforeUnmount(() => {
 
 		img,
 		picture {
-			height: 100%;
-			object-fit: cover;
+			aspect-ratio: 1;
 		}
 	}
 }
@@ -212,6 +214,7 @@ onBeforeUnmount(() => {
 		picture {
 			height: auto;
 			object-fit: contain;
+			aspect-ratio: auto;
 		}
 	}
 }

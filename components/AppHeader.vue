@@ -28,8 +28,6 @@
 </template>
 
 <script setup>
-import { useBreakpoints } from "@vueuse/core";
-
 import logo_brand from "~/assets/img/gigiretzo_logo_dark.svg";
 import icon_fb from "~/assets/img/icon_fb.svg";
 import icon_instagram from "~/assets/img/icon_instagram.svg";

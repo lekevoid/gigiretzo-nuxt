@@ -21,18 +21,28 @@
 				<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("contact-us") }}</NuxtLink>
 			</li>
 		</ul>
+		<div class="outside_mobile_nav" @click="isOpen = false"></div>
 	</nav>
 </template>
 
 <script setup>
 import { storeToRefs } from "pinia";
 import { usePortfolioStore } from "@/stores/portfolio";
+const route = useRoute;
 
 const localePath = useLocalePath();
 
 const { projectTypes } = storeToRefs(usePortfolioStore());
 
 const isOpen = ref(false);
+
+watch(
+	route,
+	() => {
+		isOpen.value = false;
+	},
+	{ deep: true, immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -41,7 +51,7 @@ const isOpen = ref(false);
 nav {
 	position: fixed;
 	background-color: rgba(#000, 0.6);
-	width: 60vw;
+	width: min(70vw, 350px);
 	height: 100vh;
 	left: 0;
 	top: 0;
@@ -54,6 +64,11 @@ nav {
 
 	&.active {
 		transform: translateX(0%);
+
+		.outside_mobile_nav {
+			left: 100%;
+			opacity: 0;
+		}
 	}
 }
 
@@ -96,8 +111,8 @@ a {
 	justify-content: center;
 	bottom: 10px;
 	left: 10px;
-	height: min(10vw, 100px);
-	width: min(10vw, 100px);
+	height: min(14vw, 60px);
+	width: min(14vw, 60px);
 	z-index: 1000;
 	border-radius: 1000px;
 	line-height: 80%;
@@ -120,11 +135,11 @@ a {
 	font-size: min(10vw, 100px);
 
 	.line {
-		width: 20px;
+		width: 40%;
 		height: 2px;
 		background-color: #fff;
 		border: none;
-		margin: 2px auto;
+		margin: 5% auto;
 	}
 }
 
@@ -132,5 +147,16 @@ a {
 	background-color: rgba(#000, 0.8);
 	font-size: min(8vw, 80px);
 	padding-top: 0.05em;
+}
+
+.outside_mobile_nav {
+	position: absolute;
+	background: rgba(#000, 0.01);
+	width: 50vw;
+	height: 100%;
+	left: -100%;
+	opacity: 1;
+	top: 0;
+	transition: left 0.6s ease, opacity 0s linear 0.6s;
 }
 </style>

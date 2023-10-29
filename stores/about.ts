@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
+	const debug = DEBUG_ABOUT === "true" ? true : false;
 
 	const { locale } = useI18n();
 	const route = useRoute();
 
-	const fetchedArtistStatement = ref([]);
-	const fetchedBio = ref([]);
-	const fetchedCVSections = ref([]);
-	const fetchedCVEntries = ref([]);
-	const fetchedPress = ref([]);
+	const fetchedArtistStatement = useLocalStorage("fetchedArtistStatement", []);
+	const fetchedBio = useLocalStorage("fetchedBio", []);
+	const fetchedCVSections = useLocalStorage("fetchedCVSections", []);
+	const fetchedCVEntries = useLocalStorage("fetchedCVEntries", []);
+	const fetchedPress = useLocalStorage("fetchedPress", []);
 
 	const fetchedData = reactive({
 		fetchedArtistStatement,
@@ -57,17 +59,11 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchedBio.value = bioTable.map((row: any) => rowToJSONForMarkdown(row));
 	}
 
-	async function fetchCV() {
+	async function fetchCVSections() {
 		const cvSectionsTable = await useBaserowTable(tables.cvSections);
-		const cvEntriesTable = await useBaserowTable(tables.cvEntries);
 
 		if (!cvSectionsTable || cvSectionsTable.length === 0) {
 			console.warn("useAboutStore() : Unable to fetch CV Sections.", cvSectionsTable);
-			return;
-		}
-
-		if (!cvEntriesTable || cvEntriesTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch CV Entries.", cvEntriesTable);
 			return;
 		}
 
@@ -81,6 +77,15 @@ export const useAboutPageStore = defineStore("about", () => {
 				};
 			})
 			.filter(Boolean);
+	}
+
+	async function fetchCVEntries() {
+		const cvEntriesTable = await useBaserowTable(tables.cvEntries);
+
+		if (!cvEntriesTable || cvEntriesTable.length === 0) {
+			console.warn("useAboutStore() : Unable to fetch CV Entries.", cvEntriesTable);
+			return;
+		}
 
 		fetchedCVEntries.value = cvEntriesTable
 			.map((row: any) => {
@@ -98,8 +103,6 @@ export const useAboutPageStore = defineStore("about", () => {
 					dateStart: row["Date Start"] || "",
 					dateEnd: row["Date End"] || "",
 				};
-
-				// console.log(out);
 
 				return out;
 			})
@@ -127,31 +130,58 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	if (fetchedArtistStatement.value.length === 0) {
-		if (DEBUG_ABOUT === "true") {
+		if (debug) {
 			console.debug("No Artist Statement, calling fetchArtistStatement()");
 		}
 		fetchArtistStatement();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
+		}
 	}
 
 	if (fetchedBio.value.length === 0) {
-		if (DEBUG_ABOUT === "true") {
+		if (debug) {
 			console.debug("No Biography, calling fetchBio()");
 		}
 		fetchBio();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchBio() :", fetchedBio.value);
+		}
 	}
 
-	if (fetchedCVSections.value.length === 0 || fetchedCVEntries.value.length === 0) {
-		if (DEBUG_ABOUT === "true") {
-			console.debug("No CV, calling fetchCV()");
+	if (fetchedCVSections.value.length === 0) {
+		if (debug) {
+			console.debug("No CV Sections, calling fetchCV()");
 		}
-		fetchCV();
+		fetchCVSections();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchCVSections() :", fetchedCVSections.value);
+		}
+	}
+
+	if (fetchedCVEntries.value.length === 0) {
+		if (debug) {
+			console.debug("No CV Entries, calling fetchCV()");
+		}
+		fetchCVEntries();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchCVEntries() :", fetchedCVEntries.value);
+		}
 	}
 
 	if (fetchedPress.value.length === 0) {
-		if (DEBUG_ABOUT === "true") {
+		if (debug) {
 			console.debug("No Biography, calling fetchBio()");
 		}
 		fetchPress();
+	} else {
+		if (debug) {
+			console.debug("No need to call fetchPress() :", fetchedPress.value);
+		}
 	}
 
 	const artistStatement = computed(() => {

@@ -28,7 +28,7 @@ import { storeToRefs } from "pinia";
 import { usePortfolioStore } from "@/stores/portfolio";
 
 const route = useRoute();
-const { locale, t } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
 const { defaultProjectObject, projects, portfolio } = storeToRefs(usePortfolioStore());
 
@@ -39,7 +39,6 @@ const project = computed(() => {
 });
 
 const pieces = computed(() => {
-	console.log(portfolio.value);
 	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "image");
 });
 
@@ -50,7 +49,7 @@ const videos = computed(() => {
 /* Breadcrumb functions */
 
 const breadcrumbPath = computed(() => [
-	{ label: t("Portfolio"), link: localePath({ name: "index" }) },
+	{ label: t("portfolio"), link: localePath({ name: "index" }) },
 	{ label: t(project.value.type), link: localePath({ name: "portfolio-projecttype", params: { projecttype: project.type } }) },
 ]);
 

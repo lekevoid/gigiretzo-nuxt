@@ -20,7 +20,7 @@ const projectType = computed(() => {
 	return projectTypes.value.find((pt) => pt.slug === route.params.projecttype) || defaultProjectObject;
 });
 
-const breadcrumbPath = computed(() => [{ label: t("Portfolio"), link: localePath({ name: "index" }) }]);
+const breadcrumbPath = computed(() => [{ label: t("portfolio"), link: localePath({ name: "index" }) }]);
 
 definePageMeta({
 	layout: "portfolio",
