@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { rowToJSONForMarkdown } from "@/composables/useDBHelper";
+import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
@@ -113,18 +113,6 @@ export const useAboutPageStore = defineStore("about", () => {
 		if (!pressTable || pressTable.length === 0) {
 			console.warn("useAboutStore() : Unable to fetch Press.", pressTable);
 			return;
-		}
-
-		function getFileType(filepath) {
-			if (filepath.match(/\.(jpg|jpeg|png|gif)$/)) {
-				return "image";
-			}
-
-			if (filepath.match(/\.(pdf)$/)) {
-				return "document";
-			}
-
-			return "unknown";
 		}
 
 		fetchedPress.value = pressTable.map((row: any) => {

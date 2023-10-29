@@ -1,5 +1,5 @@
 <template>
-	<div :class="['orbit']">
+	<div :class="['orbit']" @keyup="handleKeyUp" ref="selfRef" tabindex="5">
 		<div class="overlay" @click="$emit('closeOrbit')"></div>
 		<button class="close_orbit" @click="$emit('closeOrbit')">&times;</button>
 		<div class="orbit_card">
@@ -24,8 +24,23 @@
 
 <script setup>
 const { items, initialElement } = defineProps(["items", "initialElement"]);
+const emit = defineEmits(["closeOrbit"]);
 
 const currentItem = ref(0);
+const selfRef = ref(null);
+
+const { lengthX } = useSwipe(selfRef, {
+	onSwipeEnd() {
+		console.log(lengthX.value);
+		if (lengthX.value > 100) {
+			navigateOrbit(1);
+		} else if (lengthX.value < -100) {
+			navigateOrbit(-1);
+		}
+	},
+});
+
+const currentItemID = computed(() => items[currentItem.value].id);
 
 function navigateOrbit(dir) {
 	let nextPos = currentItem.value + dir;
@@ -38,9 +53,27 @@ function navigateOrbit(dir) {
 	currentItem.value = nextPos;
 }
 
+function handleKeyUp($event) {
+	console.log(currentItemID.value);
+	switch ($event.key) {
+		case "ArrowLeft":
+			navigateOrbit(-1);
+			break;
+		case "ArrowRight":
+			navigateOrbit(1);
+			break;
+		case "Escape":
+			emit("closeOrbit");
+			break;
+		default:
+			return;
+	}
+}
+
 onMounted(() => {
 	const goToElement = items.findIndex((i) => i.id === initialElement);
 	currentItem.value = goToElement;
+	selfRef.value.focus();
 });
 </script>
 
@@ -257,6 +290,8 @@ onMounted(() => {
 	.zone_picture {
 		width: 46%;
 		height: 100%;
+		user-select: none;
+		pointer-events: none;
 	}
 
 	.zone_description {

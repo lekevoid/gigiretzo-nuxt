@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
-import { mapColumnToLanguages, longTextToParagraphs } from "@/composables/useDBHelper";
+import { mapColumnToLanguages, longTextToParagraphs, getFileType } from "@/composables/useDBHelper";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
@@ -49,10 +49,11 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				title: titleI18n,
 				slug: slugify(piece["Title EN"]),
 				description: descriptionI18n,
+				type: getFileType(piece["Image"][0].url),
 				height: piece["Height (in)"],
 				width: piece["Width (in)"],
 				image: piece["Image"][0].url,
-				thumbnail: piece["Image"][0].thumbnails.card_cover.url,
+				thumbnail: piece["Image"][0]?.thumbnails?.card_cover?.url || "",
 			};
 
 			return out;

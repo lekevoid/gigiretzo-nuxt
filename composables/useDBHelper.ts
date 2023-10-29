@@ -38,3 +38,19 @@ export function rowToJSONForMarkdown(row) {
 export function longTextToParagraphs(text: string) {
 	return "<p>" + text.split("\n").join("</p><p>") + "</p>";
 }
+
+export function getFileType(filepath) {
+	if (filepath.match(/\.(jpg|jpeg|png|gif)$/)) {
+		return "image";
+	}
+
+	if (filepath.match(/\.(avi|mov|mp4|wmv)$/)) {
+		return "video";
+	}
+
+	if (filepath.match(/\.(pdf)$/)) {
+		return "document";
+	}
+
+	return "unknown";
+}

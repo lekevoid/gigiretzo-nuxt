@@ -5,6 +5,7 @@
 			class="masonry_item"
 			:data-loading="k >= 6 ? 'lazy' : 'eager'"
 			@click="$emit('openPictureOrbit', item.id)"
+			@keyup="($e) => handleKeyUp($e, item.id)"
 			:id="`masonry_item_${item.id}`"
 			:key="item.id"
 		>
@@ -16,6 +17,7 @@
 					:loading="k > 6 ? 'lazy' : 'eager'"
 					placeholder="/loader-bars-scale.svg"
 					preload
+					tabindex="1"
 				/>
 			</figure>
 		</div>
@@ -24,6 +26,7 @@
 
 <script setup>
 const { items } = defineProps(["items"]);
+const emit = defineEmits(["openPictureOrbit"]);
 
 const isLoaded = ref(false);
 const itemsRef = ref(null);
@@ -36,6 +39,11 @@ function recalculateMasonry() {
 	const itemsList = itemsRef.value.querySelectorAll(".masonry_item");
 	const itemsHeights = [];
 	let heightsIncrements = [0, 0, 0];
+	let masonryBoardHeight = 0;
+
+	if (itemsList.length === 0) {
+		return;
+	}
 
 	itemsList.forEach((item) => {
 		itemsHeights.push(heightsIncrements[0]);
@@ -45,7 +53,10 @@ function recalculateMasonry() {
 
 	for (let i = 0; i < itemsList.length; i++) {
 		itemsList[i].style.top = `${itemsHeights[i]}px`;
+		masonryBoardHeight = Math.max(masonryBoardHeight, itemsHeights[i] + itemsList[i].clientHeight);
 	}
+
+	itemsRef.value.style.height = `${masonryBoardHeight}px`;
 }
 
 function resetMasonry() {
@@ -70,6 +81,13 @@ function handleViewportSize() {
 function imageLoaded(imgID) {
 	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("loaded");
 	recalculateMasonry();
+}
+
+function handleKeyUp($event, imgID) {
+	console.log($event.key, imgID);
+	if ($event.key === "Enter") {
+		emit("openPictureOrbit", imgID);
+	}
 }
 
 onMounted(() => {
@@ -97,6 +115,7 @@ onBeforeUnmount(() => {
 	min-height: 300px;
 	opacity: 0;
 	transition: opacity 0.3s;
+	margin-bottom: min(5vw, 80px);
 
 	&.loaded {
 		opacity: 1;

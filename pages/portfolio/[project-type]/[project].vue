@@ -1,11 +1,19 @@
 <template>
-	<main class="page_portfolio">
+	<main class="page_portfolio" tabindex="5">
 		<div class="container" v-if="project">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
 			<PortfolioProjectsBubbleNav :project-type="project.type" />
 			<h1>{{ project.title }}</h1>
 			<div class="description" v-html="project.description" />
 			<PortfolioMasonry v-if="pieces.length > 0" :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
+			<div v-if="videos.length > 0">
+				<h2>{{ $t("videos") }}</h2>
+				<div class="videos">
+					<div v-for="video in videos" class="video_wrapper">
+						<video :src="video.image" controls muted tabindex="2" />
+					</div>
+				</div>
+			</div>
 		</div>
 		<Teleport to="body">
 			<Transition name="fade" mode="out-in">
@@ -31,7 +39,12 @@ const project = computed(() => {
 });
 
 const pieces = computed(() => {
-	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug);
+	console.log(portfolio.value);
+	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "image");
+});
+
+const videos = computed(() => {
+	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "video");
 });
 
 /* Breadcrumb functions */
@@ -83,5 +96,29 @@ useSeoMeta({
 	margin-bottom: 40px;
 	text-align: justify;
 	line-height: 180%;
+}
+
+.videos {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	gap: 10%;
+	margin-bottom: min(5vw, 80px);
+
+	.video_wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex: 1 1 30%;
+	}
+
+	video {
+		width: auto;
+		border-radius: 5px;
+		box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+		max-height: 70vh;
+		max-width: 100%;
+		padding: 10px;
+	}
 }
 </style>

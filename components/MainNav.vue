@@ -139,6 +139,7 @@ nav {
 				}
 			}
 
+			&:focus-within,
 			&:hover,
 			&.active {
 				& > ul {
