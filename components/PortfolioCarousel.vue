@@ -136,7 +136,7 @@ watch(isScrollingRight, (val) => {
 }
 
 h2 {
-	font-size: 1em;
+	font-size: 0.8em;
 	color: #fff;
 	margin: 0 0 0.6em;
 
