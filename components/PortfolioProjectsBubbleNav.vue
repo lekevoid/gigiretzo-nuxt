@@ -14,10 +14,7 @@
 import { storeToRefs } from "pinia";
 import { usePortfolioStore } from "@/stores/portfolio";
 
-const route = useRoute;
-
 const { projectType } = defineProps(["projectType"]);
-const { locale } = useI18n();
 const localePath = useLocalePath();
 
 const { projects } = storeToRefs(usePortfolioStore());

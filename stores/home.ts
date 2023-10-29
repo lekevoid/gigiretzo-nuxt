@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
-import { useLocalStorage } from "@vueuse/core";
+import { useSessionStorage } from "@vueuse/core";
 
 export const useHomePageStore = defineStore("homepage", () => {
 	const { DEBUG_HOME } = useRuntimeConfig().public;
 
 	const { locale } = useI18n();
 
-	const fetchedCarousels = useLocalStorage("fetchedCarousels", []);
+	const fetchedCarousels = useSessionStorage("fetchedCarousels", []);
 
 	const fetchedData = reactive({
 		fetchedCarousels,
