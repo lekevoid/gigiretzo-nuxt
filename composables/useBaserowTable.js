@@ -4,8 +4,6 @@ export async function useBaserowTable(tableID, size = 0) {
 
 	const { data: fromServer } = await useFetch(`/api/baserow/${tableID}`);
 
-	console.debug(debug);
-
 	if (debug) {
 		console.debug("Test API :", fromServer.value);
 	}
@@ -18,7 +16,7 @@ export async function useBaserowTable(tableID, size = 0) {
 	const { data, pending, error } = await useFetch(url, { headers });
 
 	if (debug) {
-		console.debug("useBaserowTable() : Fetched table", tableID, data.value);
+		console.debug("useBaserowTable() : Fetched table", tableID);
 	}
 
 	if (pending.value) {
