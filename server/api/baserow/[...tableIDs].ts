@@ -8,6 +8,10 @@ export default defineEventHandler(async (event) => {
 		Authorization: `Token ${BASEROW_KEY}`,
 	};
 
+	if (debug) {
+		console.log(BASEROW_KEY, event);
+	}
+
 	const { tableID } = event.context.params;
 	const size = 200;
 

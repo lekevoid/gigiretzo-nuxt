@@ -146,19 +146,32 @@ nav {
 				}
 			}
 
+			ul,
+			li,
+			a,
+			span {
+				pointer-events: none;
+			}
+
 			&:focus-within,
 			&:hover,
 			&.active {
 				& > ul {
 					opacity: 1;
 					transition: none;
-					pointer-events: all;
 
 					& > li {
 						transition: opacity 0.6s ease, max-height var(--top-nav-reduce-transition-duration) ease;
 						max-height: 300px;
 						opacity: 1;
 					}
+				}
+
+				& > ul,
+				& > ul > li,
+				& > a,
+				& > span {
+					pointer-events: all;
 				}
 			}
 		}
