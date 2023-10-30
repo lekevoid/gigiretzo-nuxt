@@ -56,7 +56,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchArtistStatement() {
 		if (payloadArtistStatement) {
 			fetchedArtistStatement.value = payloadArtistStatement;
-			debug("Retrieved artist statement from the payload.", payloadArtistStatement);
+			debug("useAboutStore() : Retrieved Artist Statement from the payload.", payloadArtistStatement);
 			return;
 		}
 
@@ -73,7 +73,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchBio() {
 		if (payloadBio) {
 			fetchedBio.value = payloadBio;
-			debug("Retrieved bio from the payload.", payloadBio);
+			debug("useAboutStore() : Retrieved Bio from the payload.", payloadBio);
 			return;
 		}
 
@@ -90,7 +90,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchCVSections() {
 		if (payloadCVSections) {
 			fetchedCVSections.value = payloadCVSections;
-			debug("Retrieved artist statement from the payload.", payloadCVSections);
+			debug("useAboutStore() : Retrieved CV Sections from the payload.", payloadCVSections);
 			return;
 		}
 
@@ -116,7 +116,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchCVEntries() {
 		if (payloadCVEntries) {
 			fetchedCVEntries.value = payloadCVEntries;
-			debug("Retrieved artist statement from the payload.", payloadCVEntries);
+			debug("useAboutStore() : Retrieved CV Entries from the payload.", payloadCVEntries);
 			return;
 		}
 
@@ -174,7 +174,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchArtistStatement();
 	} else {
 		if (payloadArtistStatement) {
-			debug("useAboutStore: Artist Statement retrived from payload :", payloadArtistStatement);
+			debug("useAboutStore: Artist Statement retrieved from payload :", payloadArtistStatement);
 		} else {
 			debug("useAboutStore: No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
 		}
@@ -185,7 +185,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchBio();
 	} else {
 		if (payloadBio) {
-			debug("useAboutStore: Bio retrived from payload :", payloadBio);
+			debug("useAboutStore: Bio retrieved from payload :", payloadBio);
 		} else {
 			debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
 		}
@@ -196,7 +196,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchCVSections();
 	} else {
 		if (payloadCVSections) {
-			debug("useAboutStore: CV Sections retrived from payload :", payloadCVSections);
+			debug("useAboutStore: CV Sections retrieved from payload :", payloadCVSections);
 		} else {
 			debug("useAboutStore: No need to call fetchCVSections() :", fetchedCVSections.value);
 		}
@@ -207,7 +207,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchCVEntries();
 	} else {
 		if (payloadCVEntries) {
-			debug("useAboutStore: CV Entries retrived from payload :", payloadCVEntries);
+			debug("useAboutStore: CV Entries retrieved from payload :", payloadCVEntries);
 		} else {
 			debug("useAboutStore: No need to call fetchCVEntries() :", fetchedCVEntries.value);
 		}
