@@ -1,5 +1,5 @@
 <template>
-	<main class="page_portfolio" tabindex="5">
+	<main class="page_portfolio">
 		<div class="container" v-if="project">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
 			<PortfolioProjectsBubbleNav :project-type="project.type" />
@@ -75,7 +75,7 @@ const seoDescription = computed(() => project.value?.description || "");
 const seoImage = computed(() => pieces?.[0]?.image || "");
 
 definePageMeta({
-	layout: "portfolio",
+	pageTransition: { name: "page", mode: "in-out" },
 });
 
 useSeoMeta({

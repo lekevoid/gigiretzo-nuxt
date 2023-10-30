@@ -15,7 +15,7 @@ const { path } = defineProps(["path"]);
 @import "~/assets/styles/dependencies";
 
 .breadcrumb {
-	margin: 20px 0;
+	margin-bottom: 20px;
 	display: block;
 }
 

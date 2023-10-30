@@ -16,6 +16,5 @@ const { carousels } = storeToRefs(useHomePageStore());
 
 <style lang="scss">
 .page_home {
-	padding: min(5vw, 80px) 0;
 }
 </style>

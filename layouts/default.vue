@@ -12,17 +12,21 @@ header {
 }
 
 main {
+	padding-top: min(3vw, 40px);
+	padding-bottom: min(5vw, 80px);
 	z-index: 1;
 }
 
 .page-enter-active,
 .page-leave-active {
-	transition: all 0.4s;
+	opacity: 1;
+	transition: opacity 0.3s;
 }
 
 .page-enter-from,
 .page-leave-to {
 	opacity: 0;
-	filter: blur(1rem);
+	width: 100%;
+	position: absolute;
 }
 </style>

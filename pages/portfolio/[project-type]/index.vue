@@ -35,6 +35,9 @@ definePageMeta({
 <style lang="scss">
 .page_portfolio {
 	padding-bottom: 80px;
+	padding-top: 30px;
+	top: 0;
+
 	.container {
 		hr:last-of-type {
 			display: none;

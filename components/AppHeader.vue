@@ -33,8 +33,6 @@ import icon_fb from "~/assets/img/icon_fb.svg";
 import icon_instagram from "~/assets/img/icon_instagram.svg";
 import icon_linkedin from "~/assets/img/icon_linkedin.svg";
 
-const { width: windowWidth } = useWindowSize();
-
 const social = [
 	{ name: "Facebook", link: "https://www.facebook.com/Gigi.Retzo.Artist", icon: icon_fb },
 	{ name: "Instagram", link: "https://www.instagram.com/Gigi_Retzo_Artist", icon: icon_instagram },
@@ -42,6 +40,7 @@ const social = [
 ];
 
 const isNavReduced = ref(false);
+const { width: windowWidth } = useWindowSize();
 
 function handleScroll() {
 	const { scrollY } = window;
@@ -96,6 +95,7 @@ header {
 	}
 
 	.row_2 {
+		display: none;
 		.container {
 			justify-content: flex-start;
 		}
@@ -194,6 +194,10 @@ header {
 			.container {
 				flex-wrap: nowrap;
 			}
+		}
+
+		.row_2 {
+			display: flex;
 		}
 	}
 	.zone_brand {

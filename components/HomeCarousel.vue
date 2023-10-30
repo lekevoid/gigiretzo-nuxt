@@ -67,10 +67,6 @@ watch(isScrollingRight, (val) => {
 <style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
 
-.page_home {
-	padding: min(5vw, 80px) 0;
-}
-
 .home_carousel {
 	border-radius: 1em;
 	box-shadow: 4px 4px 16px #888;

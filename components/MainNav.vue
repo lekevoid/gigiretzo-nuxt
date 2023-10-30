@@ -42,7 +42,7 @@
 				</ul>
 			</li>
 			<li>
-				<NuxtLink class="label" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("contact-us") }}</NuxtLink>
+				<NuxtLink class="label" :to="localePath({ name: 'contact-us' })">{{ $t("contact-us") }}</NuxtLink>
 			</li>
 		</ul>
 	</nav>
@@ -95,6 +95,7 @@ nav {
 		padding: 6px $ulPaddingRight 6px $ulPaddingLeft;
 		display: inline-block;
 		white-space: nowrap;
+		pointer-events: all;
 
 		&:hover {
 			color: #4c0;
