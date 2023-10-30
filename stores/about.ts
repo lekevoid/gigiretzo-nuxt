@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
-import { useSessionStorage } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
@@ -9,11 +9,11 @@ export const useAboutPageStore = defineStore("about", () => {
 	const { locale } = useI18n();
 	const route = useRoute();
 
-	const fetchedArtistStatement = useSessionStorage("fetchedArtistStatement", []);
-	const fetchedBio = useSessionStorage("fetchedBio", []);
-	const fetchedCVSections = useSessionStorage("fetchedCVSections", []);
-	const fetchedCVEntries = useSessionStorage("fetchedCVEntries", []);
-	const fetchedPress = useSessionStorage("fetchedPress", []);
+	const fetchedArtistStatement = useLocalStorage("fetchedArtistStatement", []);
+	const fetchedBio = useLocalStorage("fetchedBio", []);
+	const fetchedCVSections = useLocalStorage("fetchedCVSections", []);
+	const fetchedCVEntries = useLocalStorage("fetchedCVEntries", []);
+	const fetchedPress = useLocalStorage("fetchedPress", []);
 
 	const fetchedData = reactive({
 		fetchedArtistStatement,

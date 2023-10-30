@@ -20,9 +20,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		slug: "",
 	};
 
-	const fetchedProjectTypes = useSessionStorage("fetchedProjectTypes", []);
-	const fetchedProjects = useSessionStorage("fetchedProjects", []);
-	const fetchedPortfolio = useSessionStorage("fetchedPortfolio", []);
+	const fetchedProjectTypes = ref([]);
+	const fetchedProjects = ref([]);
+	const fetchedPortfolio = ref([]);
 
 	const fetchedData = reactive({
 		fetchedProjectTypes,
@@ -127,7 +127,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				return;
 			}
 
-			const projectTable = await useBaserowTable(tables[projectName]);
+			const projectTable = await useBaserowTable(tables[projectName], 1000);
 
 			if (projectTable) {
 				const out = projectTable.map((piece) => {
@@ -161,9 +161,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return out;
 		}
 
-		const portfolioTable = await useBaserowTable(tables.portfolio);
-
-		console.log(portfolioTable);
+		const portfolioTable = await useBaserowTable(tables.portfolio, 200);
 
 		if (portfolioTable) {
 			const out = portfolioTable.map((piece) => {
