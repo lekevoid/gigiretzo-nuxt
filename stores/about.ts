@@ -1,11 +1,17 @@
 import { AboutArtistStatement } from "./../.nuxt/components.d";
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
-import { useLocalStorage } from "@vueuse/core";
+import { useSessionStorage } from "@vueuse/core";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
-	const debug = DEBUG_ABOUT === "true" ? true : false;
+	const isDebugMode = DEBUG_ABOUT === "true" ? true : false;
+
+	function debug(str) {
+		if (isDebugMode) {
+			console.debug(str);
+		}
+	}
 
 	const { locale } = useI18n();
 	const route = useRoute();
@@ -175,45 +181,61 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	if (fetchedArtistStatement.value.length === 0) {
 		if (debug) {
-			console.debug("No Artist Statement, calling fetchArtistStatement()");
+			console.debug("useAboutStore: No Artist Statement, calling fetchArtistStatement()");
 		}
 		fetchArtistStatement();
 	} else {
 		if (debug) {
-			console.debug("No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
+			if (payloadArtistStatement) {
+				console.debug("useAboutStore: Artist Statement retrived from payload :", payloadArtistStatement);
+			} else {
+				console.debug("useAboutStore: No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
+			}
 		}
 	}
 
 	if (fetchedBio.value.length === 0) {
 		if (debug) {
-			console.debug("No Biography, calling fetchBio()");
+			console.debug("useAboutStore: No Biography, calling fetchBio()");
 		}
 		fetchBio();
 	} else {
 		if (debug) {
-			console.debug("No need to call fetchBio() :", fetchedBio.value);
+			if (payloadBio) {
+				console.debug("useAboutStore: Bio retrived from payload :", payloadBio);
+			} else {
+				console.debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
+			}
 		}
 	}
 
 	if (fetchedCVSections.value.length === 0) {
 		if (debug) {
-			console.debug("No CV Sections, calling fetchCVSections()");
+			console.debug("useAboutStore: No CV Sections, calling fetchCVSections()");
 		}
 		fetchCVSections();
 	} else {
 		if (debug) {
-			console.debug("No need to call fetchCVSections() :", fetchedCVSections.value);
+			if (payloadCVSections) {
+				console.debug("useAboutStore: CV Sections retrived from payload :", payloadCVSections);
+			} else {
+				console.debug("useAboutStore: No need to call fetchCVSections() :", fetchedCVSections.value);
+			}
 		}
 	}
 
 	if (fetchedCVEntries.value.length === 0) {
 		if (debug) {
-			console.debug("No CV Entries, calling fetchCVEntries()");
+			console.debug("useAboutStore: No CV Entries, calling fetchCVEntries()");
 		}
 		fetchCVEntries();
 	} else {
 		if (debug) {
-			console.debug("No need to call fetchCVEntries() :", fetchedCVEntries.value);
+			if (payloadCVEntries) {
+				console.debug("useAboutStore: CV Entries retrived from payload :", payloadCVEntries);
+			} else {
+				console.debug("useAboutStore: No need to call fetchCVEntries() :", fetchedCVEntries.value);
+			}
 		}
 	}
 
