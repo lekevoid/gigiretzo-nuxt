@@ -17,6 +17,7 @@
 		"@types/markdown-it": "^13.0.2",
 		"@vueuse/core": "^10.5.0",
 		"@vueuse/nuxt": "^10.5.0",
+		"@zadigetvoltaire/nuxt-gtm": "^0.0.13",
 		"nuxt": "^3.7.4",
 		"sass": "^1.68.0",
 		"sass-loader": "^13.3.2",

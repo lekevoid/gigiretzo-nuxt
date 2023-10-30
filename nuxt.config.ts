@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@pinia/nuxt", "@vueuse/nuxt"],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@pinia/nuxt", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm"],
 
 	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss", "@/assets/styles/layout.scss"],
 
@@ -83,6 +83,9 @@ export default defineNuxtConfig({
 			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,
 			DEBUG_TERMS: process.env.DEBUG_TERMS,
 			DEBUG_CONTACT: process.env.DEBUG_CONTACT,
+			gtm: {
+				id: "GTM-KQ35RZZM",
+			},
 		},
 	},
 });
