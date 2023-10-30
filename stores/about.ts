@@ -1,3 +1,4 @@
+import { AboutArtistStatement } from "./../.nuxt/components.d";
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
 import { useLocalStorage } from "@vueuse/core";
@@ -9,11 +10,20 @@ export const useAboutPageStore = defineStore("about", () => {
 	const { locale } = useI18n();
 	const route = useRoute();
 
-	const fetchedArtistStatement = useLocalStorage("fetchedArtistStatement", []);
-	const fetchedBio = useLocalStorage("fetchedBio", []);
-	const fetchedCVSections = useLocalStorage("fetchedCVSections", []);
-	const fetchedCVEntries = useLocalStorage("fetchedCVEntries", []);
-	const fetchedPress = useLocalStorage("fetchedPress", []);
+	const fetchedArtistStatement = useSessionStorage("fetchedArtistStatement", []);
+	const fetchedBio = useSessionStorage("fetchedBio", []);
+	const fetchedCVSections = useSessionStorage("fetchedCVSections", []);
+	const fetchedCVEntries = useSessionStorage("fetchedCVEntries", []);
+	const fetchedPress = useSessionStorage("fetchedPress", []);
+
+	const { payload } = useNuxtApp();
+	const {
+		artistStatement: payloadArtistStatement,
+		bio: payloadBio,
+		cvSections: payloadCVSections,
+		cvEntries: payloadCVEntries,
+		press: payloadPress,
+	} = payload.data;
 
 	const fetchedData = reactive({
 		fetchedArtistStatement,
@@ -38,36 +48,60 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchArtistStatement() {
-		const asTable = await useBaserowTable(tables.artistStatement);
-
-		if (!asTable || asTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch Artist Statement.", asTable);
+		if (payloadArtistStatement) {
+			fetchedArtistStatement.value = payloadArtistStatement;
+			if (debug) {
+				console.debug("Retrieved artist statement from the payload.", payloadArtistStatement);
+			}
 			return;
 		}
 
-		fetchedArtistStatement.value = asTable.map((row: any) => rowToJSONForMarkdown(row)).filter(Boolean);
+		const { data, error } = await useAsyncData("artistStatement", () => useBaserowTable(tables.artistStatement));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch Artist Statement.", error.value, data.value);
+			return;
+		}
+
+		fetchedArtistStatement.value = data.value.map((row: any) => rowToJSONForMarkdown(row)).filter(Boolean);
 	}
 
 	async function fetchBio() {
-		const bioTable = await useBaserowTable(tables.bio);
-
-		if (!bioTable || bioTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch Biography.", bioTable);
+		if (payloadBio) {
+			fetchedBio.value = payloadBio;
+			if (debug) {
+				console.debug("Retrieved bio from the payload.", payloadBio);
+			}
 			return;
 		}
 
-		fetchedBio.value = bioTable.map((row: any) => rowToJSONForMarkdown(row));
+		const { data, error } = await useAsyncData("bio", () => useBaserowTable(tables.bio));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch Biography.", error.value, data.value);
+			return;
+		}
+
+		fetchedBio.value = data.value.map((row: any) => rowToJSONForMarkdown(row));
 	}
 
 	async function fetchCVSections() {
-		const cvSectionsTable = await useBaserowTable(tables.cvSections);
-
-		if (!cvSectionsTable || cvSectionsTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch CV Sections.", cvSectionsTable);
+		if (payloadCVSections) {
+			fetchedCVSections.value = payloadCVSections;
+			if (debug) {
+				console.debug("Retrieved artist statement from the payload.", payloadCVSections);
+			}
 			return;
 		}
 
-		fetchedCVSections.value = cvSectionsTable
+		const { data, error } = await useAsyncData("cvSections", () => useBaserowTable(tables.cvSections));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch CV Sections.", error.value, data.value);
+			return;
+		}
+
+		fetchedCVSections.value = data.value
 			.map((row: any) => {
 				const labelI18n = mapColumnToLanguages(row);
 
@@ -80,14 +114,22 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchCVEntries() {
-		const cvEntriesTable = await useBaserowTable(tables.cvEntries);
-
-		if (!cvEntriesTable || cvEntriesTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch CV Entries.", cvEntriesTable);
+		if (payloadCVEntries) {
+			fetchedCVEntries.value = payloadCVEntries;
+			if (debug) {
+				console.debug("Retrieved artist statement from the payload.", payloadCVEntries);
+			}
 			return;
 		}
 
-		fetchedCVEntries.value = cvEntriesTable
+		const { data, error } = await useAsyncData("cvEntries", () => useBaserowTable(tables.cvEntries));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch CV Entries.", error.value, data.value);
+			return;
+		}
+
+		fetchedCVEntries.value = data.value
 			.map((row: any) => {
 				if (!row.EN && !row.FR) {
 					return null;
@@ -129,6 +171,8 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	}
 
+	console.log(payload.data);
+
 	if (fetchedArtistStatement.value.length === 0) {
 		if (debug) {
 			console.debug("No Artist Statement, calling fetchArtistStatement()");
@@ -153,7 +197,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	if (fetchedCVSections.value.length === 0) {
 		if (debug) {
-			console.debug("No CV Sections, calling fetchCV()");
+			console.debug("No CV Sections, calling fetchCVSections()");
 		}
 		fetchCVSections();
 	} else {
@@ -164,7 +208,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	if (fetchedCVEntries.value.length === 0) {
 		if (debug) {
-			console.debug("No CV Entries, calling fetchCV()");
+			console.debug("No CV Entries, calling fetchCVEntries()");
 		}
 		fetchCVEntries();
 	} else {
@@ -175,7 +219,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	if (fetchedPress.value.length === 0) {
 		if (debug) {
-			console.debug("No Biography, calling fetchBio()");
+			console.debug("No Press, calling fetchPress()");
 		}
 		fetchPress();
 	} else {

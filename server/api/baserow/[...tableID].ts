@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 	};
 
 	if (debug) {
-		console.log(BASEROW_KEY, event);
+		console.log(BASEROW_KEY, event.context.params);
 	}
 
 	const { tableID } = event.context.params;
