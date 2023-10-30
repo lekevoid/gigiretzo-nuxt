@@ -1,4 +1,3 @@
-import { AboutArtistStatement } from "./../.nuxt/components.d";
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
 import { useSessionStorage } from "@vueuse/core";
@@ -7,9 +6,9 @@ export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
 	const isDebugMode = DEBUG_ABOUT === "true" ? true : false;
 
-	function debug(str) {
+	function debug(...str: any[]) {
 		if (isDebugMode) {
-			console.debug(str);
+			console.debug(...str);
 		}
 	}
 
@@ -23,6 +22,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	const fetchedPress = useSessionStorage("fetchedPress", []);
 
 	const { payload } = useNuxtApp();
+
 	const {
 		artistStatement: payloadArtistStatement,
 		bio: payloadBio,
@@ -56,9 +56,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchArtistStatement() {
 		if (payloadArtistStatement) {
 			fetchedArtistStatement.value = payloadArtistStatement;
-			if (debug) {
-				console.debug("Retrieved artist statement from the payload.", payloadArtistStatement);
-			}
+			debug("Retrieved artist statement from the payload.", payloadArtistStatement);
 			return;
 		}
 
@@ -75,9 +73,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchBio() {
 		if (payloadBio) {
 			fetchedBio.value = payloadBio;
-			if (debug) {
-				console.debug("Retrieved bio from the payload.", payloadBio);
-			}
+			debug("Retrieved bio from the payload.", payloadBio);
 			return;
 		}
 
@@ -94,9 +90,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchCVSections() {
 		if (payloadCVSections) {
 			fetchedCVSections.value = payloadCVSections;
-			if (debug) {
-				console.debug("Retrieved artist statement from the payload.", payloadCVSections);
-			}
+			debug("Retrieved artist statement from the payload.", payloadCVSections);
 			return;
 		}
 
@@ -122,9 +116,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	async function fetchCVEntries() {
 		if (payloadCVEntries) {
 			fetchedCVEntries.value = payloadCVEntries;
-			if (debug) {
-				console.debug("Retrieved artist statement from the payload.", payloadCVEntries);
-			}
+			debug("Retrieved artist statement from the payload.", payloadCVEntries);
 			return;
 		}
 
@@ -177,77 +169,55 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	}
 
-	console.log(payload.data);
-
 	if (fetchedArtistStatement.value.length === 0) {
-		if (debug) {
-			console.debug("useAboutStore: No Artist Statement, calling fetchArtistStatement()");
-		}
+		debug("useAboutStore: No Artist Statement, calling fetchArtistStatement()");
 		fetchArtistStatement();
 	} else {
-		if (debug) {
-			if (payloadArtistStatement) {
-				console.debug("useAboutStore: Artist Statement retrived from payload :", payloadArtistStatement);
-			} else {
-				console.debug("useAboutStore: No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
-			}
+		if (payloadArtistStatement) {
+			debug("useAboutStore: Artist Statement retrived from payload :", payloadArtistStatement);
+		} else {
+			debug("useAboutStore: No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
 		}
 	}
 
 	if (fetchedBio.value.length === 0) {
-		if (debug) {
-			console.debug("useAboutStore: No Biography, calling fetchBio()");
-		}
+		debug("useAboutStore: No Biography, calling fetchBio()");
 		fetchBio();
 	} else {
-		if (debug) {
-			if (payloadBio) {
-				console.debug("useAboutStore: Bio retrived from payload :", payloadBio);
-			} else {
-				console.debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
-			}
+		if (payloadBio) {
+			debug("useAboutStore: Bio retrived from payload :", payloadBio);
+		} else {
+			debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
 		}
 	}
 
 	if (fetchedCVSections.value.length === 0) {
-		if (debug) {
-			console.debug("useAboutStore: No CV Sections, calling fetchCVSections()");
-		}
+		debug("useAboutStore: No CV Sections, calling fetchCVSections()");
 		fetchCVSections();
 	} else {
-		if (debug) {
-			if (payloadCVSections) {
-				console.debug("useAboutStore: CV Sections retrived from payload :", payloadCVSections);
-			} else {
-				console.debug("useAboutStore: No need to call fetchCVSections() :", fetchedCVSections.value);
-			}
+		if (payloadCVSections) {
+			debug("useAboutStore: CV Sections retrived from payload :", payloadCVSections);
+		} else {
+			debug("useAboutStore: No need to call fetchCVSections() :", fetchedCVSections.value);
 		}
 	}
 
 	if (fetchedCVEntries.value.length === 0) {
-		if (debug) {
-			console.debug("useAboutStore: No CV Entries, calling fetchCVEntries()");
-		}
+		debug("useAboutStore: No CV Entries, calling fetchCVEntries()");
 		fetchCVEntries();
 	} else {
-		if (debug) {
-			if (payloadCVEntries) {
-				console.debug("useAboutStore: CV Entries retrived from payload :", payloadCVEntries);
-			} else {
-				console.debug("useAboutStore: No need to call fetchCVEntries() :", fetchedCVEntries.value);
-			}
+		if (payloadCVEntries) {
+			debug("useAboutStore: CV Entries retrived from payload :", payloadCVEntries);
+		} else {
+			debug("useAboutStore: No need to call fetchCVEntries() :", fetchedCVEntries.value);
 		}
 	}
 
 	if (fetchedPress.value.length === 0) {
-		if (debug) {
-			console.debug("No Press, calling fetchPress()");
-		}
+		debug("No Press, calling fetchPress()");
 		fetchPress();
 	} else {
-		if (debug) {
-			console.debug("No need to call fetchPress() :", fetchedPress.value);
-		}
+		debug("No need to call fetchPress() :", fetchedPress.value);
 	}
 
 	const artistStatement = computed(() => {
