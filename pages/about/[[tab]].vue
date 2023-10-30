@@ -28,6 +28,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useAboutPageStore } from "@/stores/about";
+import { analyticsTrackPage } from "@/composables/useGTM";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -67,6 +68,7 @@ watch(currentTab, () => {
 	if (typeof window !== "undefined") {
 		const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
 		window.history.pushState({}, "Test", toPath);
+		analyticsTrackPage(toPath);
 	}
 });
 

@@ -75,6 +75,10 @@ export default defineNuxtConfig({
 		"/fr/modalites-d-usage": { prerender: true },
 	},
 
+	gtm: {
+		id: "GTM-KQ35RZZM",
+	},
+
 	runtimeConfig: {
 		BASEROW_KEY: process.env.BASEROW_KEY,
 		public: {
@@ -85,9 +89,6 @@ export default defineNuxtConfig({
 			DEBUG_TERMS: process.env.DEBUG_TERMS,
 			DEBUG_CONTACT: process.env.DEBUG_CONTACT,
 			DEBUG_BASEROW: process.env.DEBUG_BASEROW,
-			gtm: {
-				id: "GTM-KQ35RZZM",
-			},
 		},
 	},
 });
