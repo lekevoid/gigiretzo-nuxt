@@ -155,6 +155,7 @@ h2 {
 }
 
 .carousel_image {
+	background-color: #fff;
 	flex: 1 1 25%;
 	height: auto;
 	max-height: 300px;
