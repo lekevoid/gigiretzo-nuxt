@@ -7,7 +7,13 @@ import { useSessionStorage } from "@vueuse/core";
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
 	const { DEBUG_PORTFOLIO } = useRuntimeConfig().public;
-	const debug = DEBUG_PORTFOLIO === "true" ? true : false;
+	const isDebugMode = DEBUG_PORTFOLIO === "true" ? true : false;
+
+	function debug(...str: any[]) {
+		if (isDebugMode) {
+			console.debug(...str);
+		}
+	}
 
 	const { locale } = useI18n();
 
@@ -20,9 +26,27 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		slug: "",
 	};
 
-	const fetchedProjectTypes = ref([]);
-	const fetchedProjects = ref([]);
-	const fetchedPortfolio = ref([]);
+	const { payload } = useNuxtApp();
+
+	const fetchedProjectTypes = ref(payload.data.projectTypes || []);
+	const fetchedProjects = ref(payload.data.projects || []);
+	const fetchedPortfolio = ref(payload.data.portfolio || []);
+
+	if (isDebugMode) {
+		debug(payload.data);
+
+		const checklist = [
+			{ obj: fetchedProjectTypes, name: "fetchedProjectTypes" },
+			{ obj: fetchedProjects, name: "fetchedProjects" },
+			{ obj: fetchedPortfolio, name: "fetchedPortfolio" },
+		];
+
+		checklist.forEach(({ obj, name }) => {
+			if (obj.value.length > 0) {
+				debug(`useAboutStore() : ${name} retrieved from payload :`, obj.value);
+			}
+		});
+	}
 
 	const fetchedData = reactive({
 		fetchedProjectTypes,
@@ -34,56 +58,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		projects: "210775",
 		projectTypes: "210777",
 		portfolio: "212753",
-		"One-Way": "212427",
-		BnW: "212217",
-		"Collect. I've trauma": "212303",
-		"Eyeing Teamwork": "210766",
-		"Fruit of Empathy": "212442",
-		"Loving Hearts": "212426",
-		"Pay Attention!": "212214",
-		"Ruby Slippers": "212451",
 	};
-
-	/* async function populatePortfolio() {
-		const projectsTablesList = fetchedProjects.value.map((project: any) => project.title.en);
-
-		function formatPiece(piece) {
-			const titleI18n = mapColumnToLanguages(piece, "Title");
-			const descriptionI18n = mapColumnToLanguages(piece, "Description");
-			const out = {
-				id: `${piece.id}-${slugify(piece["Title EN"])}`,
-				order: parseInt(piece.order),
-				title: titleI18n,
-				slug: slugify(piece["Title EN"]),
-				description: descriptionI18n,
-				type: getFileType(piece["Image"][0].url),
-				height: piece["Height (in)"],
-				width: piece["Width (in)"],
-				image: piece["Image"][0].url,
-				thumbnail: piece["Image"][0]?.thumbnails?.card_cover?.url || "",
-			};
-
-			return out;
-		}
-
-		projectsTablesList.forEach(async (projectName: string) => {
-			if (!tables.hasOwnProperty(projectName)) {
-				return;
-			}
-
-			const projectTable = await useBaserowTable(tables[projectName], 1000);
-
-			if (projectTable) {
-				const out = projectTable.map((piece) => {
-					const formattedPiece = formatPiece(piece);
-					formattedPiece.project = slugify(projectName);
-					return formattedPiece;
-				});
-
-				fetchedPortfolio.value.push([...out]);
-			}
-		});
-	} */
 
 	async function fetchPortfolio() {
 		function formatPiece(piece) {
@@ -105,89 +80,82 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			return out;
 		}
 
-		const portfolioTable = await useBaserowTable(tables.portfolio, 200);
+		const { data, error } = await useAsyncData("portfolio", () => useBaserowTable(tables.portfolio));
 
-		if (portfolioTable) {
-			const out = portfolioTable.map((piece) => {
-				const formattedPiece = formatPiece(piece);
-				formattedPiece.project = piece.Project[0].id;
-				return formattedPiece;
-			});
-
-			fetchedPortfolio.value = out;
-		}
-	}
-
-	async function fetchProjects() {
-		const projectsTable = await useBaserowTable(tables.projects);
-
-		if (!projectsTable || projectsTable.length === 0) {
-			console.warn("usePortfolioStore() : Unable to fetch Projects.", projectsTable);
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("usePortfolioStore() : Unable to fetch Portfolio.", error.value, data.value);
 			return;
 		}
 
-		fetchedProjects.value = projectsTable.map((project: any) => {
-			const titleI18n = mapColumnToLanguages(project, "Title");
-			const descriptionI18n = mapColumnToLanguages(project, "Description");
+		fetchedPortfolio.value = data.value.map((row) => {
+			const formattedPiece = formatPiece(row);
+			formattedPiece.project = row.Project[0].id;
+			return formattedPiece;
+		});
+	}
+
+	async function fetchProjects() {
+		const { data, error } = await useAsyncData("projects", () => useBaserowTable(tables.projects));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("usePortfolioStore() : Unable to fetch Projects.", error.value, data.value);
+			return;
+		}
+
+		fetchedProjects.value = data.value.map((row: any) => {
+			const titleI18n = mapColumnToLanguages(row, "Title");
+			const descriptionI18n = mapColumnToLanguages(row, "Description");
 
 			return {
-				id: project.id,
-				order: parseInt(project.order),
-				name: project["Title EN"],
+				id: row.id,
+				order: parseInt(row.order),
+				name: row["Title EN"],
 				title: titleI18n,
 				description: descriptionI18n,
-				type: project["Project Type"][0].value,
-				slug: slugify(project["Title EN"]),
+				type: row["Project Type"][0].value,
+				slug: slugify(row["Title EN"]),
 			};
 		});
 	}
 
 	async function fetchProjectTypes() {
-		const projectTypesTable = await useBaserowTable(tables.projectTypes);
+		const { data, error } = await useAsyncData("projectTypes", () => useBaserowTable(tables.projectTypes));
 
-		if (!projectTypesTable || projectTypesTable.length === 0) {
-			console.warn("usePortfolioStore() : Unable to fetch Project Types.", projectTypesTable);
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("usePortfolioStore() : Unable to fetch Project Types.", error.value, data.value);
 			return;
 		}
 
-		fetchedProjectTypes.value = projectTypesTable.map((projectType: any) => {
-			const titleI18n = mapColumnToLanguages(projectType, "Title");
-			return { id: projectType.id, order: parseInt(projectType.order), title: titleI18n, slug: slugify(projectType["Title EN"]) };
+		fetchedProjectTypes.value = data.value.map((row: any) => {
+			const titleI18n = mapColumnToLanguages(row, "Title");
+			return { id: row.id, order: parseInt(row.order), title: titleI18n, slug: slugify(row["Title EN"]) };
 		});
 	}
 
-	if (fetchedProjectTypes.value.length === 0) {
-		if (debug) {
-			console.debug("No projects types, calling fetchProjectsTypes()");
-		}
-		fetchProjectTypes();
-	} else {
-		if (debug) {
-			console.debug("No need to call fetchProjectTypes() :", fetchedProjectTypes.value);
+	function verifyAndFetch({ name, stateObj, fetchFunction }) {
+		if (stateObj && stateObj.length === 0) {
+			debug(`usePortfolioStore: No ${name}, calling ${fetchFunction.name}()`);
+			fetchFunction();
 		}
 	}
 
-	if (fetchedProjects.value.length === 0) {
-		if (debug) {
-			console.debug("No projects, calling fetchProject()");
-		}
-		fetchProjects();
-	} else {
-		if (debug) {
-			console.debug("No need to call fetchProjects() :", fetchedProjects.value);
-		}
-	}
+	verifyAndFetch({
+		name: "Project Types",
+		stateObj: fetchedProjectTypes.value,
+		fetchFunction: fetchProjectTypes,
+	});
 
-	if (fetchedPortfolio.value.length === 0) {
-		if (debug) {
-			console.debug("No portfolio, calling fetchPortfolio()");
-		}
-		fetchPortfolio();
-	} else {
-		if (debug) {
-			console.debug("No need to call fetchPortfolio() :", fetchedPortfolio.value);
-		}
-	}
+	verifyAndFetch({
+		name: "Projects",
+		stateObj: fetchedProjects.value,
+		fetchFunction: fetchProjects,
+	});
+
+	verifyAndFetch({
+		name: "Portfolio",
+		stateObj: fetchedPortfolio.value,
+		fetchFunction: fetchPortfolio,
+	});
 
 	const projectTypes = computed(() => {
 		return fetchedData.fetchedProjectTypes.map((pt: any) => {

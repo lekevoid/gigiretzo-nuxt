@@ -215,7 +215,8 @@ onBeforeUnmount(() => {
 			height: auto;
 			object-fit: cover;
 			aspect-ratio: auto;
-			max-height: 26vw;
+			max-height: 25vw;
+			min-height: 15vw;
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <template>
-	<nav @mouseleave="closeMenu">
+	<nav @mouseleave="blurNav">
 		<ul>
 			<li @click="toggleActiveState">
 				<span class="label">About</span>
@@ -67,9 +67,8 @@ function projectsInType(type) {
 	return projects.value.filter((project) => project.type === type);
 }
 
-function closeMenu() {
-	console.log(document.activeElement);
-	document.activeElement.blur();
+function blurNav() {
+	document?.activeElement.blur();
 }
 </script>
 
