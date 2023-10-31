@@ -42,65 +42,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		"Loving Hearts": "212426",
 		"Pay Attention!": "212214",
 		"Ruby Slippers": "212451",
-
-		/*
-
-		CURRENT ISSUES -------------------------------------------------------------------------
-
-		BASEROW SEEMS TO BE LOADING MAX 100 ROWS WHEN FETCHING A TABLE ; QUÉ PASA ?
-		OTHERWISE TABLES GET QUERIED A LOT AT BUILD TIME :
-			12:45:03 AM: [log] fetched table 212132
-			12:45:03 AM: [log] fetched table 212115
-			12:45:03 AM: [log] fetched table 210584
-			12:45:03 AM: [log] fetched table 210562
-			12:45:03 AM: [log] fetched table 212350
-			12:45:03 AM: [log] fetched table 210777
-			12:45:03 AM: [log] fetched table 210775
-			12:45:03 AM: [log] fetched table 212753
-			12:45:03 AM: [log] fetched table 212454
-			12:45:03 AM: [log] fetched table 212132
-			12:45:03 AM: [log] fetched table 212115
-			12:45:03 AM: [log] fetched table 210584
-			12:45:03 AM: [log] fetched table 210562
-			12:45:03 AM: [log] fetched table 212350
-			12:45:03 AM: [log] fetched table 210777
-			12:45:03 AM: [log] fetched table 210775
-			12:45:03 AM: [log] fetched table 212753
-			12:45:03 AM: [log] fetched table 212662
-			12:45:03 AM: [log] fetched table 212132
-			12:45:03 AM: [log] fetched table 212115
-			12:45:03 AM: [log] fetched table 210584
-			12:45:03 AM: [log] fetched table 210562
-			12:45:03 AM: [log] fetched table 212350
-			12:45:03 AM: [log] fetched table 210777
-			12:45:03 AM: [log] fetched table 210775
-			12:45:03 AM: [log] fetched table 212753
-			12:45:03 AM: [log] fetched table 212662
-			12:45:03 AM: [log] fetched table 212132
-			12:45:03 AM: [log] fetched table 212115
-			12:45:03 AM: [log] fetched table 210584
-			12:45:03 AM: [log] fetched table 210562
-			12:45:03 AM: [log] fetched table 212350
-			12:45:03 AM: [log] fetched table 210777
-			12:45:03 AM: [log] fetched table 210775
-			12:45:03 AM: [log] fetched table 212753
-			12:45:03 AM: [log] fetched table 212132
-			12:45:03 AM: [log] fetched table 212115
-			12:45:03 AM: [log] fetched table 210584
-			12:45:03 AM: [log] fetched table 210562
-			12:45:03 AM: [log] fetched table 212350
-			12:45:03 AM: [log] fetched table 210777
-			12:45:03 AM: [log] fetched table 210775
-			12:45:03 AM: [log] fetched table 212753
-			...
-
-		OTHERWISE IT OFTEN AHPPENS THAT I BUST MEMORY LIMITS (SAYS "TOO MANY REQUESTS").
-		MAYBE TRY AN ONMOUNTED HOOK WITHIN THE STORES, INSTEAD OF A FLOATING ONE GETTING CALLED EVERY PAGE LOAD ?
-
-		*/
 	};
 
-	async function populatePortfolio() {
+	/* async function populatePortfolio() {
 		const projectsTablesList = fetchedProjects.value.map((project: any) => project.title.en);
 
 		function formatPiece(piece) {
@@ -139,7 +83,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				fetchedPortfolio.value.push([...out]);
 			}
 		});
-	}
+	} */
 
 	async function fetchPortfolio() {
 		function formatPiece(piece) {

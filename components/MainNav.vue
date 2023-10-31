@@ -1,5 +1,5 @@
 <template>
-	<nav>
+	<nav @mouseleave="closeMenu">
 		<ul>
 			<li @click="toggleActiveState">
 				<span class="label">About</span>
@@ -67,8 +67,9 @@ function projectsInType(type) {
 	return projects.value.filter((project) => project.type === type);
 }
 
-function toggleActiveState($event) {
-	// $event.target.classList.toggle("active");
+function closeMenu() {
+	console.log(document.activeElement);
+	document.activeElement.blur();
 }
 </script>
 

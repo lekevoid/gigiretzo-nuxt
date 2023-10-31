@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
-import { useSessionStorage } from "@vueuse/core";
 
 export const useAboutPageStore = defineStore("about", () => {
 	const { DEBUG_ABOUT } = useRuntimeConfig().public;
@@ -64,12 +63,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchArtistStatement() {
-		/* if (payloadArtistStatement) {
-			fetchedArtistStatement.value = payloadArtistStatement;
-			debug("useAboutStore() : Retrieved Artist Statement from the payload.", payloadArtistStatement);
-			return;
-		} */
-
 		const { data, error } = await useAsyncData("artistStatement", () => useBaserowTable(tables.artistStatement));
 
 		if (error.value || !data?.value || data.value.length === 0) {
@@ -81,12 +74,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchBio() {
-		/* if (payloadBio) {
-			fetchedBio.value = payloadBio;
-			debug("useAboutStore() : Retrieved Bio from the payload.", payloadBio);
-			return;
-		} */
-
 		const { data, error } = await useAsyncData("bio", () => useBaserowTable(tables.bio));
 
 		if (error.value || !data?.value || data.value.length === 0) {
@@ -98,12 +85,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchCVSections() {
-		/* if (payloadCVSections) {
-			fetchedCVSections.value = payloadCVSections;
-			debug("useAboutStore() : Retrieved CV Sections from the payload.", payloadCVSections);
-			return;
-		} */
-
 		const { data, error } = await useAsyncData("cvSections", () => useBaserowTable(tables.cvSections));
 
 		if (error.value || !data?.value || data.value.length === 0) {
@@ -124,12 +105,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchCVEntries() {
-		/* if (payloadCVEntries) {
-			fetchedCVEntries.value = payloadCVEntries;
-			debug("useAboutStore() : Retrieved CV Entries from the payload.", payloadCVEntries);
-			return;
-		} */
-
 		const { data, error } = await useAsyncData("cvEntries", () => useBaserowTable(tables.cvEntries));
 
 		if (error.value || !data?.value || data.value.length === 0) {
@@ -160,13 +135,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchPress() {
-		/* console.log(payload);
-		if (payloadPress) {
-			fetchedPress.value = payloadPress;
-			debug("useAboutStore() : Retrieved Press from the payload.", payloadPress);
-			return;
-		} */
-
 		const { data, error } = await useAsyncData("press", () => useBaserowTable(tables.press));
 
 		if (error.value || !data?.value || data.value.length === 0) {
@@ -187,115 +155,42 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	}
 
-	function verifyAndFetch({ name, stateObj, /* payloadObj, */ fetchFunction }) {
+	function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
 			debug(`useAboutStore: No ${name}, calling ${fetchFunction.name}()`);
 			fetchFunction();
-			/* } else {
-			if (payloadObj) {
-				debug("useAboutStore:", name, "retrieved from payload :", payloadObj);
-			} else {
-				debug("useAboutStore: No need to call", fetchFunction.name, ":", stateObj);
-			} */
 		}
 	}
 
 	verifyAndFetch({
 		name: "Artist Statement",
 		stateObj: fetchedArtistStatement.value,
-		// payloadObj: payloadArtistStatement,
 		fetchFunction: fetchArtistStatement,
 	});
 
 	verifyAndFetch({
 		name: "Biography",
 		stateObj: fetchedBio.value,
-		// payloadObj: payloadBio,
 		fetchFunction: fetchBio,
 	});
 
 	verifyAndFetch({
 		name: "CV Sections",
 		stateObj: fetchedCVSections.value,
-		// payloadObj: payloadCVSections,
 		fetchFunction: fetchCVSections,
 	});
 
 	verifyAndFetch({
 		name: "CV Entries",
 		stateObj: fetchedCVEntries.value,
-		// payloadObj: payloadCVEntries,
 		fetchFunction: fetchCVEntries,
 	});
 
 	verifyAndFetch({
 		name: "Press",
 		stateObj: fetchedPress.value,
-		// payloadObj: payloadPress,
 		fetchFunction: fetchPress,
 	});
-
-	/* if (fetchedArtistStatement.value.length === 0) {
-		debug("useAboutStore: No Artist Statement, calling fetchArtistStatement()");
-		fetchArtistStatement();
-	} else {
-		if (payloadArtistStatement) {
-			debug("useAboutStore: Artist Statement retrieved from payload :", payloadArtistStatement);
-		} else {
-			debug("useAboutStore: No need to call fetchArtistStatement() :", fetchedArtistStatement.value);
-		}
-	}
-
-	if (fetchedBio.value.length === 0) {
-		debug("useAboutStore: No Biography, calling fetchBio()");
-		fetchBio();
-	} else {
-		if (payloadBio) {
-			debug("useAboutStore: Bio retrieved from payload :", payloadBio);
-		} else {
-			debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
-		}
-	}
-
-	if (fetchedCVSections.value.length === 0) {
-		debug("useAboutStore: No CV Sections, calling fetchCVSections()");
-		fetchCVSections();
-	} else {
-		if (payloadCVSections) {
-			debug("useAboutStore: CV Sections retrieved from payload :", payloadCVSections);
-		} else {
-			debug("useAboutStore: No need to call fetchCVSections() :", fetchedCVSections.value);
-		}
-	}
-
-	if (fetchedCVEntries.value.length === 0) {
-		debug("useAboutStore: No CV Entries, calling fetchCVEntries()");
-		fetchCVEntries();
-	} else {
-		if (payloadCVEntries) {
-			debug("useAboutStore: CV Entries retrieved from payload :", payloadCVEntries);
-		} else {
-			debug("useAboutStore: No need to call fetchCVEntries() :", fetchedCVEntries.value);
-		}
-	}
-
-	if (fetchedBio.value.length === 0) {
-		debug("useAboutStore: No Biography, calling fetchBio()");
-		fetchBio();
-	} else {
-		if (payloadBio) {
-			debug("useAboutStore: Bio retrieved from payload :", payloadBio);
-		} else {
-			debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
-		}
-	}
-
-	if (fetchedPress.value.length === 0) {
-		debug("No Press, calling fetchPress()");
-		fetchPress();
-	} else {
-		debug("No need to call fetchPress() :", fetchedPress.value);
-	}*/
 
 	const artistStatement = computed(() => {
 		return fetchedData.fetchedArtistStatement.map((par: any) => {

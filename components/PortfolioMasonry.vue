@@ -213,8 +213,9 @@ onBeforeUnmount(() => {
 		img,
 		picture {
 			height: auto;
-			object-fit: contain;
+			object-fit: cover;
 			aspect-ratio: auto;
+			max-height: 26vw;
 		}
 	}
 }
