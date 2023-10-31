@@ -12,24 +12,34 @@ export const useAboutPageStore = defineStore("about", () => {
 		}
 	}
 
-	const { locale } = useI18n();
 	const route = useRoute();
-
-	const fetchedArtistStatement = useSessionStorage("fetchedArtistStatement", []);
-	const fetchedBio = useSessionStorage("fetchedBio", []);
-	const fetchedCVSections = useSessionStorage("fetchedCVSections", []);
-	const fetchedCVEntries = useSessionStorage("fetchedCVEntries", []);
-	const fetchedPress = useSessionStorage("fetchedPress", []);
+	const { locale } = useI18n();
 
 	const { payload } = useNuxtApp();
 
-	const {
-		artistStatement: payloadArtistStatement,
-		bio: payloadBio,
-		cvSections: payloadCVSections,
-		cvEntries: payloadCVEntries,
-		press: payloadPress,
-	} = payload.data;
+	const fetchedArtistStatement = ref(payload.data.artistStatement || []);
+	const fetchedBio = ref(payload.data.bio || []);
+	const fetchedCVSections = ref(payload.data.cvSections || []);
+	const fetchedCVEntries = ref(payload.data.cvEntries || []);
+	const fetchedPress = ref(payload.data.press || []);
+
+	if (isDebugMode) {
+		debug(payload.data);
+
+		const checklist = [
+			{ obj: fetchedArtistStatement, name: "fetchedArtistStatement" },
+			{ obj: fetchedBio, name: "fetchedBio" },
+			{ obj: fetchedCVSections, name: "fetchedCVSections" },
+			{ obj: fetchedCVEntries, name: "fetchedCVEntries" },
+			{ obj: fetchedPress, name: "fetchedPress" },
+		];
+
+		checklist.forEach(({ obj, name }) => {
+			if (obj.value.length > 0) {
+				debug(`useAboutStore() : ${name} retrieved from payload :`, obj.value);
+			}
+		});
+	}
 
 	const fetchedData = reactive({
 		fetchedArtistStatement,
@@ -54,11 +64,11 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchArtistStatement() {
-		if (payloadArtistStatement) {
+		/* if (payloadArtistStatement) {
 			fetchedArtistStatement.value = payloadArtistStatement;
 			debug("useAboutStore() : Retrieved Artist Statement from the payload.", payloadArtistStatement);
 			return;
-		}
+		} */
 
 		const { data, error } = await useAsyncData("artistStatement", () => useBaserowTable(tables.artistStatement));
 
@@ -71,11 +81,11 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchBio() {
-		if (payloadBio) {
+		/* if (payloadBio) {
 			fetchedBio.value = payloadBio;
 			debug("useAboutStore() : Retrieved Bio from the payload.", payloadBio);
 			return;
-		}
+		} */
 
 		const { data, error } = await useAsyncData("bio", () => useBaserowTable(tables.bio));
 
@@ -88,11 +98,11 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchCVSections() {
-		if (payloadCVSections) {
+		/* if (payloadCVSections) {
 			fetchedCVSections.value = payloadCVSections;
 			debug("useAboutStore() : Retrieved CV Sections from the payload.", payloadCVSections);
 			return;
-		}
+		} */
 
 		const { data, error } = await useAsyncData("cvSections", () => useBaserowTable(tables.cvSections));
 
@@ -114,11 +124,11 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchCVEntries() {
-		if (payloadCVEntries) {
+		/* if (payloadCVEntries) {
 			fetchedCVEntries.value = payloadCVEntries;
 			debug("useAboutStore() : Retrieved CV Entries from the payload.", payloadCVEntries);
 			return;
-		}
+		} */
 
 		const { data, error } = await useAsyncData("cvEntries", () => useBaserowTable(tables.cvEntries));
 
@@ -150,15 +160,23 @@ export const useAboutPageStore = defineStore("about", () => {
 	}
 
 	async function fetchPress() {
-		const pressTable = await useBaserowTable(tables.press);
+		/* console.log(payload);
+		if (payloadPress) {
+			fetchedPress.value = payloadPress;
+			debug("useAboutStore() : Retrieved Press from the payload.", payloadPress);
+			return;
+		} */
 
-		if (!pressTable || pressTable.length === 0) {
-			console.warn("useAboutStore() : Unable to fetch Press.", pressTable);
+		const { data, error } = await useAsyncData("press", () => useBaserowTable(tables.press));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch Pressgraphy.", error.value, data.value);
 			return;
 		}
 
-		fetchedPress.value = pressTable.map((row: any) => {
+		fetchedPress.value = data.value.map((row: any) => {
 			const textI18n = mapColumnToLanguages(row);
+
 			return {
 				id: row.id,
 				order: parseInt(row.order),
@@ -169,7 +187,55 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	}
 
-	if (fetchedArtistStatement.value.length === 0) {
+	function verifyAndFetch({ name, stateObj, /* payloadObj, */ fetchFunction }) {
+		if (stateObj && stateObj.length === 0) {
+			debug(`useAboutStore: No ${name}, calling ${fetchFunction.name}()`);
+			fetchFunction();
+			/* } else {
+			if (payloadObj) {
+				debug("useAboutStore:", name, "retrieved from payload :", payloadObj);
+			} else {
+				debug("useAboutStore: No need to call", fetchFunction.name, ":", stateObj);
+			} */
+		}
+	}
+
+	verifyAndFetch({
+		name: "Artist Statement",
+		stateObj: fetchedArtistStatement.value,
+		// payloadObj: payloadArtistStatement,
+		fetchFunction: fetchArtistStatement,
+	});
+
+	verifyAndFetch({
+		name: "Biography",
+		stateObj: fetchedBio.value,
+		// payloadObj: payloadBio,
+		fetchFunction: fetchBio,
+	});
+
+	verifyAndFetch({
+		name: "CV Sections",
+		stateObj: fetchedCVSections.value,
+		// payloadObj: payloadCVSections,
+		fetchFunction: fetchCVSections,
+	});
+
+	verifyAndFetch({
+		name: "CV Entries",
+		stateObj: fetchedCVEntries.value,
+		// payloadObj: payloadCVEntries,
+		fetchFunction: fetchCVEntries,
+	});
+
+	verifyAndFetch({
+		name: "Press",
+		stateObj: fetchedPress.value,
+		// payloadObj: payloadPress,
+		fetchFunction: fetchPress,
+	});
+
+	/* if (fetchedArtistStatement.value.length === 0) {
 		debug("useAboutStore: No Artist Statement, calling fetchArtistStatement()");
 		fetchArtistStatement();
 	} else {
@@ -213,12 +279,23 @@ export const useAboutPageStore = defineStore("about", () => {
 		}
 	}
 
+	if (fetchedBio.value.length === 0) {
+		debug("useAboutStore: No Biography, calling fetchBio()");
+		fetchBio();
+	} else {
+		if (payloadBio) {
+			debug("useAboutStore: Bio retrieved from payload :", payloadBio);
+		} else {
+			debug("useAboutStore: No need to call fetchBio() :", fetchedBio.value);
+		}
+	}
+
 	if (fetchedPress.value.length === 0) {
 		debug("No Press, calling fetchPress()");
 		fetchPress();
 	} else {
 		debug("No need to call fetchPress() :", fetchedPress.value);
-	}
+	}*/
 
 	const artistStatement = computed(() => {
 		return fetchedData.fetchedArtistStatement.map((par: any) => {
