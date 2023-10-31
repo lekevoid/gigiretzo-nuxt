@@ -1,9 +1,9 @@
 <template>
 	<div class="home_carousel" :id="`carousel_${id}`">
-		<NuxtLink class="bg hover_shadow" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link[1] } })">&nbsp;</NuxtLink>
+		<NuxtLink class="bg hover_shadow" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">&nbsp;</NuxtLink>
 		<div class="inner">
 			<h2>{{ title }}</h2>
-			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link[1] } })">{{ cta }}</NuxtLink>
+			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">{{ cta }}</NuxtLink>
 			<div class="ribbon_align">
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">

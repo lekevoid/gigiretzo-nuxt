@@ -157,7 +157,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
-			debug(`useAboutStore: No ${name}, calling ${fetchFunction.name}()`);
+			debug(`useAboutStore(): No ${name}, calling ${fetchFunction.name}()`);
 			fetchFunction();
 		}
 	}

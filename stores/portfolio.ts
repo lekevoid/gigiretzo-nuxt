@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
 import { mapColumnToLanguages, longTextToParagraphs, getFileType } from "@/composables/useDBHelper";
-import { useSessionStorage } from "@vueuse/core";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
@@ -43,7 +42,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 		checklist.forEach(({ obj, name }) => {
 			if (obj.value.length > 0) {
-				debug(`useAboutStore() : ${name} retrieved from payload :`, obj.value);
+				debug(`usePortfolioStore() : ${name} retrieved from payload :`, obj.value);
 			}
 		});
 	}
@@ -134,7 +133,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
-			debug(`usePortfolioStore: No ${name}, calling ${fetchFunction.name}()`);
+			debug(`usePortfolioStore(): No ${name}, calling ${fetchFunction.name}()`);
 			fetchFunction();
 		}
 	}

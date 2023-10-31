@@ -12,6 +12,7 @@ import { storeToRefs } from "pinia";
 import { useHomePageStore } from "@/stores/home";
 
 const { carousels } = storeToRefs(useHomePageStore());
+console.log(carousels.value);
 </script>
 
 <style lang="scss">
