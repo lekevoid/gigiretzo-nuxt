@@ -212,7 +212,7 @@ $arrowSizeSmall: min(4vw, 20px);
 	transition: transform 0.3s ease;
 }
 
-@media (max-width: $xsMax) {
+@media (max-width: $xsMax), (hover: none) {
 	h2 {
 		width: auto;
 		max-width: 60%;

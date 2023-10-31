@@ -8,17 +8,19 @@
 			</h2>
 			<div class="ribbon_align">
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
-				<div class="ribbon" ref="ribbonRef">
-					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
-						<NuxtImg
-							v-for="piece in pieces"
-							:src="piece.image"
-							class="carousel_image"
-							densities="x1"
-							preload
-							placeholder="/loader-bars-scale.svg"
-							@click="openOrbitToImg(piece.id)"
-						/>
+				<div class="ribbon_wrapper">
+					<div class="ribbon" ref="ribbonRef">
+						<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
+							<NuxtImg
+								v-for="piece in pieces"
+								:src="piece.image"
+								class="carousel_image"
+								densities="x1"
+								preload
+								placeholder="/loader-bars-scale.svg"
+								@click="openOrbitToImg(piece.id)"
+							/>
+						</div>
 					</div>
 				</div>
 				<div class="arrow next" @mouseover="isScrollingRight = true" @mouseleave="isScrollingRight = false"><div class="the_arrow"></div></div>
@@ -171,7 +173,7 @@ h2 {
 	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
 }
 
-.ribbon {
+.ribbon_wrapper {
 	overflow: hidden;
 	z-index: 1;
 
@@ -196,6 +198,10 @@ h2 {
 		right: 0;
 		background: linear-gradient(to left, rgba(#fff, 1) 0%, rgba(#fff, 0) 100%);
 	}
+}
+.ribbon {
+	overflow: hidden;
+	z-index: 1;
 }
 
 .ribbon_scrolly {
@@ -277,7 +283,7 @@ hr {
 	transition: transform 0.3s ease;
 }
 
-@media (max-width: $xsMax) {
+@media (max-width: $xsMax), (hover: none) {
 	h2 {
 		width: auto;
 		max-width: 60%;
@@ -291,7 +297,6 @@ hr {
 	.ribbon {
 		overflow-x: auto;
 	}
-
 	.arrow {
 		display: none;
 	}
