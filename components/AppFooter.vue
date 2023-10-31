@@ -41,6 +41,8 @@ const items = ref([
 
 footer {
 	background-color: #000;
+	padding-bottom: 60px;
+	z-index: 10;
 }
 
 nav {

@@ -8,7 +8,7 @@
 	<nav :class="[{ active: isOpen }]">
 		<ul>
 			<li>
-				<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("about") }}</NuxtLink>
+				<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" @click="isOpen = false">{{ $t("about") }}</NuxtLink>
 			</li>
 			<li class="faint">{{ $t("portfolio") }}</li>
 			<li v-for="projectType in projectTypes" @click="toggleActiveState" class="sub">
@@ -18,7 +18,7 @@
 			</li>
 
 			<li>
-				<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("contact-us") }}</NuxtLink>
+				<NuxtLink :to="localePath({ name: 'contact-us' })" @click="isOpen = false">{{ $t("contact-us") }}</NuxtLink>
 			</li>
 		</ul>
 		<div class="outside_mobile_nav" @click="isOpen = false"></div>
@@ -50,20 +50,23 @@ watch(
 
 nav {
 	position: fixed;
-	background-color: rgba(#000, 0.6);
+	background-color: rgba(#000, 0.2);
+	box-shadow: 10px 10px 24px rgba(#000, 0);
 	width: min(70vw, 350px);
 	height: 100vh;
 	left: 0;
 	top: 0;
-	transition: transform 0.6s ease;
+	transition: background-color 0.6s ease, box-shadow 0.6s ease, transform 0.6s ease;
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: flex-end;
 	justify-content: center;
-	transform: translateX(-100%);
+	transform: translateX(-120%);
 
 	&.active {
 		transform: translateX(0%);
+		background-color: rgba(#000, 0.9);
+		box-shadow: 10px 10px 24px rgba(#000, 0.8);
 
 		.outside_mobile_nav {
 			left: 100%;
