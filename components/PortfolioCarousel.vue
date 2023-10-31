@@ -128,18 +128,6 @@ watch(isScrollingRight, (val) => {
 		opacity: 0;
 		transition: opacity 0.6s ease;
 	}
-
-	&:hover {
-		.hover_shadow {
-			opacity: 1;
-		}
-
-		.cta {
-			background: #fff none;
-			border: 1px solid #0af;
-			color: #0af;
-		}
-	}
 }
 
 .inner {
@@ -164,12 +152,13 @@ h2 {
 	border-radius: 1em;
 	color: #fff;
 	display: inline-block;
-	font-size: 0.4em;
+	font-size: 16px;
 	font-weight: bold;
 	height: auto;
 	line-height: 100%;
 	padding: 0.8em 1.4em;
-	margin: 0;
+	margin: 10px 0 0;
+	position: relative;
 	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
 }
 
@@ -184,6 +173,7 @@ h2 {
 		display: block;
 		height: 100%;
 		width: 80px;
+		max-width: 5vw;
 		z-index: 10;
 		top: 0;
 		pointer-events: none;
@@ -202,6 +192,7 @@ h2 {
 .ribbon {
 	overflow: hidden;
 	z-index: 1;
+	display: flex;
 }
 
 .ribbon_scrolly {
@@ -215,14 +206,15 @@ h2 {
 }
 
 .carousel_image {
-	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
-	height: auto;
-	border: 5px solid #fff;
-	width: auto;
-	max-height: 300px;
-	max-width: 360px;
+	background-color: #fff;
 	flex: 1 1 25%;
-	transition: opacity 0.3s ease;
+	height: auto;
+	max-height: 300px;
+	max-width: 25vw;
+	border: 5px solid #fff;
+	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
+	border-radius: 5px;
+	width: auto;
 
 	&:hover {
 		opacity: 0.6;
@@ -304,10 +296,19 @@ hr {
 
 @media (min-width: $sm) {
 	.portfolio_carousel {
-		font-size: min(10vw, 45px);
+		font-size: min(6vw, 45px);
+	}
+
+	.carousel_image {
+		flex-basis: 25%;
+		max-width: min(20vw, 360px);
 	}
 	.arrow {
 		pointer-events: all;
+	}
+
+	.cta {
+		font-size: 0.4em;
 	}
 }
 </style>

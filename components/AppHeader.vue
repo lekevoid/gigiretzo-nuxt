@@ -18,12 +18,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="row row_2">
+		<div class="row row_2" v-if="windowWidth >= 600">
 			<div class="container">
-				<MainNav v-if="windowWidth >= 600" />
-				<MobileNav v-else />
+				<MainNav />
 			</div>
 		</div>
+		<MobileNav v-else />
 	</header>
 </template>
 

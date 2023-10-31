@@ -83,18 +83,6 @@ watch(isScrollingRight, (val) => {
 		opacity: 0;
 		transition: opacity 0.6s ease;
 	}
-
-	&:hover {
-		.hover_shadow {
-			opacity: 1;
-		}
-
-		.cta {
-			background: #fff none;
-			border: 1px solid #0af;
-			color: #0af;
-		}
-	}
 }
 
 .inner {
@@ -113,7 +101,7 @@ h2 {
 	border-radius: 1em;
 	color: #fff;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
 	height: auto;
 	line-height: 100%;
@@ -143,12 +131,12 @@ h2 {
 	overflow: hidden;
 	padding: 30px 0 0;
 	z-index: 1;
+	display: flex;
 }
 
 .ribbon_scrolly {
 	display: flex;
 	margin: 0 min(10vw, 60px);
-
 	flex-flow: row nowrap;
 	align-items: center;
 	gap: 30px;
@@ -272,6 +260,18 @@ $arrowSizeSmall: min(4vw, 20px);
 		right: 0;
 		top: 0.6em;
 		margin: 0;
+	}
+}
+
+@media (min-width: $sm), (hover: hover) {
+	.home_carousel {
+		&:hover {
+			.cta {
+				background: #fff none;
+				border: 1px solid #0af;
+				color: #0af;
+			}
+		}
 	}
 }
 </style>
