@@ -60,7 +60,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	};
 
 	async function fetchPortfolio() {
-		function formatPiece(piece) {
+		function formatPiece(piece: any) {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
 			const out = {

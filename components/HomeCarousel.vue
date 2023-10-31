@@ -3,18 +3,16 @@
 		<NuxtLink class="bg hover_shadow" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">&nbsp;</NuxtLink>
 		<div class="inner">
 			<h2>{{ title }}</h2>
-			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">{{ cta }}</NuxtLink>
 			<div class="ribbon_align">
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">
 					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
-						<div v-for="image in images" class="image_wrapper">
-							<NuxtImg :src="image" class="carousel_image" densities="x1" />
-						</div>
+						<NuxtImg v-for="image in images" :src="image" class="carousel_image" densities="x1" preload placeholder="/loader-bars-scale.svg" />
 					</div>
 				</div>
 				<div class="arrow next" @mouseover="isScrollingRight = true" @mouseleave="isScrollingRight = false"><div class="the_arrow"></div></div>
 			</div>
+			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">{{ cta }}</NuxtLink>
 		</div>
 	</div>
 </template>
@@ -103,7 +101,7 @@ watch(isScrollingRight, (val) => {
 }
 
 h2 {
-	font-size: 1em;
+	font-size: 1.4em;
 	color: #fff;
 	margin: 0;
 	text-shadow: 2px 2px 4px #000, 2px 2px 8px #000;
@@ -115,15 +113,13 @@ h2 {
 	border-radius: 1em;
 	color: #fff;
 	display: inline-block;
-	font-size: 0.4em;
+	font-size: 14px;
 	font-weight: bold;
 	height: auto;
 	line-height: 100%;
 	padding: 0.8em 1.4em;
-	margin: 0;
-	position: absolute;
-	right: 0;
-	top: 0.6em;
+	margin: 10px 0 0;
+	position: relative;
 	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
 }
 
@@ -158,18 +154,14 @@ h2 {
 	gap: 30px;
 }
 
-.image_wrapper {
+.carousel_image {
+	flex: 1 1 25%;
+	height: auto;
 	max-height: 300px;
-	max-width: 360px;
+	max-width: 25vw;
 	border: 5px solid #fff;
-	display: flex;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
-	flex: 0 0 25%;
-}
-
-.carousel_image {
-	max-width: 100%;
 	width: auto;
 }
 
@@ -245,10 +237,6 @@ $arrowSizeSmall: min(4vw, 20px);
 		margin: 0;
 	}
 
-	.image_wrapper {
-		flex: 0 0 40%;
-	}
-
 	.arrow {
 		display: none;
 	}
@@ -256,10 +244,20 @@ $arrowSizeSmall: min(4vw, 20px);
 
 @media (min-width: $sm) {
 	.home_carousel {
-		font-size: min(10vw, 45px);
+		font-size: min(6vw, 45px);
 	}
+
+	h2 {
+		font-size: 1em;
+	}
+
 	.inner {
 		pointer-events: none;
+	}
+
+	.carousel_image {
+		flex-basis: 25%;
+		max-width: min(20vw, 360px);
 	}
 
 	.arrow {
@@ -267,7 +265,12 @@ $arrowSizeSmall: min(4vw, 20px);
 	}
 
 	.cta {
+		font-size: 0.4em;
 		pointer-events: none;
+		position: absolute;
+		right: 0;
+		top: 0.6em;
+		margin: 0;
 	}
 }
 </style>

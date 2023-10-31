@@ -10,7 +10,15 @@
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">
 					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
-						<NuxtImg v-for="piece in pieces" :src="piece.image" class="carousel_image" densities="x1" @click="openOrbitToImg(piece.id)" />
+						<NuxtImg
+							v-for="piece in pieces"
+							:src="piece.image"
+							class="carousel_image"
+							densities="x1"
+							preload
+							placeholder="/loader-bars-scale.svg"
+							@click="openOrbitToImg(piece.id)"
+						/>
 					</div>
 				</div>
 				<div class="arrow next" @mouseover="isScrollingRight = true" @mouseleave="isScrollingRight = false"><div class="the_arrow"></div></div>
