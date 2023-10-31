@@ -1,33 +1,14 @@
 import { defineStore } from "pinia";
+import { useSessionStorage } from "@vueuse/core";
+import { slugify } from "@/composables/useTextHelper";
 import { mapColumnToLanguages } from "@/composables/useDBHelper";
 
 export const useHomePageStore = defineStore("homepage", () => {
 	const { DEBUG_HOME } = useRuntimeConfig().public;
-	const isDebugMode = DEBUG_HOME === "true" ? true : false;
-
-	function debug(...str: any[]) {
-		if (isDebugMode) {
-			console.debug(...str);
-		}
-	}
 
 	const { locale } = useI18n();
 
-	const { payload } = useNuxtApp();
-
-	const fetchedCarousels = ref(payload.data.carousels || []);
-
-	if (isDebugMode) {
-		debug(payload.data);
-
-		const checklist = [{ obj: fetchedCarousels, name: "fetchedCarousels" }];
-
-		checklist.forEach(({ obj, name }) => {
-			if (obj.value.length > 0) {
-				debug(`useHomePageStore() : ${name} retrieved from payload :`, obj.value);
-			}
-		});
-	}
+	const fetchedCarousels = useSessionStorage("fetchedCarousels", []);
 
 	const fetchedData = reactive({
 		fetchedCarousels,
@@ -38,14 +19,14 @@ export const useHomePageStore = defineStore("homepage", () => {
 	};
 
 	async function fetchCarousels() {
-		const { data, error } = await useAsyncData("carousels", () => useBaserowTable(tables.carousels));
+		const carouselsTable = await useBaserowTable(tables.carousels);
 
-		if (error.value || !data?.value || data.value.length === 0) {
-			console.error("useHomePageStore() : Unable to fetch Homepage Carousels.", error.value, data.value);
+		if (!carouselsTable || carouselsTable.length === 0) {
+			console.warn("useAboutStore() : Unable to fetch Artist Statement.", carouselsTable);
 			return;
 		}
 
-		fetchedCarousels.value = data.value
+		fetchedCarousels.value = carouselsTable
 			.map((row: any) => {
 				const titleI18n = mapColumnToLanguages(row, "Title");
 				const ctaI18n = mapColumnToLanguages(row, "CTA");
@@ -62,23 +43,19 @@ export const useHomePageStore = defineStore("homepage", () => {
 			.filter(Boolean);
 	}
 
-	function verifyAndFetch({ name, stateObj, fetchFunction }) {
-		if (stateObj && stateObj.length === 0) {
-			debug(`useHomePageStore(): No ${name}, calling ${fetchFunction.name}()`);
-			fetchFunction();
+	if (fetchedCarousels.value.length === 0) {
+		if (DEBUG_HOME === "true") {
+			console.debug("No carousels, calling fetchCarousels()");
+		}
+		fetchCarousels();
+	} else {
+		if (DEBUG_HOME === "true") {
+			console.debug("No need to call fetchCarousels() :", fetchedCarousels.value);
 		}
 	}
 
-	verifyAndFetch({
-		name: "Carousels",
-		stateObj: fetchedCarousels.value,
-		fetchFunction: fetchCarousels,
-	});
-
 	const carousels = computed(() => {
-		console.log(fetchedData.fetchedCarousels);
-
-		const blah = fetchedData.fetchedCarousels.map((carousel: any) => {
+		return fetchedData.fetchedCarousels.map((carousel: any) => {
 			const cOut = { ...carousel };
 			if (cOut.title) {
 				cOut.title = cOut.title[locale.value] || cOut.title.en;
@@ -88,10 +65,6 @@ export const useHomePageStore = defineStore("homepage", () => {
 			}
 			return cOut;
 		});
-
-		console.log(blah);
-
-		return blah;
 	});
 
 	return { carousels };
