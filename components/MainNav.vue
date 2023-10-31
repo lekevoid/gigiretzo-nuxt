@@ -26,7 +26,8 @@
 				<span class="label">Portfolio</span>
 				<ul>
 					<li v-for="projectType in projectTypes" @click="toggleActiveState">
-						<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })">
+						<div class="label" v-if="pointerType === 'touch'">{{ projectType.title }}</div>
+						<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })" v-else>
 							{{ projectType.title }}
 						</NuxtLink>
 						<ul>
@@ -58,6 +59,8 @@ const localePath = useLocalePath();
 
 const { setCurrentTab } = useAboutPageStore();
 const { projects, projectTypes } = storeToRefs(usePortfolioStore());
+
+const { pointerType } = usePointer();
 
 function isAbout() {
 	return !!route.name.match(/^about/);
