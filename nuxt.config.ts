@@ -63,7 +63,6 @@ export default defineNuxtConfig({
 		presets: {
 			portfolioCarousel: {
 				modifiers: {
-					format: "jpg",
 					width: 320,
 				},
 			},
