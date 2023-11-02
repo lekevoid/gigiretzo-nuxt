@@ -13,6 +13,7 @@
 							class="carousel_image"
 							densities="x1"
 							preload
+							sizes="340px"
 							preset="portfolioCarousel"
 							:loading="k < 4 ? 'eager' : 'lazy'"
 							placeholder="/loader-bars-scale.svg"
