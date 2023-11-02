@@ -24,7 +24,7 @@
 import { storeToRefs } from "pinia";
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~/assets/styles/dependencies";
 
 .page_contact {
@@ -55,6 +55,7 @@ import { storeToRefs } from "pinia";
 		opacity: 0.6;
 	}
 }
+
 @media (min-width: $sm) {
 	.col {
 		flex: 0 0 40%;

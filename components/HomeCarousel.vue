@@ -7,7 +7,16 @@
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">
 					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
-						<NuxtImg v-for="image in images" :src="image" class="carousel_image" densities="x1" preload placeholder="/loader-bars-scale.svg" />
+						<NuxtImg
+							v-for="(image, k) in images"
+							:src="image"
+							class="carousel_image"
+							densities="x1"
+							preload
+							preset="portfolioCarousel"
+							:loading="k < 4 ? 'eager' : 'lazy'"
+							placeholder="/loader-bars-scale.svg"
+						/>
 					</div>
 				</div>
 				<div class="arrow next" @mouseover="isScrollingRight = true" @mouseleave="isScrollingRight = false"><div class="the_arrow"></div></div>

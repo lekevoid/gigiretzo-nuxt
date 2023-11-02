@@ -61,7 +61,6 @@ export const useHomePageStore = defineStore("homepage", () => {
 		}
 
 		fetchedCarousels.value = data.value.map((row: any) => {
-			console.log("AFTER FORMATCAROUSEL", formatCarousel(row));
 			return formatCarousel(row);
 		});
 	}

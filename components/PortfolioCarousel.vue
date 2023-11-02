@@ -12,12 +12,14 @@
 					<div class="ribbon" ref="ribbonRef">
 						<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
 							<NuxtImg
-								v-for="piece in pieces"
+								v-for="(piece, k) in pieces"
 								:src="piece.image"
 								class="carousel_image"
 								densities="x1"
 								preload
 								placeholder="/loader-bars-scale.svg"
+								preset="portfolioCarousel"
+								:loading="k < 4 ? 'eager' : 'lazy'"
 								@click="openOrbitToImg(piece.id)"
 							/>
 						</div>

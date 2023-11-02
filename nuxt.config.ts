@@ -59,6 +59,16 @@ export default defineNuxtConfig({
 			md: 900,
 			xl: 1400,
 		},
+		quality: 80,
+		presets: {
+			portfolioCarousel: {
+				modifiers: {
+					format: "jpg",
+					width: 320,
+					height: 50,
+				},
+			},
+		},
 	},
 
 	nitro: {
