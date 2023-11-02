@@ -277,12 +277,6 @@ hr {
 	transition: transform 0.3s ease;
 }
 
-@media (hover: none) {
-	.ribbon_scrolly {
-		padding-bottom: 30px;
-	}
-}
-
 @media (max-width: $xsMax), (hover: none) {
 	h2 {
 		width: auto;
@@ -292,6 +286,10 @@ hr {
 
 	.bg {
 		pointer-events: none;
+	}
+
+	.ribbon_scrolly {
+		padding-bottom: 30px;
 	}
 
 	.ribbon {
@@ -311,12 +309,14 @@ hr {
 		flex-basis: 25%;
 		max-width: min(20vw, 360px);
 	}
-	.arrow {
-		pointer-events: all;
-	}
 
 	.cta {
 		font-size: 0.4em;
+	}
+}
+@media (min-width: $sm) and (hover: hover) {
+	.arrow {
+		pointer-events: all;
 	}
 }
 </style>

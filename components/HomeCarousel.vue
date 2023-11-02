@@ -209,38 +209,35 @@ $arrowSizeSmall: min(4vw, 20px);
 	transition: transform 0.3s ease;
 }
 
-@media (hover: none) {
-	.ribbon_scrolly {
-		padding-bottom: 30px;
-	}
-}
-
 @media (max-width: $xsMax), (hover: none) {
-	h2 {
-		width: auto;
-		max-width: 60%;
-		display: inline-block;
-	}
+	body {
+		h2 {
+			width: auto;
+			max-width: 60%;
+			display: inline-block;
+		}
 
-	.bg {
-		pointer-events: none;
-	}
+		.bg {
+			pointer-events: none;
+		}
 
-	.cta {
-		pointer-events: all;
-	}
+		.cta {
+			pointer-events: all;
+		}
 
-	.ribbon {
-		overflow-x: auto;
-		pointer-events: all;
-	}
+		.ribbon {
+			overflow-x: auto;
+			pointer-events: all;
+		}
 
-	.ribbon_scrolly {
-		margin: 0;
-	}
+		.ribbon_scrolly {
+			padding-bottom: 30px;
+			margin: 0;
+		}
 
-	.arrow {
-		display: none;
+		.arrow {
+			display: none;
+		}
 	}
 }
 
@@ -253,39 +250,36 @@ $arrowSizeSmall: min(4vw, 20px);
 		font-size: 1em;
 	}
 
-	.inner {
-		pointer-events: none;
-	}
-
 	.carousel_image {
 		flex-basis: 25%;
 		border-width: 5px;
 		max-width: min(30vw, 360px);
 	}
-
-	.arrow {
-		pointer-events: all;
-	}
-
-	.cta {
-		font-size: 0.4em;
-		pointer-events: none;
-		position: absolute;
-		right: 0;
-		top: 0.6em;
-		margin: 0;
-	}
 }
 
-@media (min-width: $sm), (hover: hover) {
+@media (min-width: $sm) and (hover: hover) {
 	.home_carousel {
 		&:hover {
 			.cta {
 				background: #fff none;
 				border: 1px solid #0af;
 				color: #0af;
+				font-size: 0.4em;
+				pointer-events: none;
+				position: absolute;
+				right: 0;
+				top: 0.6em;
+				margin: 0;
 			}
 		}
+	}
+
+	.inner {
+		pointer-events: none;
+	}
+
+	.arrow {
+		pointer-events: all;
 	}
 }
 </style>
