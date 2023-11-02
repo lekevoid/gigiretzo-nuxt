@@ -260,17 +260,20 @@ $arrowSizeSmall: min(4vw, 20px);
 
 @media (min-width: $sm) and (hover: hover) {
 	.home_carousel {
+		.cta {
+			font-size: 0.4em;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 0.6em;
+			margin: 0;
+		}
+
 		&:hover {
 			.cta {
 				background: #fff none;
 				border: 1px solid #0af;
 				color: #0af;
-				font-size: 0.4em;
-				pointer-events: none;
-				position: absolute;
-				right: 0;
-				top: 0.6em;
-				margin: 0;
 			}
 		}
 	}
