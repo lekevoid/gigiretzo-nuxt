@@ -1,5 +1,5 @@
 <template>
-	<div id="mc_embed_shell">
+	<div id="mc_embed_shell" v-if="isFormSubmitted === false">
 		<div id="mc_embed_signup">
 			<form
 				action="https://ArtzyRetzo.us20.list-manage.com/subscribe/post?u=b78567d38aae53c8025a1103d&amp;id=420306bddd&amp;f_id=00035ae6f0"
@@ -128,10 +128,15 @@
 			</form>
 		</div>
 	</div>
+	<div v-if="isFormSubmitted === true" v-html="$t('thank-you-contact')" />
 </template>
 
 <script setup>
 const isAVisualArtist = ref(null);
+const isFormSubmitted = ref("undetermined");
+
+const route = useRoute();
+console.log(route);
 
 function handleVAKindChange($event) {
 	if ($event.target.value.match("Yes")) {
@@ -140,6 +145,18 @@ function handleVAKindChange($event) {
 		isAVisualArtist.value = false;
 	}
 }
+
+function handleSubmit() {
+	isFormSubmitted.value = true;
+}
+
+onMounted(() => {
+	if (route.query.submitted === "true") {
+		isFormSubmitted.value = true;
+	} else {
+		isFormSubmitted.value = false;
+	}
+});
 
 onMounted(() => {
 	useHead({
@@ -274,13 +291,23 @@ onMounted(() => {
 			background: linear-gradient(to bottom, #0af 0%, #05f 100%);
 			background-color: #05f;
 			border: 0 none;
-			border-radius: 4px;
+			border-radius: 8px;
+			cursor: pointer;
 			color: #fff;
 			font-weight: bold;
 			height: auto;
 			line-height: 100%;
 			padding: 16px 30px;
+			transition: filter 0.3s ease;
+
+			&:hover {
+				filter: hue-rotate(-60deg);
+			}
 		}
+	}
+
+	#mce-responses {
+		display: none;
 	}
 }
 

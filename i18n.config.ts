@@ -46,6 +46,8 @@ export default defineI18nConfig(() => ({
 			form_at_an_event: "At an event",
 			form_referral: "Referral",
 			form_submit: "Submit",
+			"thank-you-contact":
+				"<p>Your message has been sent, I'll get back to you as soon as possible !</p><p>Thank you for your interest and support !</p>",
 		},
 		fr: {
 			home: "Maison",
@@ -91,6 +93,7 @@ export default defineI18nConfig(() => ({
 			form_at_an_event: "D'un évènement",
 			form_referral: "Référence",
 			form_submit: "Envoyer",
+			"thank-you-contact": "<p>Ton message a été envoyé et je te reviendrai dès que possible !</p><p>Merci de ton intérêt et de ton support !</p>",
 		},
 	},
 }));

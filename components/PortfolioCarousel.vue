@@ -198,13 +198,13 @@ h2 {
 }
 
 .ribbon_scrolly {
+	padding: 20px 0;
+	z-index: 1;
 	display: flex;
 	margin: 0 min(10vw, 60px);
-	padding: 20px 0;
 	flex-flow: row nowrap;
 	align-items: center;
-	gap: 30px;
-	z-index: 1;
+	gap: min(3vw, 30px);
 }
 
 .carousel_image {
@@ -213,7 +213,7 @@ h2 {
 	height: auto;
 	max-height: 300px;
 	max-width: 25vw;
-	border: 5px solid #fff;
+	border: 3px solid #fff;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
 	width: auto;
@@ -275,6 +275,12 @@ hr {
 	border-style: solid;
 	border-color: transparent;
 	transition: transform 0.3s ease;
+}
+
+@media (hover: none) {
+	.ribbon_scrolly {
+		padding-bottom: 30px;
+	}
 }
 
 @media (max-width: $xsMax), (hover: none) {

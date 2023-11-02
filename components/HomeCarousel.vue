@@ -83,7 +83,7 @@ watch(isScrollingRight, (val) => {
 	max-width: 100%;
 	margin-bottom: min(10vw, 80px);
 	overflow: hidden;
-	padding: 1em 1.5em 0.9em;
+	padding: 1em 1.2em 0.9em;
 	position: relative;
 	transition: box-shadow 0.3s ease;
 	width: 100%;
@@ -148,7 +148,7 @@ h2 {
 	margin: 0 min(10vw, 60px);
 	flex-flow: row nowrap;
 	align-items: center;
-	gap: 30px;
+	gap: min(3vw, 30px);
 }
 
 .carousel_image {
@@ -156,8 +156,8 @@ h2 {
 	flex: 1 1 25%;
 	height: auto;
 	max-height: 300px;
-	max-width: 25vw;
-	border: 5px solid #fff;
+	max-width: 40vw;
+	border: 3px solid #fff;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
 	width: auto;
@@ -209,6 +209,12 @@ $arrowSizeSmall: min(4vw, 20px);
 	transition: transform 0.3s ease;
 }
 
+@media (hover: none) {
+	.ribbon_scrolly {
+		padding-bottom: 30px;
+	}
+}
+
 @media (max-width: $xsMax), (hover: none) {
 	h2 {
 		width: auto;
@@ -230,8 +236,6 @@ $arrowSizeSmall: min(4vw, 20px);
 	}
 
 	.ribbon_scrolly {
-		padding-bottom: 20px;
-		gap: 5%;
 		margin: 0;
 	}
 
@@ -255,7 +259,8 @@ $arrowSizeSmall: min(4vw, 20px);
 
 	.carousel_image {
 		flex-basis: 25%;
-		max-width: min(20vw, 360px);
+		border-width: 5px;
+		max-width: min(30vw, 360px);
 	}
 
 	.arrow {
