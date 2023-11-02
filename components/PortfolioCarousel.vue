@@ -263,14 +263,6 @@ $arrowSizeSmall: min(4vw, 20px);
 	}
 }
 
-hr {
-	background-color: #eef;
-	height: 2px;
-	margin: 60px auto;
-	width: 50%;
-	border: 0 none;
-}
-
 .the_arrow {
 	border-width: $arrowSizeSmall 0;
 	border-style: solid;
