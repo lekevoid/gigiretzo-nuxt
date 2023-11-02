@@ -206,6 +206,7 @@ onMounted(() => {
 	text-align: right;
 	margin: 0 0 12px;
 }
+
 .asterisk {
 	color: #f00;
 }
@@ -267,7 +268,7 @@ onMounted(() => {
 						width: auto;
 					}
 					label {
-						font-size: 0.7em;
+						font-size: 14px;
 					}
 				}
 			}

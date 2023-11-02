@@ -28,7 +28,7 @@ import { storeToRefs } from "pinia";
 @import "~/assets/styles/dependencies";
 
 .page_contact {
-	font-size: var(--about-page-font-size);
+	font-size: clamp(16px, 3vw, 22px);
 }
 
 .grid {
