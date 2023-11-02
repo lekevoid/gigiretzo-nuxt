@@ -25,6 +25,7 @@
 			<NuxtLink class="cta" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">{{ cta }}</NuxtLink>
 		</div>
 	</div>
+	<hr />
 </template>
 
 <script setup>
@@ -99,7 +100,7 @@ watch(isScrollingRight, (val) => {
 }
 
 h2 {
-	font-size: 1.4em;
+	font-size: 36px;
 	color: #fff;
 	margin: 0;
 	text-shadow: 2px 2px 4px #000, 2px 2px 8px #000;
@@ -125,7 +126,7 @@ h2 {
 	background: linear-gradient(to bottom, #cef 0%, #6cf 100%);
 
 	.hover_shadow {
-		box-shadow: inset 0 0 4em #0af;
+		box-shadow: inset 0 0 80px #0af;
 	}
 }
 
@@ -133,7 +134,7 @@ h2 {
 	background: linear-gradient(to bottom, #fdb 0%, #fa5 100%);
 
 	.hover_shadow {
-		box-shadow: inset 0 0 4em #e70;
+		box-shadow: inset 0 0 80px #e70;
 	}
 }
 
@@ -212,12 +213,6 @@ $arrowSizeSmall: min(4vw, 20px);
 
 @media (max-width: $xsMax), (hover: none) {
 	body {
-		h2 {
-			width: auto;
-			max-width: 60%;
-			display: inline-block;
-		}
-
 		.bg {
 			pointer-events: none;
 		}
@@ -260,17 +255,23 @@ $arrowSizeSmall: min(4vw, 20px);
 
 @media (min-width: $sm) and (hover: hover) {
 	.home_carousel {
+		.cta {
+			font-size: 0.4em;
+			pointer-events: none;
+			position: absolute;
+			right: 0;
+			top: 0.6em;
+			margin: 0;
+		}
+
 		&:hover {
 			.cta {
 				background: #fff none;
 				border: 1px solid #0af;
 				color: #0af;
-				font-size: 0.4em;
-				pointer-events: none;
-				position: absolute;
-				right: 0;
-				top: 0.6em;
-				margin: 0;
+			}
+			.hover_shadow {
+				opacity: 1;
 			}
 		}
 	}

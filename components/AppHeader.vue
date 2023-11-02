@@ -18,7 +18,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row row_2" v-if="windowWidth >= 600">
+		<div class="row row_2" v-if="windowWidth >= 500">
 			<div class="container">
 				<MainNav />
 			</div>
@@ -52,6 +52,8 @@ function handleScroll() {
 	}
 }
 
+console.log(windowWidth.value);
+
 onMounted(() => {
 	handleScroll();
 	window.addEventListener("scroll", handleScroll);
@@ -74,6 +76,7 @@ header {
 	width: 100vw;
 	left: 0;
 	top: 0;
+	padding-bottom: 10px;
 	z-index: 100;
 
 	.row {
@@ -189,6 +192,7 @@ header {
 
 @media (min-width: 500px) {
 	header {
+		padding-bottom: 0;
 		.row_1 {
 			padding-top: var(--top-nav-row-1-padding-top);
 			height: var(--top-nav-row-1-height);

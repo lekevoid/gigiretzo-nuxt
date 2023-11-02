@@ -78,7 +78,7 @@ nav {
 	a {
 		color: #fff;
 		transition: opacity 0.3s ease;
-		font-size: 22px;
+		font-size: min(5vw, 22px);
 		font-weight: 500;
 
 		&:hover {

@@ -10,13 +10,9 @@
 			<li>
 				<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" @click="isOpen = false">{{ $t("about") }}</NuxtLink>
 			</li>
-			<li class="faint">{{ $t("portfolio") }}</li>
-			<li v-for="projectType in projectTypes" @click="toggleActiveState" class="sub">
-				<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })">
-					{{ projectType.title }}
-				</NuxtLink>
+			<li>
+				<NuxtLink :to="localePath({ name: 'index' })" @click="isOpen = false">{{ $t("portfolio") }}</NuxtLink>
 			</li>
-
 			<li>
 				<NuxtLink :to="localePath({ name: 'contact-us' })" @click="isOpen = false">{{ $t("contact-us") }}</NuxtLink>
 			</li>

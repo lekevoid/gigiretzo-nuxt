@@ -137,7 +137,7 @@ watch(isScrollingRight, (val) => {
 }
 
 h2 {
-	font-size: 0.8em;
+	font-size: 36px;
 	color: #fff;
 	margin: 0 0 0.6em;
 
@@ -279,12 +279,6 @@ hr {
 }
 
 @media (max-width: $xsMax), (hover: none) {
-	h2 {
-		width: auto;
-		max-width: 60%;
-		display: inline-block;
-	}
-
 	.bg {
 		pointer-events: none;
 	}
