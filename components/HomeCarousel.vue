@@ -269,9 +269,12 @@ $arrowSizeSmall: min(4vw, 20px);
 				background: #fff none;
 				border: 1px solid #0af;
 				color: #0af;
-			}
-			.hover_shadow {
-				opacity: 1;
+				font-size: 0.4em;
+				pointer-events: none;
+				position: absolute;
+				right: 0;
+				top: 0.6em;
+				margin: 0;
 			}
 		}
 	}
