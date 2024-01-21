@@ -23,7 +23,7 @@ export function mapColumnToLanguages(table: any, columnName: string = "") {
 }
 
 export function rowToJSONForMarkdown(row) {
-	if (row.Type?.value && ["Title", "Subtitle", "Paragraph"].includes(row.Type.value)) {
+	if (row.Type?.value && ["Title", "Subtitle", "Subsubtitle", "Paragraph"].includes(row.Type.value)) {
 		const textI18n = mapColumnToLanguages(row);
 		return { type: row.Type.value.toLowerCase(), text: textI18n };
 	}

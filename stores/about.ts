@@ -21,6 +21,7 @@ export const useAboutPageStore = defineStore("about", () => {
 	const fetchedCVSections = ref(payload.data.cvSections || []);
 	const fetchedCVEntries = ref(payload.data.cvEntries || []);
 	const fetchedPress = ref(payload.data.press || []);
+	const fetchedWhatWeDo = ref(payload.data.whatWeDo || []);
 
 	if (isDebugMode) {
 		debug(payload.data);
@@ -31,6 +32,7 @@ export const useAboutPageStore = defineStore("about", () => {
 			{ obj: fetchedCVSections, name: "fetchedCVSections" },
 			{ obj: fetchedCVEntries, name: "fetchedCVEntries" },
 			{ obj: fetchedPress, name: "fetchedPress" },
+			{ obj: fetchedWhatWeDo, name: "fetchedWhatWeDo" },
 		];
 
 		checklist.forEach(({ obj, name }) => {
@@ -46,6 +48,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		fetchedCVSections,
 		fetchedCVEntries,
 		fetchedPress,
+		fetchedWhatWeDo,
 	});
 
 	const tables: any = {
@@ -54,6 +57,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		cvSections: "210584",
 		cvEntries: "210562",
 		press: "212350",
+		whatWeDo: "245070",
 	};
 
 	const currentTab = ref(route?.params?.tab || "bio");
@@ -155,6 +159,17 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	}
 
+	async function fetchWhatWeDo() {
+		const { data, error } = await useAsyncData("whatWeDo", () => useBaserowTable(tables.whatWeDo));
+
+		if (error.value || !data?.value || data.value.length === 0) {
+			console.error("useAboutStore() : Unable to fetch Biography.", error.value, data.value);
+			return;
+		}
+
+		fetchedWhatWeDo.value = data.value.map((row: any) => rowToJSONForMarkdown(row));
+	}
+
 	function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
 			debug(`useAboutStore(): No ${name}, calling ${fetchFunction.name}()`);
@@ -190,6 +205,12 @@ export const useAboutPageStore = defineStore("about", () => {
 		name: "Press",
 		stateObj: fetchedPress.value,
 		fetchFunction: fetchPress,
+	});
+
+	verifyAndFetch({
+		name: "What We Do",
+		stateObj: fetchedWhatWeDo.value,
+		fetchFunction: fetchWhatWeDo,
 	});
 
 	const artistStatement = computed(() => {
@@ -236,5 +257,16 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	});
 
-	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, cvSections, cvEntries, press };
+	const whatWeDo = computed(() => {
+		console.log(fetchedData.fetchedWhatWeDo);
+		return fetchedData.fetchedWhatWeDo.map((par: any) => {
+			const parOut = { ...par };
+			if (parOut.text) {
+				parOut.text = parOut.text[locale.value] || parOut.text.en;
+			}
+			return parOut;
+		});
+	});
+
+	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, whatWeDo, cvSections, cvEntries, press };
 });

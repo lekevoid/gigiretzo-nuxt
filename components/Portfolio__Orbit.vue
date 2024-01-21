@@ -34,7 +34,6 @@ const selfRef = ref(null);
 
 const { lengthX } = useSwipe(selfRef, {
 	onSwipeEnd() {
-		console.log(lengthX.value);
 		if (lengthX.value > 100) {
 			navigateOrbit(1);
 		} else if (lengthX.value < -100) {
@@ -57,7 +56,6 @@ function navigateOrbit(dir) {
 }
 
 function handleKeyUp($event) {
-	console.log(currentItemID.value);
 	switch ($event.key) {
 		case "ArrowLeft":
 			navigateOrbit(-1);

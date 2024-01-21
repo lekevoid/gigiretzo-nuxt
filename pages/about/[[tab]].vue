@@ -15,6 +15,7 @@
 						<div class="tab_bg_paper">
 							<AboutBio v-if="section.slug === 'bio'" />
 							<AboutArtistStatement v-if="section.slug === 'artist-statement'" />
+							<AboutWhatWeDo v-if="section.slug === 'what-we-do'" />
 							<AboutCV v-if="section.slug === 'cv'" />
 							<AboutNews v-if="section.slug === 'news'" />
 						</div>
@@ -37,11 +38,12 @@ const localePath = useLocalePath();
 const { currentTab } = storeToRefs(useAboutPageStore());
 const { setCurrentTab } = useAboutPageStore();
 
-const availableTabs = ["bio", "artist-statement", "cv", "news", "what-we-do"];
+const availableTabs = ["bio", "artist-statement", "what-we-do", "cv", "news"];
 
 const sections = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
+	{ label: t("what-we-do"), slug: "what-we-do" },
 	{ label: t("cv"), slug: "cv" },
 	{ label: t("news"), slug: "news" },
 ];
@@ -49,6 +51,7 @@ const sections = [
 const tabs = [
 	{ label: t("bio"), slug: "bio" },
 	{ label: t("artist-statement"), slug: "artist-statement" },
+	{ label: t("what-we-do"), slug: "what-we-do" },
 	{ label: t("cv"), slug: "cv" },
 	{ label: t("news"), slug: "news" },
 ];

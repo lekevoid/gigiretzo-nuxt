@@ -86,7 +86,6 @@ function imageLoaded(imgID) {
 }
 
 function handleKeyUp($event, imgID) {
-	console.log($event.key, imgID);
 	if ($event.key === "Enter") {
 		emit("openPictureOrbit", imgID);
 	}
