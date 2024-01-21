@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .lines_wrapper {
 	position: absolute;
 	width: 100%;
