@@ -13,6 +13,10 @@
 						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })" v-else>{{ $t("artist-statement") }}</NuxtLink>
 					</li>
 					<li>
+						<a @click="setCurrentTab('what-we-do')" v-if="isAbout()">{{ $t("what-we-do") }}</a>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'what-we-do' } })" v-else>{{ $t("what-we-do") }}</NuxtLink>
+					</li>
+					<li>
 						<a @click="setCurrentTab('cv')" v-if="isAbout()">{{ $t("cv") }}</a>
 						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>{{ $t("cv") }}</NuxtLink>
 					</li>

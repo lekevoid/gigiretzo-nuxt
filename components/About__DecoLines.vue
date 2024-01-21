@@ -1,6 +1,6 @@
 <template>
 	<div class="lines_wrapper">
-		<div v-for="line in lines" class="line" :style="`height:${line.height / 10}%;`" />
+		<div v-for="line in lines" class="line" :style="`height: ${line.height / 20}%;`" />
 	</div>
 </template>
 
@@ -13,9 +13,9 @@ let linesInterval;
 const lines = computed(() => {
 	const qty = 15;
 	let out = [];
-	const thirdpoint = Math.floor(qty / 3);
+	const thirdpoint = Math.floor(qty / 2);
 	const maxHeight = 200;
-	const minHeight = 5;
+	const minHeight = 10;
 
 	for (let i = 0; i < qty; i++) {
 		if (i <= thirdpoint) {
@@ -107,6 +107,8 @@ onBeforeUnmount(() => {
 	border-bottom: 2px solid #000;
 	position: relative;
 	width: 100%;
+	min-height: 15px;
+	max-height: 200px;
 	transition: background-color 3s ease 0.5s;
 
 	&.c {

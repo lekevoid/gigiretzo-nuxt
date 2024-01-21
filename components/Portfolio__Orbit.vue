@@ -234,14 +234,16 @@ onMounted(() => {
 }
 
 .btn_orbit_nav {
-	filter: drop-shadow(2px 2px 4px #666);
 	cursor: pointer;
 	padding-right: 20%;
 	display: block;
 
 	&.btn_prev {
+		filter: drop-shadow(2px 2px 4px #666);
 	}
+
 	&.btn_next {
+		filter: drop-shadow(-2px -2px 4px #666);
 		transform: rotate(180deg);
 	}
 }
