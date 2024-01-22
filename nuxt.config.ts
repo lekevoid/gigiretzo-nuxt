@@ -75,6 +75,7 @@ export default defineNuxtConfig({
 		"/fr/portfolio/**": { prerender: true },
 		"/terms-of-use": { prerender: true },
 		"/fr/modalites-d-usage": { prerender: true },
+		"/portfolio/[project-type]/[project]": { prerender: true },
 	},
 
 	gtm: {
