@@ -1,5 +1,5 @@
 <template>
-	<div :class="['masonry_container' /*, { loaded: isLoaded }*/]" ref="itemsRef">
+	<div :class="['masonry_container', { loaded: isLoaded }]" ref="itemsRef">
 		<div
 			v-for="(item, k) in items"
 			class="masonry_item"
@@ -29,7 +29,7 @@
 const { items } = defineProps(["items"]);
 const emit = defineEmits(["openPictureOrbit"]);
 
-// const isLoaded = ref(false);
+const isLoaded = ref(false);
 const itemsRef = ref(null);
 
 const { width: windowWidth } = useWindowSize();
@@ -74,21 +74,22 @@ function recalculateMasonry() {
 	itemsRef.value.style.height = `${masonryBoardHeight}px`;
 }
 
-/* function resetMasonry() {
-	itemsRef.value.style.height = `auto`;
-	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
-	itemsList.forEach((item) => {
-		item.style.top = "0px";
-	});
-} */
-
 function handleViewportSize() {
 	recalculateMasonry();
-	// isLoaded.value = true;
 }
 
 function imageLoaded(imgID) {
 	itemsRef.value.querySelector(`#masonry_item_${imgID}`).classList.add("loaded");
+
+	if (!isLoaded.value) {
+		const allItems = itemsRef.value.querySelectorAll(".masonry_item");
+		const checkLoadedItems = [...allItems].slice(0, 6).map((node) => (node.classList.contains("loaded") ? true : false));
+
+		if (checkLoadedItems.every((e) => e === true)) {
+			isLoaded.value = true;
+		}
+	}
+
 	recalculateMasonry();
 }
 
@@ -121,13 +122,13 @@ onBeforeUnmount(() => {
 	width: 100%;
 	margin-left: 4px;
 	min-height: 300px;
-	/* opacity: 0; */
+	opacity: 0;
 	transition: opacity 0.3s;
 	margin-bottom: min(5vw, 80px);
 
-	/* &.loaded {
+	&.loaded {
 		opacity: 1;
-	} */
+	}
 }
 
 .masonry_item {
