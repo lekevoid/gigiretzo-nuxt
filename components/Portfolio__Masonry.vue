@@ -35,22 +35,21 @@ const itemsRef = ref(null);
 const { width: windowWidth } = useWindowSize();
 
 function recalculateMasonry() {
-	if (items.length === 0 || !itemsRef.value) {
-		return;
-	}
-
 	const itemsList = itemsRef.value.querySelectorAll(".masonry_item");
 
-	if (itemsList.length === 0) {
+	if (itemsList.length === 0 || items.length === 0 || !itemsRef.value) {
+		// Cut short if no data is available
 		return;
 	}
 
 	const itemsHeights = [];
-	let heightsIncrements = [0, 0];
 	let gapY = Math.min(windowWidth.value / 40, 30);
 	let masonryBoardHeight = 0;
 
+	// 2 colums on mobile
+	let heightsIncrements = [0, 0];
 	if (windowWidth.value >= 600) {
+		// 3 colums on larger screens
 		heightsIncrements = [0, 0, 0];
 	}
 
