@@ -111,6 +111,8 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			},
 		});
 
+		console.table(projects.value);
+
 		fetchedProjects.value = projects.value;
 	}
 
