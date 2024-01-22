@@ -69,12 +69,6 @@ export default defineNuxtConfig({
 		},
 	},
 
-	nitro: {
-		prerender: {
-			routes: ["/portfolio/**", "/fr/portfolio/**", "/terms-of-use", "/fr/modalites-d-usage"],
-		},
-	},
-
 	routeRules: {
 		"/": { prerender: true },
 		"/portfolio/**": { prerender: true },
