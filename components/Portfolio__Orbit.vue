@@ -122,7 +122,7 @@ onMounted(() => {
 }
 
 .overlay {
-	background: rgba(#00f, 0.8);
+	background: rgba(0, 0, 102, 0.6);
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -142,6 +142,7 @@ onMounted(() => {
 	height: calc(100% - 4vmin);
 	max-height: 600px;
 	z-index: 10;
+	overflow: hidden;
 }
 
 .orbit_item {
@@ -168,13 +169,25 @@ onMounted(() => {
 	position: absolute;
 	top: 0;
 	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+	z-index: 10;
 
 	&.prev {
 		left: 0;
+
+		.btn_orbit_nav {
+			align-items: flex-end;
+			padding-bottom: min(16vh, 100px);
+		}
 	}
 
 	&.next {
 		right: 0;
+
+		.btn_orbit_nav {
+			align-items: flex-start;
+			padding-top: min(16vh, 100px);
+		}
 	}
 
 	button {
@@ -194,17 +207,17 @@ onMounted(() => {
 }
 
 .zone_picture {
-	width: 80%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 60%;
-	left: 10%;
 	position: relative;
 	padding: 0 min(5vw, 20px);
+	width: 100%;
+	left: 0;
 
 	img {
-		max-height: calc(100% - 32px);
+		max-height: calc(100% - 8px);
 		max-width: 100%;
 		object-fit: contain;
 		border: 5px solid #000;
@@ -217,12 +230,15 @@ onMounted(() => {
 }
 
 .zone_description {
-	width: 80%;
-	left: 10%;
-	padding: min(2vw, 20px) min(5vw, 20px) 0;
+	background: #000;
+	color: #fff;
+	width: calc(100% + 20px);
+	padding: 20px 20% 0;
 	height: 40%;
 	max-height: 50%;
 	overflow-y: auto;
+	margin: 0 -20px -16px -10px;
+	max-width: none;
 	font-size: clamp(16px, 2vw, 24px);
 
 	h3 {
@@ -237,7 +253,11 @@ onMounted(() => {
 .btn_orbit_nav {
 	cursor: pointer;
 	padding-right: 20%;
-	display: block;
+	display: flex;
+
+	img {
+		filter: invert(1);
+	}
 
 	&.btn_prev {
 		filter: drop-shadow(2px 2px 4px #666);
@@ -288,6 +308,10 @@ onMounted(() => {
 	}
 
 	.orbit_card {
+		max-width: 1600px;
+		max-height: 80vh;
+		width: 80vw;
+		height: 80vh;
 	}
 
 	.orbit_item {
@@ -299,8 +323,17 @@ onMounted(() => {
 		height: 80%;
 		top: 10%;
 
+		&.prev,
+		&.next {
+			.btn_orbit_nav {
+				padding: 0;
+				align-items: center;
+			}
+		}
+
 		img {
 			width: 100%;
+			filter: none;
 		}
 	}
 
@@ -309,6 +342,11 @@ onMounted(() => {
 		height: 100%;
 		user-select: none;
 		pointer-events: none;
+		left: 10%;
+
+		img {
+			max-height: calc(100% - 32px);
+		}
 	}
 
 	.zone_description {
@@ -316,6 +354,9 @@ onMounted(() => {
 		height: auto;
 		max-height: 100%;
 		padding: 0 0 0 min(5vw, 40px);
+		background: transparent;
+		color: #000;
+		left: 10%;
 
 		& > *:last-child {
 			margin-bottom: 0;
@@ -323,6 +364,9 @@ onMounted(() => {
 	}
 
 	.close_orbit {
+		right: auto;
+		left: 50%;
+		transform: translateX(-100%) translate(40vw, -40vh);
 	}
 }
 </style>

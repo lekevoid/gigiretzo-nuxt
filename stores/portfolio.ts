@@ -60,6 +60,13 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	};
 
 	async function fetchPortfolio() {
+		function formatDimension(num: string) {
+			if (num) {
+				return num.replace(/\.0+$/, "");
+			}
+			return "";
+		}
+
 		function formatPiece(piece: any) {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
@@ -70,8 +77,8 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				slug: slugify(piece["Title EN"]),
 				description: descriptionI18n,
 				type: getFileType(piece["Image"][0].url),
-				height: piece["Height (in)"],
-				width: piece["Width (in)"],
+				height: formatDimension(piece["Height (in)"]),
+				width: formatDimension(piece["Width (in)"]),
 				image: piece["Image"][0].url,
 				thumbnail: piece["Image"][0]?.thumbnails?.card_cover?.url || "",
 			};
