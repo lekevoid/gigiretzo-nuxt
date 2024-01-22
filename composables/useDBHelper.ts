@@ -52,6 +52,10 @@ export function rowToJSONForMarkdown(row) {
 }
 
 export function longTextToParagraphs(text: string) {
+	if (text === "") {
+		return "";
+	}
+
 	const out = "<p>" + text.split("\n").join("</p><p>") + "</p>";
 
 	if (out === "<p></p>") {

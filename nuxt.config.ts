@@ -85,7 +85,7 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		BASEROW_KEY: process.env.BASEROW_KEY,
 		public: {
-			BASEROW_KEY: process.env.BASEROW_KEY,
+			/* BASEROW_KEY: process.env.BASEROW_KEY, */
 			DEBUG_ABOUT: process.env.DEBUG_ABOUT,
 			DEBUG_HOME: process.env.DEBUG_HOME,
 			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,

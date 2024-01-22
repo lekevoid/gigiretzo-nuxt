@@ -1,8 +1,10 @@
 <template>
 	<main class="page_portfolio">
 		<div class="container">
-			<Breadcrumb :path="breadcrumbPath" />
-			<PortfolioProjectsBubbleNav :project-type="project.type" />
+			<ClientOnly>
+				<Breadcrumb :path="breadcrumbPath" />
+				<PortfolioProjectsBubbleNav :project-type="project.type" />
+			</ClientOnly>
 			<h1>{{ project.title }}</h1>
 			<div class="description" v-html="project.description" />
 			<PortfolioMasonry :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
@@ -47,6 +49,8 @@ const videos = computed(() => {
 	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "video");
 });
 
+console.log(project.value);
+
 /* Breadcrumb functions */
 
 const breadcrumbPath = computed(() => {
@@ -75,14 +79,22 @@ function closeOrbit() {
 const seoTitle = computed(() => `${project.value?.title || "Portfolio"} – GigiRetzo`);
 
 const seoDescription = computed(() => {
+	return "";
+
 	if (project.value?.seoDescription) {
 		return project.value.seoDescription;
 	}
 
-	return project.value?.description || "";
+	if (project.value?.description) {
+		return project.value.description;
+	}
+
+	return "";
 });
 
-const seoImage = computed(() => pieces?.[0]?.image || "");
+const seoImage = computed(() => {
+	return pieces.value?.[0]?.image || "";
+});
 
 definePageMeta({
 	pageTransition: { name: "page", mode: "in-out" },

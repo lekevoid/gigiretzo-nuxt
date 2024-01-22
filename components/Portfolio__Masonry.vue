@@ -1,5 +1,5 @@
 <template>
-	<div :class="['masonry_container', { loaded: isLoaded }]" ref="itemsRef">
+	<div :class="['masonry_container' /*, { loaded: isLoaded }*/]" ref="itemsRef">
 		<div
 			v-for="(item, k) in items"
 			class="masonry_item"
@@ -29,7 +29,7 @@
 const { items } = defineProps(["items"]);
 const emit = defineEmits(["openPictureOrbit"]);
 
-const isLoaded = ref(false);
+// const isLoaded = ref(false);
 const itemsRef = ref(null);
 
 const { width: windowWidth } = useWindowSize();
@@ -84,7 +84,7 @@ function recalculateMasonry() {
 
 function handleViewportSize() {
 	recalculateMasonry();
-	isLoaded.value = true;
+	// isLoaded.value = true;
 }
 
 function imageLoaded(imgID) {
@@ -121,13 +121,13 @@ onBeforeUnmount(() => {
 	width: 100%;
 	margin-left: 4px;
 	min-height: 300px;
-	opacity: 0;
+	/* opacity: 0; */
 	transition: opacity 0.3s;
 	margin-bottom: min(5vw, 80px);
 
-	&.loaded {
+	/* &.loaded {
 		opacity: 1;
-	}
+	} */
 }
 
 .masonry_item {

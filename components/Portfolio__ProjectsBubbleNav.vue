@@ -2,9 +2,9 @@
 	<div class="bubble_grid">
 		<div v-for="project in projectsOfType" :class="['bubble', `project_${project.slug}`, { active: project.slug === $route.params.project }]">
 			<div class="inner">
-				<NuxtLink :to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })">{{
-					project.title
-				}}</NuxtLink>
+				<NuxtLink :to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })">
+					{{ project.title }}
+				</NuxtLink>
 			</div>
 		</div>
 	</div>
