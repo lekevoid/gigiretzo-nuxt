@@ -8,6 +8,10 @@ body {
 	width: 100%;
 }
 
+main {
+	min-height: 70vh;
+}
+
 .container {
 	margin: 0 auto;
 	max-width: calc(1440px + 10vw);
