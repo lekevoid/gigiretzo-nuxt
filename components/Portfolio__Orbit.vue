@@ -122,7 +122,7 @@ onMounted(() => {
 }
 
 .overlay {
-	background: rgba(0, 0, 102, 0.6);
+	background: rgba(#000, 0.7);
 	position: absolute;
 	width: 100%;
 	height: 100%;

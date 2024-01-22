@@ -10,7 +10,7 @@
 					<div id="coords">
 						<h2>Our coordinates</h2>
 						<p>
-							<a href="mailto:gigi.retzo@artzyretzo.com" class="email"><img src="/gigi-retzo-email.svg" /></a>
+							<a href="mailto:gigi.retzo@gmail.com" class="email">gigi.retzo@gmail.com</a>
 						</p>
 						<p>Montreal, Qc, Canada</p>
 					</div>
@@ -45,7 +45,11 @@ import { storeToRefs } from "pinia";
 
 .email {
 	transition: opacity 0.3s ease;
-	font-size: 1em;
+	font-size: 1.2em;
+	font-weight: 500;
+	color: $blue;
+	font-family: arial;
+	letter-spacing: 0.4px;
 
 	img {
 		width: 24ch;

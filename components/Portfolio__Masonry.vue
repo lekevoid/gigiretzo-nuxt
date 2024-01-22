@@ -40,43 +40,50 @@ function recalculateMasonry() {
 	}
 
 	const itemsList = itemsRef.value.querySelectorAll(".masonry_item");
-	const itemsHeights = [];
-	let heightsIncrements = [0, 0, 0];
-	let masonryBoardHeight = 0;
 
 	if (itemsList.length === 0) {
 		return;
 	}
 
+	const itemsHeights = [];
+	let heightsIncrements = [0, 0];
+	let gapY = Math.min(windowWidth.value / 40, 30);
+	let masonryBoardHeight = 0;
+
+	if (windowWidth.value >= 600) {
+		heightsIncrements = [0, 0, 0];
+	}
+
 	itemsList.forEach((item) => {
-		itemsHeights.push(heightsIncrements[0]);
-		heightsIncrements.push(item.clientHeight + heightsIncrements[0] + 30);
-		heightsIncrements = heightsIncrements.slice(1);
+		const lowestCurrentHeight = Math.min(...heightsIncrements);
+		const lowestCurrentHeightPos = heightsIncrements.indexOf(lowestCurrentHeight);
+
+		itemsHeights.push({ itemColumn: lowestCurrentHeightPos, posY: heightsIncrements[lowestCurrentHeightPos] });
+		heightsIncrements[lowestCurrentHeightPos] = item.clientHeight + heightsIncrements[lowestCurrentHeightPos] + gapY;
 	});
 
 	for (let i = 0; i < itemsList.length; i++) {
-		itemsList[i].style.top = `${itemsHeights[i]}px`;
-		masonryBoardHeight = Math.max(masonryBoardHeight, itemsHeights[i] + itemsList[i].clientHeight);
+		itemsList[i].style.top = `${itemsHeights[i].posY}px`;
+		itemsList[i].classList.remove(`in_col_1`);
+		itemsList[i].classList.remove(`in_col_2`);
+		itemsList[i].classList.remove(`in_col_3`);
+		itemsList[i].classList.add(`in_col_${itemsHeights[i].itemColumn + 1}`);
+		masonryBoardHeight = Math.max(masonryBoardHeight, itemsHeights[i].posY + itemsList[i].clientHeight);
 	}
 
 	itemsRef.value.style.height = `${masonryBoardHeight}px`;
 }
 
-function resetMasonry() {
+/* function resetMasonry() {
 	itemsRef.value.style.height = `auto`;
 	const itemsList = document.querySelectorAll(".masonry_container .masonry_item");
 	itemsList.forEach((item) => {
 		item.style.top = "0px";
 	});
-}
+} */
 
 function handleViewportSize() {
-	if (windowWidth.value > 900) {
-		recalculateMasonry();
-	} else {
-		resetMasonry();
-	}
-
+	recalculateMasonry();
 	isLoaded.value = true;
 }
 
@@ -124,19 +131,28 @@ onBeforeUnmount(() => {
 }
 
 .masonry_item {
-	width: 100%;
+	width: calc(50% - 0.5vw);
 	cursor: pointer;
-	flex: 0 0 100%;
+	flex: 0 0 calc(50% - 3vw);
 	min-height: 0px;
 	transition: opacity 0.6s ease, transform 0.6s ease;
 	transform: scale(1);
 	opacity: 1;
 	background: #fff;
+	position: absolute;
+
+	&.in_col_1 {
+		left: 0%;
+	}
+
+	&.in_col_2 {
+		left: calc(50% + 16px);
+	}
 
 	figure {
 		transition: padding 0.6s ease, box-shadow 0.6s ease;
 		box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
-		padding: 10px;
+		padding: 8px;
 		margin: 0;
 		max-width: 100%;
 		width: 100%;
@@ -144,7 +160,6 @@ onBeforeUnmount(() => {
 
 	img,
 	picture {
-		aspect-ratio: 1;
 		width: 100%;
 		max-width: 100%;
 		height: auto;
@@ -167,41 +182,24 @@ onBeforeUnmount(() => {
 }
 
 @media (min-width: $sm) {
-	.masonry_item {
-		width: calc(50% - 10px);
-		flex: 0 0 calc(50% - 10px);
-
-		figure {
-			height: 100%;
-		}
-
-		img,
-		picture {
-			aspect-ratio: 1;
-		}
-	}
-}
-
-@media (min-width: $md) {
 	.masonry_container {
 		display: block;
 	}
 
 	.masonry_item {
-		position: absolute;
-		width: calc(33.333333% - 20px);
-		flex: 0 0 calc(33.333333% - 20px);
+		width: calc(33.333333% - 1vw);
+		flex: 0 0 calc(33.333333% - 1vw);
 
-		&:nth-child(3n + 1) {
+		&.in_col_1 {
 			left: 0%;
 		}
 
-		&:nth-child(3n + 2) {
-			left: calc(33.333333% + 5px);
+		&.in_col_2 {
+			left: calc(33.333333% + 0.5vw);
 		}
 
-		&:nth-child(3n + 3) {
-			left: calc(66.666666% + 10px);
+		&.in_col_3 {
+			left: calc(66.666666% + 1vw);
 		}
 
 		figure {
@@ -218,5 +216,8 @@ onBeforeUnmount(() => {
 			min-height: 15vw;
 		}
 	}
+}
+
+@media (min-width: $md) {
 }
 </style>
