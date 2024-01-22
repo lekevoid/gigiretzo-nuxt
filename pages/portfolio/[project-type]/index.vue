@@ -15,7 +15,8 @@ import { usePortfolioStore } from "@/stores/portfolio";
 const route = useRoute();
 const { t } = useI18n();
 const localePath = useLocalePath();
-const { defaultProjectObject, projects, projectTypes } = storeToRefs(usePortfolioStore());
+const { projects, projectTypes } = storeToRefs(usePortfolioStore());
+const defaultProjectObject = useDefaultProjectObject();
 
 const breadcrumbPath = computed(() => [{ label: t("portfolio"), link: localePath({ name: "index" }) }]);
 

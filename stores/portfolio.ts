@@ -16,15 +16,6 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	const { locale } = useI18n();
 
-	const defaultProjectObject = {
-		id: "",
-		order: "",
-		title: "",
-		description: "",
-		type: "",
-		slug: "",
-	};
-
 	const { payload } = useNuxtApp();
 
 	const fetchedProjectTypes = ref(payload.data.projectTypes || []);
@@ -193,5 +184,5 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 	});
 
-	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData, defaultProjectObject };
+	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData };
 });
