@@ -43,8 +43,6 @@ const project = computed(() => {
 	return projects.value.find((p) => p.slug === route.params.project) || defaultProjectObject;
 });
 
-console.log(project.value);
-
 const pieces = computed(() => {
 	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "image");
 });
