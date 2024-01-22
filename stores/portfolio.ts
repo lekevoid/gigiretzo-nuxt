@@ -165,8 +165,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	const projects = computed(() => {
 		return fetchedData.fetchedProjects.map((p: any) => {
+			const out = { ...p };
 			return {
-				...p,
+				...out,
 				title: p.title[locale.value] || p.title.en,
 				description: longTextToParagraphs(p.description[locale.value]) || longTextToParagraphs(p.description.en),
 				seoDescription: p.seoDescription[locale.value] || p.seoDescription.en,

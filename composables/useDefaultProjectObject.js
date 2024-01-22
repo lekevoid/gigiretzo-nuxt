@@ -4,6 +4,7 @@ export function useDefaultProjectObject() {
 		order: "",
 		title: "",
 		description: "",
+		seoDescription: "",
 		type: "",
 		slug: "",
 	};

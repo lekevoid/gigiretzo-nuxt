@@ -6,7 +6,9 @@
 				<PortfolioProjectsBubbleNav :project-type="project.type" />
 			</ClientOnly>
 			<h1>{{ project.title }}</h1>
-			<div class="description" v-html="project.description" />
+			<ClientOnly>
+				<div class="description" v-html="project.description" />
+			</ClientOnly>
 			<PortfolioMasonry :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
 			<div v-if="videos.length > 0">
 				<h2>{{ $t("videos") }}</h2>
@@ -41,6 +43,8 @@ const project = computed(() => {
 	return projects.value.find((p) => p.slug === route.params.project) || defaultProjectObject;
 });
 
+console.log(project.value);
+
 const pieces = computed(() => {
 	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "image");
 });
@@ -48,8 +52,6 @@ const pieces = computed(() => {
 const videos = computed(() => {
 	return portfolio.value.filter((piece) => piece.project.slug === project.value.slug && piece.type === "video");
 });
-
-console.log(project.value);
 
 /* Breadcrumb functions */
 
@@ -79,8 +81,6 @@ function closeOrbit() {
 const seoTitle = computed(() => `${project.value?.title || "Portfolio"} – GigiRetzo`);
 
 const seoDescription = computed(() => {
-	return "";
-
 	if (project.value?.seoDescription) {
 		return project.value.seoDescription;
 	}
