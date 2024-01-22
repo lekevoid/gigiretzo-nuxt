@@ -140,6 +140,7 @@ onMounted(() => {
 	transform: translate(-50%, -50%);
 	width: calc(100% - 4vmin);
 	height: calc(100% - 4vmin);
+	max-height: 600px;
 	z-index: 10;
 }
 
@@ -251,7 +252,8 @@ onMounted(() => {
 .close_orbit {
 	position: absolute;
 	right: 12px;
-	top: 10px;
+	top: 50%;
+	transform: translateY(max(-47vh, -300px));
 	cursor: pointer;
 	display: flex;
 	align-items: center;

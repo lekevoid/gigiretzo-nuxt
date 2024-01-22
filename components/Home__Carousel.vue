@@ -89,6 +89,7 @@ watch(isScrollingRight, (val) => {
 	position: relative;
 	transition: box-shadow 0.3s ease;
 	width: 100%;
+	-webkit-tap-highlight-color: transparent;
 
 	.hover_shadow {
 		opacity: 0;
@@ -219,6 +220,12 @@ $arrowSizeSmall: min(4vw, 20px);
 
 		.cta {
 			pointer-events: all;
+
+			&:hover {
+				color: #05f;
+				border-color: #05f;
+				background: #fff none;
+			}
 		}
 
 		.ribbon {
