@@ -117,9 +117,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 	}
 
 	async function fetchProjectTypes() {
-		const { data: projectTypes } = await useFetch(`/api/baserow/${tables.projects}`, {
-			transform: (projects) => {
-				return projects.map((row: any) => {
+		const { data: projectTypes } = await useFetch(`/api/baserow/${tables.projectTypes}`, {
+			transform: (projectTypes) => {
+				return projectTypes.map((row: any) => {
 					const titleI18n = mapColumnToLanguages(row, "Title");
 					return { id: row.id, order: parseInt(row.order), title: titleI18n, slug: slugify(row["Title EN"]) };
 				});
