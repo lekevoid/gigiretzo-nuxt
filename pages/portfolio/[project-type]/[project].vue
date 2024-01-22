@@ -73,7 +73,15 @@ function closeOrbit() {
 /* Meta & SEO */
 
 const seoTitle = computed(() => `${project.value?.title || "Portfolio"} – GigiRetzo`);
-const seoDescription = computed(() => project.value?.description || "");
+
+const seoDescription = computed(() => {
+	if (project.value?.seoDescription) {
+		return project.value.seoDescription;
+	}
+
+	return project.value?.description || "";
+});
+
 const seoImage = computed(() => pieces?.[0]?.image || "");
 
 definePageMeta({

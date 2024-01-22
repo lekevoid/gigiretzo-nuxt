@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
-import { mapColumnToLanguages, longTextToParagraphs, getFileType } from "@/composables/useDBHelper";
+import { mapColumnToLanguages, longTextToParagraphs, getFileType, formatForSEO } from "@/composables/useDBHelper";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
@@ -61,6 +61,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		function formatPiece(piece: any) {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
+
 			const out = {
 				id: `${piece.id}-${slugify(piece["Title EN"])}`,
 				order: parseInt(piece.order),
@@ -102,6 +103,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		fetchedProjects.value = data.value.map((row: any) => {
 			const titleI18n = mapColumnToLanguages(row, "Title");
 			const descriptionI18n = mapColumnToLanguages(row, "Description");
+			const seoDescriptionI18n = formatForSEO(descriptionI18n);
 
 			return {
 				id: row.id,
@@ -109,6 +111,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				name: row["Title EN"],
 				title: titleI18n,
 				description: descriptionI18n,
+				seoDescription: seoDescriptionI18n,
 				type: row["Project Type"][0].value,
 				slug: slugify(row["Title EN"]),
 			};
@@ -166,6 +169,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				...p,
 				title: p.title[locale.value] || p.title.en,
 				description: longTextToParagraphs(p.description[locale.value]) || longTextToParagraphs(p.description.en),
+				seoDescription: p.seoDescription[locale.value] || p.seoDescription.en,
 				type: slugify(p.type),
 			};
 		});

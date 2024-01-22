@@ -22,6 +22,22 @@ export function mapColumnToLanguages(table: any, columnName: string = "") {
 	return out;
 }
 
+export function formatForSEO(i18nObj: object) {
+	const langs = Object.keys(i18nObj);
+	const out = { ...i18nObj };
+
+	langs.forEach((l: string) => {
+		let formattedI18nDescription = i18nObj[l];
+		const firstSentence = formattedI18nDescription.split(". ")[0];
+
+		if (firstSentence) {
+			out[l] = (firstSentence + ".").replace("..", ".");
+		}
+	});
+
+	return out;
+}
+
 export function rowToJSONForMarkdown(row) {
 	if (row.Type?.value && ["Title", "Subtitle", "Subsubtitle", "Paragraph"].includes(row.Type.value)) {
 		const textI18n = mapColumnToLanguages(row);
@@ -36,7 +52,13 @@ export function rowToJSONForMarkdown(row) {
 }
 
 export function longTextToParagraphs(text: string) {
-	return "<p>" + text.split("\n").join("</p><p>") + "</p>";
+	const out = "<p>" + text.split("\n").join("</p><p>") + "</p>";
+
+	if (out === "<p></p>") {
+		return "";
+	}
+
+	return out;
 }
 
 export function getFileType(filepath) {
