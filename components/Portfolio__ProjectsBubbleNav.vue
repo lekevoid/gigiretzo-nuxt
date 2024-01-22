@@ -161,19 +161,23 @@ const projectsOfType = computed(() => {
 	.bubble_grid {
 		gap: 20px;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	.bubble {
-		flex-basis: calc(25% - 20px);
+		flex-basis: calc(24% - 20px);
 		font-size: min(2vw, 28px);
-		max-height: 150px;
+		max-height: 160px;
+		transition: flex-basis 0.3s, font-size 0.3s;
 
 		a {
-			padding: 10px;
+			padding: 10px 8px;
 		}
 
 		&.active {
-			font-size: min(2.6vw, 36px);
+			flex-basis: calc(26% - 20px);
+			font-size: min(2.4vw, 34px);
+			max-height: 180px;
 		}
 	}
 }
