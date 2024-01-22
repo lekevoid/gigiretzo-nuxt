@@ -35,9 +35,13 @@ const itemsRef = ref(null);
 const { width: windowWidth } = useWindowSize();
 
 function recalculateMasonry() {
+	if (!itemsRef.value) {
+		return;
+	}
+
 	const itemsList = itemsRef.value.querySelectorAll(".masonry_item");
 
-	if (itemsList.length === 0 || items.length === 0 || !itemsRef.value) {
+	if (itemsList.length === 0 || items.length === 0) {
 		// Cut short if no data is available
 		return;
 	}
