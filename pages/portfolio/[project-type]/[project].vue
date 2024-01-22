@@ -1,20 +1,26 @@
 <template>
 	<main class="page_portfolio">
-		<div class="container" v-if="project">
-			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
-			<PortfolioProjectsBubbleNav :project-type="project.type" />
-			<h1>{{ project.title }}</h1>
-			<div class="description" v-html="project.description" />
-			<PortfolioMasonry v-if="pieces.length > 0" :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
-			<div v-if="videos.length > 0">
-				<h2>{{ $t("videos") }}</h2>
-				<div class="videos">
-					<div v-for="video in videos" class="video_wrapper">
-						<video :src="video.image" controls muted tabindex="2" />
+		<Suspense>
+			<div class="container">
+				<Breadcrumb :path="breadcrumbPath" />
+				<PortfolioProjectsBubbleNav :project-type="project.type" />
+				<h1>{{ project.title }}</h1>
+				<div class="description" v-html="project.description" />
+				<PortfolioMasonry :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
+				<div v-if="videos.length > 0">
+					<h2>{{ $t("videos") }}</h2>
+					<div class="videos">
+						<div v-for="video in videos" class="video_wrapper">
+							<video :src="video.image" controls muted tabindex="2" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
+			<template #fallback>
+				<div class="container">Loading...</div>
+			</template>
+		</Suspense>
 		<Teleport to="body">
 			<Transition name="fade" mode="out-in">
 				<PortfolioOrbit v-if="showOrbit" :items="pieces" :initial-element="initialOrbitElementID" @close-orbit="closeOrbit" />
@@ -35,7 +41,13 @@ const { defaultProjectObject, projects, portfolio } = storeToRefs(usePortfolioSt
 /* Project functions */
 
 const project = computed(() => {
-	return projects.value.find((p) => p.slug === route.params.project) || defaultProjectObject;
+	if (projects.value) {
+		return projects.value.find((p) => p.slug === route.params.project);
+	}
+
+	console.log("return default", defaultProjectObject.value);
+
+	return defaultProjectObject.value;
 });
 
 const pieces = computed(() => {
@@ -48,10 +60,14 @@ const videos = computed(() => {
 
 /* Breadcrumb functions */
 
-const breadcrumbPath = computed(() => [
-	{ label: t("portfolio"), link: localePath({ name: "index" }) },
-	{ label: t(project.value.type), link: localePath({ name: "portfolio-projecttype", params: { projecttype: project.type } }) },
-]);
+console.log(project.value);
+
+const breadcrumbPath = computed(() => {
+	return [
+		{ label: t("portfolio"), link: localePath({ name: "index" }) },
+		{ label: t(project.value.type), link: localePath({ name: "portfolio-projecttype", params: { projecttype: project.value.type } }) },
+	];
+});
 
 /* Orbit functions */
 
