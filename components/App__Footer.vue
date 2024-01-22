@@ -47,6 +47,8 @@ footer {
 
 nav {
 	padding: min(5vw, 40px) 0;
+	max-width: 70%;
+	margin: 0 auto;
 
 	ul {
 		display: flex;
@@ -92,5 +94,11 @@ nav {
 	height: 0;
 	border-bottom: 3px solid #fff;
 	width: 100%;
+}
+
+@media (min-width: $sm) {
+	nav {
+		max-width: 100%;
+	}
 }
 </style>
