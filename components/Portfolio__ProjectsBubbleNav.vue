@@ -19,6 +19,8 @@ const localePath = useLocalePath();
 
 const { projects } = storeToRefs(usePortfolioStore());
 
+console.log(projectType.value, projects.value);
+
 const projectsOfType = computed(() => {
 	return projects.value.filter((project) => project.type === projectType);
 });
@@ -76,6 +78,12 @@ const projectsOfType = computed(() => {
 		text-shadow: 0px 0px 2px #fff, 0px 0px 2px #fff, 0px 0px 4px #fff, 0px 0px 4px #fff;
 		font-size: min(4.2vw, 36px);
 		pointer-events: none;
+	}
+
+	&.inactive {
+		.inner {
+			background-color: #ddd;
+		}
 	}
 
 	&:not(.active) .inner {

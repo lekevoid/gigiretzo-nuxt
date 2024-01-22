@@ -71,7 +71,11 @@ function isAbout() {
 }
 
 function projectsInType(type) {
-	return projects.value.filter((project) => project.type === type);
+	if (!projects.value) {
+		return [];
+	}
+
+	return projects.value?.filter((project) => project.type === type);
 }
 
 function blurNav() {

@@ -1,4 +1,8 @@
 export function slugify(str: string, preferredChar: string = "-"): string {
+	if (!str) {
+		return "";
+	}
+
 	const trimPreferredChar = new RegExp(`^${preferredChar}|${preferredChar}$`, "g");
 	return str
 		.normalize("NFD")

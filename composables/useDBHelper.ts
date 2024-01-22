@@ -52,7 +52,7 @@ export function rowToJSONForMarkdown(row) {
 }
 
 export function longTextToParagraphs(text: string) {
-	if (text === "") {
+	if (!text) {
 		return "";
 	}
 

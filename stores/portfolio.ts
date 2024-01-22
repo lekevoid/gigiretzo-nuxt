@@ -132,10 +132,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 	}
 
-	function verifyAndFetch({ name, stateObj, fetchFunction }) {
+	async function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
 			debug(`usePortfolioStore(): No ${name}, calling ${fetchFunction.name}()`);
-			fetchFunction();
+			await fetchFunction();
 		}
 	}
 
@@ -159,31 +159,36 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	const projectTypes = computed(() => {
 		return fetchedData.fetchedProjectTypes.map((pt: any) => {
-			return { ...pt, title: pt.title[locale.value] || pt.title.en };
+			const ptTitle = pt.title?.[locale.value] || pt.title?.en || "";
+			return { ...pt, title: ptTitle };
 		});
 	});
 
 	const projects = computed(() => {
 		return fetchedData.fetchedProjects.map((p: any) => {
-			const out = { ...p };
 			return {
-				...out,
-				title: p.title[locale.value] || p.title.en,
-				description: longTextToParagraphs(p.description[locale.value]) || longTextToParagraphs(p.description.en),
-				seoDescription: p.seoDescription[locale.value] || p.seoDescription.en,
+				...p,
+				title: p.title?.[locale.value] || p.title?.en || "",
+				description: longTextToParagraphs(p.description?.[locale.value]) || longTextToParagraphs(p.description?.en) || "",
+				seoDescription: p.seoDescription?.[locale.value] || p.seoDescription?.en || "",
 				type: slugify(p.type),
 			};
 		});
 	});
 
+	// console.log("fetchedProjects :", fetchedProjects.value);
+	// console.log("projects :", projects.value);
+
 	const portfolio = computed(() => {
 		return fetchedData.fetchedPortfolio.map((piece: any) => {
-			const { title: projectTitle, slug: projectSlug } = projects.value.find((project) => project.id === piece.project);
+			const project = projects.value.find((p) => p.id === piece.project);
+			const projectTitle = project?.title || "";
+			const projectSlug = project?.slug || "";
 
 			return {
 				...piece,
-				title: piece.title[locale.value] || piece.title.en,
-				description: piece.description[locale.value] || piece.description.en,
+				title: piece.title?.[locale.value] || piece.title?.en || "",
+				description: piece.description?.[locale.value] || piece.description?.en || "",
 				project: { title: projectTitle, slug: projectSlug },
 			};
 		});
