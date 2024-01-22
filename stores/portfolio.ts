@@ -1,10 +1,12 @@
-import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
 import { mapColumnToLanguages, longTextToParagraphs, getFileType, formatForSEO } from "@/composables/useDBHelper";
 
 // main is the name of the store. It is unique across your application
 // and will appear in devtools
 export const usePortfolioStore = defineStore("portfolio", () => {
+	const { $i18n } = useNuxtApp();
+	const { locale } = $i18n;
+
 	const { DEBUG_PORTFOLIO } = useRuntimeConfig().public;
 	const isDebugMode = DEBUG_PORTFOLIO === "true" ? true : false;
 
@@ -14,13 +16,9 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		}
 	}
 
-	const { locale } = useI18n();
-
-	const { payload } = useNuxtApp();
-
-	const fetchedProjectTypes = ref(payload.data.projectTypes || []);
-	const fetchedProjects = ref(payload.data.projects || []);
-	const fetchedPortfolio = ref(payload.data.portfolio || []);
+	const fetchedProjectTypes = ref([]);
+	const fetchedProjects = ref([]);
+	const fetchedPortfolio = ref([]);
 
 	if (isDebugMode) {
 		debug(payload.data);
