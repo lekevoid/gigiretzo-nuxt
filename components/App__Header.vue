@@ -52,8 +52,6 @@ function handleScroll() {
 	}
 }
 
-console.log(windowWidth.value);
-
 onMounted(() => {
 	handleScroll();
 	window.addEventListener("scroll", handleScroll);

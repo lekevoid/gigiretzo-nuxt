@@ -1,4 +1,4 @@
-export async function useBaserowTable(tableID, size = 0) {
+export async function useBaserowTable(tableID) {
 	const { data, error } = await useFetch(`/api/baserow/${tableID}`);
 
 	if (error.value) {

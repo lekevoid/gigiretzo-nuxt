@@ -131,9 +131,9 @@ onBeforeUnmount(() => {
 }
 
 .masonry_item {
-	width: calc(50% - 0.5vw);
+	width: calc(50% - 1.5vw);
 	cursor: pointer;
-	flex: 0 0 calc(50% - 3vw);
+	flex: 0 0 calc(50% - 1.5vw);
 	min-height: 0px;
 	transition: opacity 0.6s ease, transform 0.6s ease;
 	transform: scale(1);
@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
 	}
 
 	&.in_col_2 {
-		left: calc(50% + 16px);
+		left: calc(50% + 1.5vw);
 	}
 
 	figure {

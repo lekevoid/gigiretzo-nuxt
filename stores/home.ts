@@ -56,7 +56,7 @@ export const useHomePageStore = defineStore("homepage", () => {
 		const { data, error } = await useAsyncData("carousels", () => useBaserowTable(tables.carousels));
 
 		if (error.value || !data?.value || data.value.length === 0) {
-			console.error("useHomePageStore() : Unable to fetch Homepage Carousels.", error.value, data.value);
+			debug("useHomePageStore() : Unable to fetch Homepage Carousels.", error.value, data.value);
 			return;
 		}
 
@@ -79,7 +79,6 @@ export const useHomePageStore = defineStore("homepage", () => {
 	});
 
 	const carousels = computed(() => {
-		console.log(fetchedData.fetchedCarousels);
 		return fetchedData.fetchedCarousels.map((carousel: any) => {
 			const cOut = { ...carousel };
 			if (cOut.title) {

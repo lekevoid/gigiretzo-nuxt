@@ -1,7 +1,7 @@
 <template>
 	<nav @mouseleave="blurNav">
 		<ul>
-			<li @click="toggleActiveState">
+			<li @click="toggleActiveState" class="has_children">
 				<span class="label">About</span>
 				<ul>
 					<li>
@@ -26,10 +26,10 @@
 					</li>
 				</ul>
 			</li>
-			<li @click="toggleActiveState">
+			<li @click="toggleActiveState" class="has_children">
 				<span class="label">Portfolio</span>
 				<ul>
-					<li v-for="projectType in projectTypes" @click="toggleActiveState">
+					<li v-for="projectType in projectTypes" @click="toggleActiveState" class="has_children">
 						<div class="label" v-if="pointerType === 'touch'">{{ projectType.title }}</div>
 						<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })" v-else>
 							{{ projectType.title }}
@@ -125,6 +125,22 @@ nav {
 		li {
 			cursor: default;
 
+			&.has_children {
+				&:after {
+					background-image: url("@/assets/img/arrow_caret.svg");
+					background-repeat: no-repeat;
+					position: absolute;
+					top: 50%;
+					right: min(2vw, 40px);
+					z-index: 100;
+					transform: translate(-50%, -50%) rotate(90deg);
+					content: "";
+					display: block;
+					height: 12px;
+					width: 12px;
+				}
+			}
+
 			ul {
 				padding: $ulPaddingY 0;
 				position: absolute;
@@ -145,6 +161,14 @@ nav {
 
 				li {
 					line-height: 160%;
+
+					&.has_children {
+						padding-right: 12px;
+						&:after {
+							right: 12px;
+							transform: translate(-50%, -44%);
+						}
+					}
 
 					ul {
 						top: $ulPaddingYNeg;
