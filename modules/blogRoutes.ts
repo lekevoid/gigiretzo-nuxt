@@ -17,7 +17,6 @@ export default defineNuxtModule({
 		const resolver = createResolver(import.meta.url);
 
 		extendPages((pages) => {
-			console.log(pages);
 			/* pages.unshift({
 			name: 'preview-new',
 			path: '/preview-new',

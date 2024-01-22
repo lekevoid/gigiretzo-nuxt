@@ -258,7 +258,6 @@ export const useAboutPageStore = defineStore("about", () => {
 	});
 
 	const whatWeDo = computed(() => {
-		console.log(fetchedData.fetchedWhatWeDo);
 		return fetchedData.fetchedWhatWeDo.map((par: any) => {
 			const parOut = { ...par };
 			if (parOut.text) {

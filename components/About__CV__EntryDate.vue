@@ -8,7 +8,6 @@
 const { dateStart, dateEnd } = defineProps(["dateStart", "dateEnd", "show"]);
 
 const removeDate = ref(false);
-// console.log(dateStart, dateEnd);
 
 const formattedDate = computed(() => {
 	if (!dateStart && !dateEnd) {

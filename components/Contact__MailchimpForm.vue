@@ -136,7 +136,6 @@ const isAVisualArtist = ref(null);
 const isFormSubmitted = ref("undetermined");
 
 const route = useRoute();
-console.log(route);
 
 function handleVAKindChange($event) {
 	if ($event.target.value.match("Yes")) {
