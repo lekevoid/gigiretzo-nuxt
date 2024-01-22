@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { slugify } from "@/composables/useTextHelper";
 import { mapColumnToLanguages } from "@/composables/useDBHelper";
 
@@ -93,3 +92,7 @@ export const useHomePageStore = defineStore("homepage", () => {
 
 	return { carousels, fetchedData };
 });
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(usePortfolioStore, import.meta.hot));
+}

@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { useSessionStorage } from "@vueuse/core";
 
 export const useTermsStore = defineStore("terms", () => {
@@ -60,3 +59,7 @@ export const useTermsStore = defineStore("terms", () => {
 
 	return { terms };
 });
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(usePortfolioStore, import.meta.hot));
+}

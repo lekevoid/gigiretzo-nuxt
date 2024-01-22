@@ -22,6 +22,7 @@
 								preset="portfolioCarousel"
 								:loading="k < 4 ? 'eager' : 'lazy'"
 								@click="openOrbitToImg(piece.id)"
+								:key="piece.id"
 							/>
 						</div>
 					</div>

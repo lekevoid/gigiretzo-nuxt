@@ -1,6 +1,10 @@
 <template>
 	<div class="bubble_grid">
-		<div v-for="project in projectsOfType" :class="['bubble', `project_${project.slug}`, { active: project.slug === $route.params.project }]">
+		<div
+			v-for="project in projectsOfType"
+			:class="['bubble', `project_${project.slug}`, { active: project.slug === $route.params.project }]"
+			:key="project.id"
+		>
 			<div class="inner">
 				<NuxtLink :to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })">
 					{{ project.title }}
@@ -18,8 +22,6 @@ const { projectType } = defineProps(["projectType"]);
 const localePath = useLocalePath();
 
 const { projects } = storeToRefs(usePortfolioStore());
-
-console.log(projectType.value, projects.value);
 
 const projectsOfType = computed(() => {
 	return projects.value.filter((project) => project.type === projectType);

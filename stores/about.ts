@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { rowToJSONForMarkdown, getFileType } from "@/composables/useDBHelper";
 
 export const useAboutPageStore = defineStore("about", () => {
@@ -269,3 +268,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, whatWeDo, cvSections, cvEntries, press };
 });
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(usePortfolioStore, import.meta.hot));
+}

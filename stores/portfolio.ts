@@ -132,10 +132,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 	}
 
-	async function verifyAndFetch({ name, stateObj, fetchFunction }) {
+	function verifyAndFetch({ name, stateObj, fetchFunction }) {
 		if (stateObj && stateObj.length === 0) {
 			debug(`usePortfolioStore(): No ${name}, calling ${fetchFunction.name}()`);
-			await fetchFunction();
+			fetchFunction();
 		}
 	}
 
@@ -196,3 +196,7 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 
 	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData };
 });
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(usePortfolioStore, import.meta.hot));
+}

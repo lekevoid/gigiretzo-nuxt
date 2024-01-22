@@ -9,7 +9,9 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@pinia/nuxt", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm"],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
+
+	imports: { dirs: ["stores"] },
 
 	css: ["@/assets/styles/variables.scss", "@/assets/styles/typography.scss", "@/assets/styles/global.scss", "@/assets/styles/layout.scss"],
 
@@ -75,7 +77,6 @@ export default defineNuxtConfig({
 		"/fr/portfolio/**": { prerender: true },
 		"/terms-of-use": { prerender: true },
 		"/fr/modalites-d-usage": { prerender: true },
-		"/portfolio/[project-type]/[project]": { prerender: true },
 	},
 
 	gtm: {

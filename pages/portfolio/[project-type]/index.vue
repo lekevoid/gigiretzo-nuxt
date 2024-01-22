@@ -3,7 +3,7 @@
 		<div class="container" v-if="projectType">
 			<Breadcrumb :path="breadcrumbPath" v-if="breadcrumbPath" />
 			<h1>{{ projectType.title }}</h1>
-			<PortfolioCarousel v-for="project in projectsOfType" :project="project" />
+			<PortfolioCarousel v-for="project in projectsOfType" :project="project" :key="project.id" />
 		</div>
 	</main>
 </template>

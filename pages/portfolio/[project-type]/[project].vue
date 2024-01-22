@@ -9,7 +9,7 @@
 			<div v-if="videos.length > 0">
 				<h2>{{ $t("videos") }}</h2>
 				<div class="videos">
-					<div v-for="video in videos" class="video_wrapper">
+					<div v-for="video in videos" class="video_wrapper" :key="video.id">
 						<video :src="video.image" controls muted tabindex="2" />
 					</div>
 				</div>
