@@ -71,14 +71,6 @@ export default defineNuxtConfig({
 		},
 	},
 
-	routeRules: {
-		"/": { prerender: true },
-		"/portfolio/**": { prerender: true },
-		"/fr/portfolio/**": { prerender: true },
-		"/terms-of-use": { prerender: true },
-		"/fr/modalites-d-usage": { prerender: true },
-	},
-
 	gtm: {
 		id: "GTM-KQ35RZZM",
 	},

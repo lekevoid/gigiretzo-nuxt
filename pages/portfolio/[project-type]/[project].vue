@@ -50,10 +50,13 @@ const videos = computed(() => {
 /* Breadcrumb functions */
 
 const breadcrumbPath = computed(() => {
-	return [
-		{ label: t("portfolio"), link: localePath({ name: "index" }) },
-		{ label: t(project.value.type), link: localePath({ name: "portfolio-projecttype", params: { projecttype: project.value.type } }) },
-	];
+	let crumbs = [{ label: t("portfolio"), link: localePath({ name: "index" }) }];
+
+	if (project?.value?.type) {
+		crumbs.push({ label: t(project.value.type), link: localePath({ name: "portfolio-projecttype", params: { projecttype: project.value.type } }) });
+	}
+
+	return crumbs;
 });
 
 /* Orbit functions */
