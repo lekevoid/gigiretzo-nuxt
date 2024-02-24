@@ -14,7 +14,7 @@ const lines = computed(() => {
 	let out = [];
 
 	for (let i = -40; i < 40; i++) {
-		const height = Math.ceil(Math.pow(Math.abs(i), 2) / 8);
+		const height = Math.ceil(Math.pow(Math.abs(i), 2) / 7);
 		out.push({ height });
 	}
 

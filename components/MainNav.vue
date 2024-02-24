@@ -4,28 +4,41 @@
 			<li @click="toggleActiveState" class="has_children">
 				<span class="label">
 					About
-					<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })"></NuxtLink>
+					<a class="fake_link" @click="setCurrentTab('bio')" v-if="isAbout()"></a>
+					<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else></NuxtLink>
 				</span>
-				<ul>
+				<ul v-if="isAbout()">
 					<li>
-						<a @click="setCurrentTab('bio')" v-if="isAbout()">{{ $t("bio") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else>{{ $t("bio") }}</NuxtLink>
+						<a @click="setCurrentTab('bio')">{{ $t("bio") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('artist-statement')" v-if="isAbout()">{{ $t("artist-statement") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })" v-else>{{ $t("artist-statement") }}</NuxtLink>
+						<a @click="setCurrentTab('artist-statement')">{{ $t("artist-statement") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('what-we-do')" v-if="isAbout()">{{ $t("what-we-do") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'what-we-do' } })" v-else>{{ $t("what-we-do") }}</NuxtLink>
+						<a @click="setCurrentTab('what-we-do')">{{ $t("what-we-do") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('cv')" v-if="isAbout()">{{ $t("cv") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })" v-else>{{ $t("cv") }}</NuxtLink>
+						<a @click="setCurrentTab('cv')">{{ $t("cv") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('news')" v-if="isAbout()">{{ $t("press-news") }}</a>
-						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'news' } })" v-else>{{ $t("press-news") }}</NuxtLink>
+						<a @click="setCurrentTab('news')">{{ $t("press-news") }}</a>
+					</li>
+				</ul>
+				<ul v-else>
+					<li>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })">{{ $t("bio") }}</NuxtLink>
+					</li>
+					<li>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'artist-statement' } })">{{ $t("artist-statement") }}</NuxtLink>
+					</li>
+					<li>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'what-we-do' } })">{{ $t("what-we-do") }}</NuxtLink>
+					</li>
+					<li>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'cv' } })">{{ $t("cv") }}</NuxtLink>
+					</li>
+					<li>
+						<NuxtLink :to="localePath({ name: 'about-tab', params: { tab: 'news' } })">{{ $t("press-news") }}</NuxtLink>
 					</li>
 				</ul>
 			</li>
