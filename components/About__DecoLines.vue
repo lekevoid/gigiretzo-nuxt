@@ -1,6 +1,6 @@
 <template>
 	<div class="lines_wrapper">
-		<div v-for="line in lines" class="line" :style="`height: ${line.height / 20}%;`" />
+		<div v-for="line in lines" class="line" :style="`height: ${line.height}px; flex:0 0 ${line.height}px;`" />
 	</div>
 </template>
 
@@ -11,25 +11,11 @@ const colors = ["magenta", "green", "blue", "orange", "purple"];
 let linesInterval;
 
 const lines = computed(() => {
-	const qty = 15;
 	let out = [];
-	const thirdpoint = Math.floor(qty / 2);
-	const maxHeight = 200;
-	const minHeight = 10;
 
-	for (let i = 0; i < qty; i++) {
-		if (i <= thirdpoint) {
-			const height = maxHeight - ((maxHeight - minHeight) / thirdpoint) * i;
-			for (let j = 0; j < i; j++) {
-				out.push({ height });
-			}
-		} else {
-			const height = minHeight + ((maxHeight - minHeight) / (qty - thirdpoint)) * (i - thirdpoint);
-			for (let j = 0; j < qty - i; j++) {
-				out.push({ height });
-			}
-			out.push({ height });
-		}
+	for (let i = -40; i < 40; i++) {
+		const height = Math.ceil(Math.pow(Math.abs(i), 2) / 8);
+		out.push({ height });
 	}
 
 	return out;
@@ -92,23 +78,24 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .lines_wrapper {
-	position: absolute;
-	width: 100%;
-	left: 0;
-	height: 100%;
-	flex: 0 0 100%;
-	top: 0;
 	z-index: 1;
 	display: flex;
 	flex-flow: column nowrap;
+	pointer-events: none;
+	left: -4vw;
+	overflow-x: hidden;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: calc(100% + 8vw - 17px);
 }
 
 .line {
 	border-bottom: 2px solid #000;
 	position: relative;
 	width: 100%;
-	min-height: 15px;
-	max-height: 200px;
+	min-height: 8px;
+	max-height: 140px;
 	transition: background-color 3s ease 0.5s;
 
 	&.c {

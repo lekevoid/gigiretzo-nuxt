@@ -2,7 +2,10 @@
 	<nav @mouseleave="blurNav">
 		<ul>
 			<li @click="toggleActiveState" class="has_children">
-				<span class="label">About</span>
+				<span class="label">
+					About
+					<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })"></NuxtLink>
+				</span>
 				<ul>
 					<li>
 						<a @click="setCurrentTab('bio')" v-if="isAbout()">{{ $t("bio") }}</a>
@@ -28,6 +31,7 @@
 			</li>
 			<li @click="toggleActiveState" class="has_children">
 				<span class="label">Portfolio</span>
+				<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'index' })"></NuxtLink>
 				<ul>
 					<li v-for="projectType in projectTypes" @click="toggleActiveState" class="has_children">
 						<div class="label" v-if="pointerType === 'touch'">{{ projectType.title }}</div>
@@ -218,6 +222,23 @@ nav {
 		transition-property: padding;
 		transition-duration: var(--top-nav-reduce-transition-duration);
 		transition-timing-function: ease;
+	}
+	.fake_link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+	}
+}
+
+@media (hover: hover) {
+	nav {
+		.fake_link {
+			pointer-events: all;
+			cursor: pointer;
+		}
 	}
 }
 
