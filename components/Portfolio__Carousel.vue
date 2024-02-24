@@ -120,7 +120,8 @@ watch(isScrollingRight, (val) => {
 	font-size: min(6vw, 45px);
 	max-width: 100%;
 	margin-bottom: min(10vw, 80px);
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: visible;
 	padding: 0 20px;
 	left: -20px;
 	position: relative;
@@ -134,12 +135,14 @@ watch(isScrollingRight, (val) => {
 }
 
 .inner {
+	z-index: 1;
 }
 
 h2 {
 	font-size: 36px;
 	color: #fff;
 	margin: 0 0 0.6em;
+	z-index: 10;
 
 	a {
 		&:hover {
@@ -165,8 +168,11 @@ h2 {
 	transition: background-color 0.6s ease, border 0.6s ease, color 0.6s ease;
 }
 
+.ribbon_align {
+	z-index: 1;
+}
+
 .ribbon_wrapper {
-	overflow: hidden;
 	z-index: 1;
 
 	&:before,
@@ -174,11 +180,12 @@ h2 {
 		position: absolute;
 		content: "";
 		display: block;
-		height: 100%;
+		height: calc(100% - 80px);
 		width: 80px;
 		max-width: 5vw;
 		z-index: 10;
-		top: 0;
+		top: 50%;
+		transform: translateY(-50%);
 		pointer-events: none;
 	}
 
@@ -196,6 +203,8 @@ h2 {
 	overflow: hidden;
 	z-index: 1;
 	display: flex;
+	padding: 40px 0;
+	margin: -40px 0;
 }
 
 .ribbon_scrolly {
@@ -218,9 +227,22 @@ h2 {
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
 	width: auto;
+	transition: transform 0.3s ease;
 
 	&:hover {
-		opacity: 0.6;
+		transform: rotate(-10deg) scale(1.1);
+	}
+
+	&:nth-child(odd) {
+		&:hover {
+			transform: rotate(-10deg) scale(1.1);
+		}
+	}
+
+	&:nth-child(even) {
+		&:hover {
+			transform: rotate(10deg) scale(1.1);
+		}
 	}
 }
 
@@ -299,6 +321,12 @@ $arrowSizeSmall: min(4vw, 20px);
 
 	.cta {
 		font-size: 0.4em;
+		transition: opacity 0.3s ease;
+		z-index: 10;
+
+		&:hover {
+			opacity: 0.6;
+		}
 	}
 }
 @media (min-width: $sm) and (hover: hover) {
