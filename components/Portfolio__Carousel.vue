@@ -11,11 +11,10 @@
 				<div class="ribbon_wrapper">
 					<div class="ribbon" ref="ribbonRef">
 						<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
-							<NuxtPicture
+							<NuxtImg
 								v-for="(piece, k) in pieces"
 								:src="piece.image"
 								class="carousel_image"
-								format="avif,webp"
 								densities="x1"
 								preload
 								sizes="340px"

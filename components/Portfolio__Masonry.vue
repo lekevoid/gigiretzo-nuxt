@@ -10,10 +10,9 @@
 			:key="item.id"
 		>
 			<figure>
-				<NuxtPicture
+				<NuxtImg
 					:src="item.image"
 					@load="imageLoaded(item.id)"
-					format="avif,webp"
 					densities="x1"
 					sizes="430px sm:670px md:820px"
 					:loading="k > 6 ? 'lazy' : 'eager'"
