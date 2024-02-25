@@ -31,6 +31,14 @@ const projectsOfType = computed(() => {
 definePageMeta({
 	layout: "portfolio",
 });
+
+const seoTitle = computed(() => `${projectType.value.title} – GigiRetzo`);
+
+useSeoMeta({
+	title: () => seoTitle.value,
+	ogTitle: () => seoTitle.value,
+	twitterCard: "summary_large_image",
+});
 </script>
 
 <style lang="scss">

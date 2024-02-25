@@ -43,5 +43,11 @@
 	"videos": "Videos",
 	"welcome": "Welcome",
 	"what-we-do": "What we do!",
-	"yes": "Yes"
+	"yes": "Yes",
+	"seo": {
+		"index": {
+			"title": "Gigi Retzo",
+			"description": "Artist and anthropologist, currently settled in Montreal."
+		}
+	}
 }

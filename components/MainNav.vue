@@ -46,13 +46,13 @@
 				<span class="label">Portfolio</span>
 				<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'index' })"></NuxtLink>
 				<ul>
-					<li v-for="projectType in projectTypes" @click="toggleActiveState" class="has_children">
+					<li v-for="projectType in projectTypes" @click="toggleActiveState" class="has_children" :key="projectType.slug">
 						<div class="label" v-if="pointerType === 'touch'">{{ projectType.title }}</div>
 						<NuxtLink :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: projectType.slug } })" v-else>
 							{{ projectType.title }}
 						</NuxtLink>
 						<ul>
-							<li v-for="project in projectsInType(projectType.slug)">
+							<li v-for="project in projectsInType(projectType.slug)" :key="project.slug">
 								<NuxtLink
 									:to="localePath({ name: 'portfolio-projecttype-project', params: { projecttype: project.type, project: project.slug } })"
 								>

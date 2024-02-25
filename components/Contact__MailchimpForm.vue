@@ -246,6 +246,10 @@ onMounted(() => {
 				}
 			}
 
+			textarea {
+				height: 200px;
+			}
+
 			input[type="checkbox"] {
 				appearance: auto;
 				height: 0.9em;

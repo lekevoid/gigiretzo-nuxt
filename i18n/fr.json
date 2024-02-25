@@ -43,5 +43,11 @@
 	"videos": "Vidéos",
 	"welcome": "Bienvenue",
 	"what-we-do": "Ce qu'on fait!",
-	"yes": "Oui"
+	"yes": "Oui",
+	"seo": {
+		"index": {
+			"title": "Gigi Retzo",
+			"description": "Artiste et anthropologue située à Montréal."
+		}
+	}
 }
