@@ -82,10 +82,6 @@ export default defineNuxtConfig({
 		},
 	},
 
-	sitemap: {
-		include: ["/about/**", "/portfolio/**"],
-	},
-
 	gtm: {
 		id: "GTM-KQ35RZZM",
 	},
