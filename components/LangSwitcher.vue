@@ -1,7 +1,7 @@
 <template>
 	<ul class="lang_selector">
 		<li class="lang_selector_item" v-for="item in availableLocales" :key="item.code">
-			<NuxtLink :to="langLinkDestination(item.code)" :class="['lang_selector_link', { disabled: locale === item.code }]">
+			<NuxtLink :to="langLinkDestination(item.code)" :class="['lang_selector_link', { active: locale === item.code }]">
 				<img :src="item.icon" class="lang_selector_icon" />
 			</NuxtLink>
 		</li>
@@ -50,6 +50,10 @@ function langLinkDestination(lang) {
 	justify-content: flex-end;
 	list-style-type: none;
 	margin-right: -5px;
+
+	&:has(.lang_selector_link:not(.active):hover) .lang_selector_link.active {
+		opacity: 0.6;
+	}
 }
 
 .lang_selector_item {
@@ -58,14 +62,15 @@ function langLinkDestination(lang) {
 }
 
 .lang_selector_link {
-	opacity: 0.7;
+	opacity: 0.6;
 	transition: opacity 0.3s ease;
 
-	&.disabled {
+	&.active {
 		pointer-events: none;
+		opacity: 1;
 	}
 
-	&:not(.disabled):hover {
+	&:not(.active):hover {
 		opacity: 1;
 	}
 }
