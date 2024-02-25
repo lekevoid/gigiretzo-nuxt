@@ -89,13 +89,6 @@ useSeoMeta({
 	ogImage: () => seoImage.value,
 	twitterCard: "summary_large_image",
 });
-
-defineRouteRules({
-	sitemap: {
-		changefreq: "daily",
-		priority: 0.3,
-	},
-});
 </script>
 
 <style lang="scss">
