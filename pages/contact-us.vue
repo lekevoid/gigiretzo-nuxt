@@ -21,6 +21,8 @@
 </template>
 
 <script setup>
+const { t } = useI18n();
+
 useSeoMeta({
 	title: () => t("seo.contact.title"),
 	ogTitle: () => t("seo.contact.title"),
