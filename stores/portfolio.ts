@@ -186,10 +186,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 		});
 	});
 
-	console.log("ULTIMATE");
-	console.log("projectTypes", projectTypes.value);
-	console.log("projects", projects.value);
-	console.log("portfolio", portfolio.value);
+	// console.log("ULTIMATE");
+	// console.log("projectTypes", projectTypes.value);
+	// console.log("projects", projects.value);
+	// console.log("portfolio", portfolio.value);
 
 	return { projects, projectTypes, portfolio, fetchProjectTypes, fetchedData };
 });

@@ -48,6 +48,10 @@
 		"index": {
 			"title": "Gigi Retzo",
 			"description": "Artist and anthropologist, currently settled in Montreal."
+		},
+		"contact": {
+			"title": "Contact us",
+			"description": "Send us a message!"
 		}
 	}
 }
