@@ -13,14 +13,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: [
-		"@nuxtjs/i18n",
-		"@nuxt/image",
-		"@vueuse/nuxt",
-		"@zadigetvoltaire/nuxt-gtm",
-		["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
-		"@nuxtjs/sitemap",
-	],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
 
 	imports: { dirs: ["stores"] },
 
