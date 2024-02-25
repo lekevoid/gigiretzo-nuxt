@@ -1,12 +1,41 @@
 
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="/__sitemap__/style.xsl"?>
+<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://gigiretzo.com</loc>
         <xhtml:link rel="alternate" hreflang="en" href="https://gigiretzo.com" />
         <xhtml:link rel="alternate" hreflang="fr" href="https://gigiretzo.com/fr" />
         <xhtml:link rel="alternate" hreflang="x-default" href="https://gigiretzo.com" />
+    </url>
+    <url>
+        <loc>http://localhost:3000/about/bio</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="http://localhost:3000/about/bio" />
+        <xhtml:link rel="alternate" hreflang="fr" href="http://localhost:3000/fr/a-propos/bio" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="http://localhost:3000/about/bio" />
+    </url>
+    <url>
+        <loc>http://localhost:3000/about/artist-statement</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="http://localhost:3000/about/artist-statement" />
+        <xhtml:link rel="alternate" hreflang="fr" href="http://localhost:3000/fr/a-propos/artist-statement" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="http://localhost:3000/about/artist-statement" />
+    </url>
+    <url>
+        <loc>http://localhost:3000/about/what-we-do</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="http://localhost:3000/about/what-we-do" />
+        <xhtml:link rel="alternate" hreflang="fr" href="http://localhost:3000/fr/a-propos/what-we-do" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="http://localhost:3000/about/what-we-do" />
+    </url>
+    <url>
+        <loc>http://localhost:3000/about/cv</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="http://localhost:3000/about/cv" />
+        <xhtml:link rel="alternate" hreflang="fr" href="http://localhost:3000/fr/a-propos/cv" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="http://localhost:3000/about/cv" />
+    </url>
+    <url>
+        <loc>http://localhost:3000/about/news</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="http://localhost:3000/about/news" />
+        <xhtml:link rel="alternate" hreflang="fr" href="http://localhost:3000/fr/a-propos/news" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="http://localhost:3000/about/news" />
     </url>
     <url>
         <loc>https://gigiretzo.com/contact-us</loc>
