@@ -50,6 +50,7 @@
 }
 
 .nav_reduced {
+	--top-body-padding: min(50vw, 160px);
 	--top-nav-row-1-height: min(50vw, 50px);
 	--top-nav-row-1-padding-top: 10px;
 	--top-nav-icons-size: min(5vw, 30px);

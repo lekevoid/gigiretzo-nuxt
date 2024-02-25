@@ -70,7 +70,7 @@ $whiteBorderWidth: 3px;
 header {
 	background-color: #000;
 	color: #fff;
-	position: fixed;
+	position: relative;
 	width: 100vw;
 	left: 0;
 	top: 0;
@@ -190,6 +190,8 @@ header {
 
 @media (min-width: 500px) {
 	header {
+		position: fixed;
+
 		padding-bottom: 0;
 		.row_1 {
 			padding-top: var(--top-nav-row-1-padding-top);

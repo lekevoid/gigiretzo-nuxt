@@ -104,8 +104,8 @@ function blurNav() {
 @use "sass:math";
 @import "~/assets/styles/dependencies";
 
-$mainItemMargin: min(4vw, 80px);
-$ulPaddingRight: min(4vw, 44px);
+$mainItemMargin: min(8vw, 80px);
+$ulPaddingRight: min(8vw, 44px);
 $ulPaddingLeft: min(4vw, 26px);
 $ulPaddingY: min(2vw, 12px);
 $ulPaddingLeftNeg: max(-4vw, -26px);
@@ -154,7 +154,7 @@ nav {
 					top: 50%;
 					right: min(2vw, 40px);
 					z-index: 100;
-					transform: translate(-50%, -50%) rotate(90deg);
+					transform: translate(-50%, -30%) rotate(90deg);
 					content: "";
 					display: block;
 					height: 12px;
@@ -187,7 +187,7 @@ nav {
 						padding-right: 12px;
 						&:after {
 							right: 12px;
-							transform: translate(-50%, -44%);
+							transform: translate(-50%, -30%);
 						}
 					}
 
