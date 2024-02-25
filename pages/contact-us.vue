@@ -21,7 +21,13 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
+useSeoMeta({
+	title: () => t("seo.contact.title"),
+	ogTitle: () => t("seo.contact.title"),
+	description: () => t("seo.contact.description"),
+	ogDescription: () => t("seo.contact.description"),
+	twitterCard: "summary_large_image",
+});
 </script>
 
 <style lang="scss" scoped>

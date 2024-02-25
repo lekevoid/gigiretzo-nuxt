@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
 	devtools: { enabled: true },
 
+	site: {
+		url: "https://gigiretzo.com",
+	},
+
 	app: {
 		head: {
 			charset: "utf-8",
@@ -9,7 +13,14 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
+	modules: [
+		"@nuxtjs/i18n",
+		"@nuxt/image",
+		"@vueuse/nuxt",
+		"@zadigetvoltaire/nuxt-gtm",
+		["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
+		"@nuxtjs/sitemap",
+	],
 
 	imports: { dirs: ["stores"] },
 
