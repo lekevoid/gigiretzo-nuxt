@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@nuxtjs/robots", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
 
 	imports: { dirs: ["stores"] },
 
@@ -26,13 +26,13 @@ export default defineNuxtConfig({
 				en: "/about/[[tab]]",
 				fr: "/a-propos/[[tab]]",
 			},
-			"portfolio/[project-type]": {
-				en: "/portfolio/[project-type]",
-				fr: "/portfolio/[project-type]",
-			},
 			"portfolio/[project-type]/[project]": {
 				en: "/portfolio/[project-type]/[project]",
 				fr: "/portfolio/[project-type]/[project]",
+			},
+			"portfolio/[project-type]": {
+				en: "/portfolio/[project-type]",
+				fr: "/portfolio/[project-type]",
 			},
 			"contact-us": {
 				en: "/contact-us",
@@ -75,10 +75,17 @@ export default defineNuxtConfig({
 		},
 	},
 
+	robots: {
+		rules: {
+			UserAgent: "*",
+			Disallow: process.env.ENVIRONMENT === "production" || process.env.ENVIRONMENT === "staging" ? "" : "/",
+		},
+	},
+
 	runtimeConfig: {
 		BASEROW_KEY: process.env.BASEROW_KEY,
 		public: {
-			/* BASEROW_KEY: process.env.BASEROW_KEY, */
+			ENVIRONMENT: process.env.ENVIRONMENT,
 			DEBUG_ABOUT: process.env.DEBUG_ABOUT,
 			DEBUG_HOME: process.env.DEBUG_HOME,
 			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,
