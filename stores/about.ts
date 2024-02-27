@@ -12,6 +12,7 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	const route = useRoute();
 	const { locale } = useI18n();
+	const localePath = useLocalePath();
 
 	const { payload } = useNuxtApp();
 
@@ -61,8 +62,22 @@ export const useAboutPageStore = defineStore("about", () => {
 
 	const currentTab = ref(route?.params?.tab || "bio");
 
+	function trackPageViewFromTabChange() {
+		if (typeof window !== "undefined") {
+			const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
+			window.history.pushState({}, "Test", toPath);
+			analyticsTrackPage(toPath);
+		}
+	}
+
 	function setCurrentTab(tabName: string) {
 		currentTab.value = tabName;
+	}
+
+	function setCurrentTabAndTrackView(toTab: string) {
+		// Call a GTM page track when the current tab changes, without it affecting the first page load.
+		setCurrentTab(toTab);
+		trackPageViewFromTabChange();
 	}
 
 	async function fetchArtistStatement() {
@@ -266,7 +281,7 @@ export const useAboutPageStore = defineStore("about", () => {
 		});
 	});
 
-	return { currentTab, setCurrentTab, fetchedData, bio, artistStatement, whatWeDo, cvSections, cvEntries, press };
+	return { currentTab, setCurrentTab, setCurrentTabAndTrackView, fetchedData, bio, artistStatement, whatWeDo, cvSections, cvEntries, press };
 });
 
 if (import.meta.hot) {

@@ -5,7 +5,7 @@
 			<div class="tabs_wrapper">
 				<ul class="nav nav_tabs">
 					<li v-for="tab in tabs" :class="['tab', `tab_${tab.slug}`, { active: tab.slug === currentTab }]">
-						<button @click="setCurrentTab(tab.slug)">{{ tab.label }}</button>
+						<button @click="setCurrentTabAndTrackView(tab.slug)">{{ tab.label }}</button>
 					</li>
 				</ul>
 			</div>
@@ -29,14 +29,12 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useAboutPageStore } from "@/stores/about";
-import { analyticsTrackPage } from "@/composables/useGTM";
 
 const { t } = useI18n();
 const route = useRoute();
-const localePath = useLocalePath();
 
 const { currentTab } = storeToRefs(useAboutPageStore());
-const { setCurrentTab } = useAboutPageStore();
+const { setCurrentTab, setCurrentTabAndTrackView } = useAboutPageStore();
 
 const availableTabs = ["bio", "artist-statement", "what-we-do", "cv", "news"];
 
@@ -64,14 +62,6 @@ onMounted(() => {
 
 	if (tab && tab !== currentTab) {
 		setCurrentTab(tab);
-	}
-});
-
-watch(currentTab, () => {
-	if (typeof window !== "undefined") {
-		const toPath = localePath({ name: "about-tab", params: { tab: currentTab.value } });
-		window.history.pushState({}, "Test", toPath);
-		analyticsTrackPage(toPath);
 	}
 });
 

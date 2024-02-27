@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@zadigetvoltaire/nuxt-gtm", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
 
 	imports: { dirs: ["stores"] },
 
@@ -73,10 +73,6 @@ export default defineNuxtConfig({
 				},
 			},
 		},
-	},
-
-	gtm: {
-		id: "GTM-KQ35RZZM",
 	},
 
 	runtimeConfig: {

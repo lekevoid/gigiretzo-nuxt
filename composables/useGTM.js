@@ -1,8 +1,10 @@
+import { useGtm } from "@gtm-support/vue-gtm";
+
 export function analyticsTrackPage(newRoute = "") {
-	/* const gtm = useGtm();
+	const gtm = useGtm();
+	const route = useRoute();
 	const trackRoute = newRoute === "" ? route : newRoute;
-	//console.log(trackRoute, gtm);
-	// gtm.trackView("", trackRoute); */
+	gtm.trackView(route.name, trackRoute);
 
 	return;
 }

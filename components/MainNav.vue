@@ -4,24 +4,24 @@
 			<li @click="toggleActiveState" class="has_children">
 				<span class="label">
 					About
-					<a class="fake_link" @click="setCurrentTab('bio')" v-if="isAbout()"></a>
+					<a class="fake_link" @click="setCurrentTabAndTrackView('bio')" v-if="isAbout()"></a>
 					<NuxtLink class="fake_link disable_on_mobile" :to="localePath({ name: 'about-tab', params: { tab: 'bio' } })" v-else></NuxtLink>
 				</span>
 				<ul v-if="isAbout()">
 					<li>
-						<a @click="setCurrentTab('bio')">{{ $t("bio") }}</a>
+						<a @click="setCurrentTabAndTrackView('bio')">{{ $t("bio") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('artist-statement')">{{ $t("artist-statement") }}</a>
+						<a @click="setCurrentTabAndTrackView('artist-statement')">{{ $t("artist-statement") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('what-we-do')">{{ $t("what-we-do") }}</a>
+						<a @click="setCurrentTabAndTrackView('what-we-do')">{{ $t("what-we-do") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('cv')">{{ $t("cv") }}</a>
+						<a @click="setCurrentTabAndTrackView('cv')">{{ $t("cv") }}</a>
 					</li>
 					<li>
-						<a @click="setCurrentTab('news')">{{ $t("press-news") }}</a>
+						<a @click="setCurrentTabAndTrackView('news')">{{ $t("press-news") }}</a>
 					</li>
 				</ul>
 				<ul v-else>
@@ -78,7 +78,7 @@ import { usePortfolioStore } from "@/stores/portfolio";
 const route = useRoute();
 const localePath = useLocalePath();
 
-const { setCurrentTab } = useAboutPageStore();
+const { setCurrentTabAndTrackView } = useAboutPageStore();
 const { projects, projectTypes } = storeToRefs(usePortfolioStore());
 
 const { pointerType } = usePointer();
