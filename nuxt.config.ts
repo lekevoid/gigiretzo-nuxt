@@ -76,14 +76,15 @@ export default defineNuxtConfig({
 	},
 
 	robots: {
-		UserAgent: "*",
-		Disallow: process.env.ENVIRONMENT === "production" ? "" : "/",
+		rules: {
+			UserAgent: "*",
+			Disallow: process.env.ENVIRONMENT === "production" ? "" : "/",
+		},
 	},
 
 	runtimeConfig: {
 		BASEROW_KEY: process.env.BASEROW_KEY,
 		public: {
-			/* BASEROW_KEY: process.env.BASEROW_KEY, */
 			ENVIRONMENT: process.env.ENVIRONMENT,
 			DEBUG_ABOUT: process.env.DEBUG_ABOUT,
 			DEBUG_HOME: process.env.DEBUG_HOME,
