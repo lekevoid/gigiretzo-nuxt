@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@gtm-support/vue-gtm": "^2.2.0",
 		"@nuxt/image": "^1.0.0-rc.3",
+		"@nuxtjs/robots": "^3.0.0",
 		"@pinia/nuxt": "^0.4.11",
 		"googleapis": "^126.0.1",
 		"graphql": "^16.8.1",

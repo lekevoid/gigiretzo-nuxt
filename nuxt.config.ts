@@ -13,7 +13,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
+	modules: ["@nuxtjs/i18n", "@nuxt/image", "@vueuse/nuxt", "@nuxtjs/robots", ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }]],
 
 	imports: { dirs: ["stores"] },
 
@@ -75,10 +75,16 @@ export default defineNuxtConfig({
 		},
 	},
 
+	robots: {
+		UserAgent: "*",
+		Disallow: process.env.ENVIRONMENT === "production" ? "" : "/",
+	},
+
 	runtimeConfig: {
 		BASEROW_KEY: process.env.BASEROW_KEY,
 		public: {
 			/* BASEROW_KEY: process.env.BASEROW_KEY, */
+			ENVIRONMENT: process.env.ENVIRONMENT,
 			DEBUG_ABOUT: process.env.DEBUG_ABOUT,
 			DEBUG_HOME: process.env.DEBUG_HOME,
 			DEBUG_PORTFOLIO: process.env.DEBUG_PORTFOLIO,
