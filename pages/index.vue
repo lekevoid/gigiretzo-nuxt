@@ -16,8 +16,8 @@ const { t } = useI18n();
 const { carousels } = storeToRefs(useHomePageStore());
 
 useSeoMeta({
-	title: () => t("seo.index.title"),
-	ogTitle: () => t("seo.index.title"),
+	title: () => "",
+	ogTitle: () => "",
 	description: () => t("seo.index.description"),
 	ogDescription: () => t("seo.index.description"),
 	twitterCard: "summary_large_image",

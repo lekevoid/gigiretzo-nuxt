@@ -6,7 +6,7 @@
 
 <script setup>
 useHead({
-	titleTemplate: "%s – Gigi Retzo",
+	titleTemplate: (def) => (def === "" ? "Gigi Retzo" : `${def} – Gigi Retzo`),
 });
 </script>
 
