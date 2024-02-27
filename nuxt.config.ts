@@ -78,7 +78,7 @@ export default defineNuxtConfig({
 	robots: {
 		rules: {
 			UserAgent: "*",
-			Disallow: process.env.ENVIRONMENT === "production" || process.env.ENVIRONMENT === "staging" ? "" : "/",
+			Disallow: process.env.ENVIRONMENT === "production" ? "" : "/",
 		},
 	},
 
