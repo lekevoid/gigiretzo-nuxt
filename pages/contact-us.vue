@@ -24,8 +24,8 @@
 const { t } = useI18n();
 
 useSeoMeta({
-	title: () => `${t("seo.contact.title")} - Gigi Retzo`,
-	ogTitle: () => `${t("seo.contact.title")} - Gigi Retzo`,
+	title: () => t("seo.contact.title"),
+	ogTitle: () => t("seo.contact.title"),
 	description: () => t("seo.contact.description"),
 	ogDescription: () => t("seo.contact.description"),
 	twitterCard: "summary_large_image",

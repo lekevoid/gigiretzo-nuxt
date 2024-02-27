@@ -2,7 +2,11 @@
 	<NuxtLayout name="default" />
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+	titleTemplate: "%s – Gigi Retzo",
+});
+</script>
 
 <style lang="scss">
 header {

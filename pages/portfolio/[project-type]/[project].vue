@@ -75,7 +75,7 @@ function closeOrbit() {
 
 /* Meta & SEO */
 
-const seoTitle = computed(() => `${project.value?.title || "Portfolio"} – GigiRetzo`);
+const seoTitle = computed(() => project.value?.title || "Portfolio");
 
 const seoDescription = computed(() => {
 	if (project.value?.seoDescription) {

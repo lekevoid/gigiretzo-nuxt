@@ -67,7 +67,7 @@ onMounted(() => {
 
 /* Meta & SEO */
 
-const seoTitle = computed(() => `${t(currentTab.value) || t("about")} – GigiRetzo`);
+const seoTitle = computed(() => t(currentTab.value) || t("about"));
 const seoDescription = "";
 const seoImage = "";
 
