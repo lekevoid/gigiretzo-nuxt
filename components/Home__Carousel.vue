@@ -2,7 +2,11 @@
 	<div class="home_carousel" :id="`carousel_${id}`">
 		<NuxtLink class="bg hover_shadow" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">&nbsp;</NuxtLink>
 		<div class="inner">
-			<h2>{{ title }}</h2>
+			<h2>
+				<NuxtLink class="inactive_on_desktop" :to="localePath({ name: 'portfolio-projecttype', params: { projecttype: link?.[1] } })">{{
+					title
+				}}</NuxtLink>
+			</h2>
 			<div class="ribbon_align">
 				<div class="arrow prev" @mouseover="isScrollingLeft = true" @mouseleave="isScrollingLeft = false"><div class="the_arrow"></div></div>
 				<div class="ribbon" ref="ribbonRef">
@@ -105,7 +109,12 @@ h2 {
 	color: #fff;
 	margin: 0;
 	text-shadow: 2px 2px 4px #000, 2px 2px 8px #000;
+
+	a {
+		color: #fff;
+	}
 }
+
 .cta {
 	background: linear-gradient(to bottom, #0af 0%, #05f 100%);
 	background-color: #05f;
@@ -251,6 +260,10 @@ $arrowSizeSmall: min(4vw, 20px);
 
 	h2 {
 		font-size: 1em;
+
+		a.inactive_on_desktop {
+			pointer-events: none;
+		}
 	}
 
 	.carousel_image {

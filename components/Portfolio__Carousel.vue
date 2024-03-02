@@ -14,7 +14,7 @@
 							<NuxtImg
 								v-for="(piece, k) in pieces"
 								:src="piece.image"
-								class="carousel_image"
+								:class="['carousel_image', piece.orientation]"
 								densities="x1"
 								preload
 								sizes="340px"
@@ -221,16 +221,33 @@ h2 {
 	background-color: #fff;
 	flex: 1 1 25%;
 	height: auto;
-	max-height: 300px;
+	object-fit: cover;
 	max-width: 25vw;
 	border: 3px solid #fff;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
 	width: auto;
 	transition: transform 0.3s ease;
+	z-index: 1;
+
+	&.portrait {
+		max-height: 260px;
+		aspect-ratio: 5/8;
+	}
+
+	&.landscape {
+		max-height: 200px;
+		aspect-ratio: 4/3;
+	}
+
+	&.square {
+		aspect-ratio: 1;
+		max-height: 220px;
+	}
 
 	&:hover {
 		transform: rotate(-10deg) scale(1.1);
+		z-index: 10;
 	}
 
 	&:nth-child(odd) {
