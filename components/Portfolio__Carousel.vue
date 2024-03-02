@@ -118,7 +118,7 @@ watch(isScrollingRight, (val) => {
 	cursor: pointer;
 	display: block;
 	font-size: min(6vw, 45px);
-	max-width: 100%;
+	max-width: calc(100% + 40px);
 	margin-bottom: min(10vw, 80px);
 	overflow-x: hidden;
 	overflow-y: visible;
@@ -219,8 +219,8 @@ h2 {
 
 .carousel_image {
 	background-color: #fff;
-	flex: 1 1 25%;
 	height: auto;
+	flex: 1 1 25%;
 	object-fit: cover;
 	max-width: 25vw;
 	border: 3px solid #fff;
@@ -231,18 +231,18 @@ h2 {
 	z-index: 1;
 
 	&.portrait {
-		max-height: 260px;
+		max-height: min(50vw, 280px);
 		aspect-ratio: 5/8;
 	}
 
 	&.landscape {
-		max-height: 190px;
+		max-height: min(50vw, 190px);
 		aspect-ratio: 3/2;
 	}
 
 	&.square {
+		max-height: min(50vw, 220px);
 		aspect-ratio: 1;
-		max-height: 220px;
 	}
 
 	&:hover {
