@@ -60,6 +60,16 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 			const titleI18n = mapColumnToLanguages(piece, "Title");
 			const descriptionI18n = mapColumnToLanguages(piece, "Description");
 
+			const image_height = piece["Image"][0].image_height;
+			const image_width = piece["Image"][0].image_width;
+
+			let orientation = "landscape";
+			if (image_height / image_width > 0.8 && image_height / image_width < 1.2) {
+				orientation = "square";
+			} else if (image_height > image_width) {
+				orientation = "portrait";
+			}
+
 			const out = {
 				id: `${piece.id}-${slugify(piece["Title EN"])}`,
 				order: parseInt(piece.order),
@@ -67,6 +77,10 @@ export const usePortfolioStore = defineStore("portfolio", () => {
 				slug: slugify(piece["Title EN"]),
 				description: descriptionI18n,
 				type: getFileType(piece["Image"][0].url),
+				image_height,
+				image_width,
+				orientation,
+				ratio: image_height / image_width,
 				height: formatDimension(piece["Height (in)"]),
 				width: formatDimension(piece["Width (in)"]),
 				image: piece["Image"][0].url,

@@ -39,13 +39,23 @@ export function formatForSEO(i18nObj: object) {
 }
 
 export function rowToJSONForMarkdown(row) {
+	let hide = [];
+
+	if (row["Hide on Mobile"]) {
+		hide.push("mobile");
+	}
+
+	if (row["Hide on Desktop"]) {
+		hide.push("desktop");
+	}
+
 	if (row.Type?.value && ["Title", "Subtitle", "Subsubtitle", "Paragraph"].includes(row.Type.value)) {
 		const textI18n = mapColumnToLanguages(row);
-		return { type: row.Type.value.toLowerCase(), text: textI18n };
+		return { type: row.Type.value.toLowerCase(), text: textI18n, hide };
 	}
 
 	if (row.Type.value === "Image" && row.Image !== "") {
-		return { type: "image", src: row.Image[0].url, align: row["Image Align"].value.toLowerCase() };
+		return { type: "image", src: row.Image[0].url, align: row["Image Align"].value.toLowerCase(), hide };
 	}
 
 	return null;
