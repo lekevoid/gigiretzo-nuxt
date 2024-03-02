@@ -175,18 +175,18 @@ h2 {
 	width: auto;
 
 	&.portrait {
-		max-height: 260px;
+		max-height: min(50vw, 280px);
 		aspect-ratio: 5/8;
 	}
 
 	&.landscape {
-		max-height: 190px;
+		max-height: min(50vw, 190px);
 		aspect-ratio: 3/2;
 	}
 
 	&.square {
+		max-height: min(50vw, 220px);
 		aspect-ratio: 1;
-		max-height: 220px;
 	}
 }
 
