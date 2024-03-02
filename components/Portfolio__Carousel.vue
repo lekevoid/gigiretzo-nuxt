@@ -222,7 +222,7 @@ h2 {
 	height: auto;
 	flex: 1 1 25%;
 	object-fit: cover;
-	max-width: 25vw;
+	max-width: 40vw;
 	border: 3px solid #fff;
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
