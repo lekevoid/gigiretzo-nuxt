@@ -5,8 +5,10 @@
 </template>
 
 <script setup>
+const { ENVIRONMENT } = useRuntimeConfig().public;
 useHead({
 	titleTemplate: (def) => (def === "" ? "Gigi Retzo" : `${def} – Gigi Retzo`),
+	meta: [{ name: "robots", content: ENVIRONMENT === "production" ? "index, follow" : "noindex, nofollow" }],
 });
 </script>
 
