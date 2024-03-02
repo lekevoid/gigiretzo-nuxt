@@ -41,7 +41,19 @@ export const useHomePageStore = defineStore("homepage", () => {
 		function formatCarousel(obj: any) {
 			const titleI18n = mapColumnToLanguages(obj, "Title");
 			const ctaI18n = mapColumnToLanguages(obj, "CTA");
-			const images = obj.Images.map((img) => img.url);
+
+			const images = obj.Images.map((img) => {
+				const { url, image_height, image_width } = img;
+
+				let orientation = "landscape";
+				if (image_height / image_width > 0.8 && image_height / image_width < 1.2) {
+					orientation = "square";
+				} else if (image_height > image_width) {
+					orientation = "portrait";
+				}
+
+				return { url, image_height, image_width, orientation };
+			});
 
 			return {
 				id: slugify(obj["Title EN"]),
