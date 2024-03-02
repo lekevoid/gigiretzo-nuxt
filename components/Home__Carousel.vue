@@ -14,7 +14,7 @@
 						<NuxtImg
 							v-for="(image, k) in images"
 							:src="image"
-							class="carousel_image"
+							:class="['carousel_image']"
 							densities="x1"
 							preload
 							sizes="340px"
@@ -173,6 +173,21 @@ h2 {
 	box-shadow: 0 1px 10px 0 rgba(#000, 0.5);
 	border-radius: 5px;
 	width: auto;
+
+	&.portrait {
+		max-height: 260px;
+		aspect-ratio: 3/8;
+	}
+
+	&.landscape {
+		max-height: 200px;
+		aspect-ratio: 4/3;
+	}
+
+	&.square {
+		aspect-ratio: 1;
+		max-height: 220px;
+	}
 }
 
 $arrowSizeBig: min(6vw, 30px);
