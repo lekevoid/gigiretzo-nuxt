@@ -13,8 +13,8 @@
 					<div class="ribbon_scrolly" style="left: 0px" ref="ribbonScrollyRef">
 						<NuxtImg
 							v-for="(image, k) in images"
-							:src="image"
-							:class="['carousel_image']"
+							:src="image.url"
+							:class="['carousel_image', image.orientation]"
 							densities="x1"
 							preload
 							sizes="340px"
@@ -176,12 +176,12 @@ h2 {
 
 	&.portrait {
 		max-height: 260px;
-		aspect-ratio: 3/8;
+		aspect-ratio: 5/8;
 	}
 
 	&.landscape {
-		max-height: 200px;
-		aspect-ratio: 4/3;
+		max-height: 190px;
+		aspect-ratio: 3/2;
 	}
 
 	&.square {
