@@ -236,8 +236,8 @@ h2 {
 	}
 
 	&.landscape {
-		max-height: 200px;
-		aspect-ratio: 4/3;
+		max-height: 190px;
+		aspect-ratio: 3/2;
 	}
 
 	&.square {
