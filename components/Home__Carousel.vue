@@ -185,7 +185,8 @@ h2 {
 	}
 
 	&.square {
-		max-height: min(50vw, 220px);
+		max-height: min(38vw, 220px);
+		max-width: min(38vw, 220px);
 		aspect-ratio: 1;
 	}
 }

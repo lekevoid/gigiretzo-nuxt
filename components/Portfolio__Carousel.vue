@@ -242,6 +242,7 @@ h2 {
 
 	&.square {
 		max-height: min(50vw, 220px);
+		max-width: min(40vw, 220px);
 		aspect-ratio: 1;
 	}
 
