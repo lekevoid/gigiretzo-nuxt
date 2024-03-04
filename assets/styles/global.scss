@@ -3,6 +3,15 @@
 	position: relative;
 }
 
+/* 404 Page */
+body:has(#__nuxt>.antialiased.place-content-center) {
+	padding-top: 0;
+
+	a {
+		color: #FFF;
+	}
+}
+
 body,
 div,
 section,
