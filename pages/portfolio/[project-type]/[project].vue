@@ -1,10 +1,12 @@
 <template>
 	<main class="page_portfolio">
 		<div class="container">
-			<Breadcrumb :path="breadcrumbPath" />
-			<PortfolioProjectsBubbleNav :project-type="project.type" />
+			<client-only>
+				<Breadcrumb :path="breadcrumbPath" />
+				<PortfolioProjectsBubbleNav :project-type="project.type" />
+			</client-only>
 			<h1>{{ project.title }}</h1>
-			<div class="description" v-html="project.description" />
+			<div class="description" v-if="project.description" v-html="project.description" />
 			<PortfolioMasonry :items="pieces" @open-picture-orbit="(imgID) => openOrbitToImg(imgID)" />
 			<div v-if="videos.length > 0">
 				<h2>{{ $t("videos") }}</h2>
